@@ -11,26 +11,20 @@ package xyz.testControl;
  */
 public class TestEntity {
     
-    public TestEntity(String user, String testName) {
-        this.user = user;
+    public TestEntity( String testName) {
         this.testName = testName;
     }
 
-    public TestEntity(String user, String testName, String createDate, String chgDate) {
-        this.user = user;
+    public TestEntity(String testName, String createDate, String chgDate) {
         this.testName = testName;
         this.createDate = createDate;
         this.chgDate = chgDate;
     }
 
-    private String user = null;
     private String testName = null;
     private String createDate = null;
     private String chgDate = null;    
 
-    public String getUser() {
-        return user;
-    }
 
     public String getTestName() {
         return testName;
@@ -42,10 +36,6 @@ public class TestEntity {
 
     public String getChgDate() {
         return chgDate;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
     }
 
     public void setTestName(String testName) {

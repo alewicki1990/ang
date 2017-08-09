@@ -328,7 +328,7 @@ public class MainJFrame extends javax.swing.JFrame {
                     .addComponent(jlSICreaAcc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlSIFacebook, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlSIRecAcc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(177, Short.MAX_VALUE))
+                .addContainerGap(150, Short.MAX_VALUE))
         );
 
         jpfSIPass.setEchoChar((char)0);
@@ -773,13 +773,13 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Test Name", "Create Date", "Change Date"
+
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -1539,16 +1539,9 @@ public class MainJFrame extends javax.swing.JFrame {
     private void b_test_creatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_test_creatorActionPerformed
         jpnlCreateEditTest.setVisible(true);
         jpnlMenu.setVisible(false);
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        ArrayList<TestEntity> list = conn.getQueryUserTests(user);
-        Object rowData[] = new Object[4];
-        for(int i = 0; i < list.size(); i++)
-        {
-            rowData[0] = list.get(i).getTestName();
-            rowData[1] = list.get(i).getCreateDate();
-            rowData[2] = list.get(i).getChgDate();
-            model.addRow(rowData);
-        }
+        String sql = "select * from " + user + "_tests";
+        jTable1.setModel(conn.getQueryUserTests(sql, jTable1));
+        
     }//GEN-LAST:event_b_test_creatorActionPerformed
 
     private void bSelectTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSelectTestActionPerformed
