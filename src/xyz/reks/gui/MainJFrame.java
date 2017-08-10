@@ -8,7 +8,9 @@ package xyz.reks.gui;
 import java.awt.Color;
 import java.sql.Connection;
 import java.util.ArrayList;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import xyz.DbConnect.*;
 import xyz.testControl.TestEntity;
@@ -1451,6 +1453,9 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         ));
         jScrollPane4.setViewportView(jTable3);
+        jTable3.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        JTextArea jta = (JTextArea) jTable3.getEditorComponent();
+        jta.setEditable(false);
 
         javax.swing.GroupLayout jpnlCreateEditTestLayout = new javax.swing.GroupLayout(jpnlCreateEditTest);
         jpnlCreateEditTest.setLayout(jpnlCreateEditTestLayout);
@@ -1540,7 +1545,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jpnlCreateEditTest.setVisible(true);
         jpnlMenu.setVisible(false);
         String sql = "select * from " + user + "_tests";
-        jTable3.setModel(conn.getQueryToDefTable(sql));
+        jTable3.setModel(conn.getDbTableData(sql));
         
         
     }//GEN-LAST:event_b_test_creatorActionPerformed
@@ -1988,8 +1993,8 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField9ActionPerformed
 
     private void bCALoginMenu13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCALoginMenu13ActionPerformed
-        jpnlCreateTest.setVisible(true);
-        jpnlCreateEditTest.setVisible(false);
+
+        conn.setDbTableData(user + "_tests", jTable3);
     }//GEN-LAST:event_bCALoginMenu13ActionPerformed
 
     private void bCALoginMenu11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCALoginMenu11ActionPerformed
