@@ -1540,7 +1540,8 @@ public class MainJFrame extends javax.swing.JFrame {
         jpnlCreateEditTest.setVisible(true);
         jpnlMenu.setVisible(false);
         String sql = "select * from " + user + "_tests";
-        jTable1.setModel(conn.getQueryUserTests(sql, jTable1));
+        jTable3.setModel(conn.getQueryToDefTable(sql));
+        
         
     }//GEN-LAST:event_b_test_creatorActionPerformed
 
@@ -2028,15 +2029,11 @@ public class MainJFrame extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        
         //</editor-fold>
 
         /* Create and display the form */

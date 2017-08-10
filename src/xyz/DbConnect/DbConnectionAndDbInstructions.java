@@ -11,6 +11,7 @@ package xyz.DbConnect;
  */
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.*;
@@ -100,10 +101,10 @@ public class DbConnectionAndDbInstructions {
 
     }
 
-    public DefaultTableModel getQueryUserTests(String query, JTable guiTable) {
+    public DefaultTableModel getQueryToDefTable(String query) {
 
         String sqlGetQueryUserTests = query;
-        DefaultTableModel model = (DefaultTableModel) guiTable.getModel();
+        DefaultTableModel model = new  DefaultTableModel(); 
 
         ResultSet rs;
 
@@ -113,32 +114,34 @@ public class DbConnectionAndDbInstructions {
             if (rs != null) {
                 ResultSetMetaData columns = rs.getMetaData();
                 ArrayList<String> columnsNamesAL = new ArrayList<>();
-                for (int i = 0; i < columns.getColumnCount(); i++) {
+                for (int i = 1; i <= columns.getColumnCount(); i++) {
                     columnsNamesAL.add(columns.getColumnName(i));
+                    System.out.println("xyz.DbConnect.DbConnectionAndDbInstructions.getQueryUserTests() dodawanie nazw kolumn, iteracja : " + i + " " + columnsNamesAL.toString());
                 }
                 Object[] columnsNamesObArray = columnsNamesAL.toArray(new Object[columnsNamesAL.size()]);
-                
-                
+
+                System.out.println("Object[] columnsNamesObArray to: " + Arrays.toString(columnsNamesObArray));
+
                 model.setColumnCount(columns.getColumnCount());
                 model.setColumnIdentifiers(columnsNamesObArray);
+
+                System.out.println("columns.getColumnCount(): " + columns.getColumnCount());
                 while (rs.next()) {
                     Object[] objects = new Object[columns.getColumnCount()];
                     // tanks to umit ozkan for the bug fix!
                     for (int i = 0; i < columns.getColumnCount(); i++) {
                         objects[i] = rs.getObject(i + 1);
+                        System.out.println("Element " + i + " w tablicy objects: " + objects[i]);
                     }
                     model.addRow(objects);
                 }
-            } 
+            }
             return model;
 
         } catch (Exception e) {
-            System.out.println("\"xyz.DbConnect.JavaConnect.getQueryUserTests()\": " + e.getMessage());
+            System.out.println("\"xyz.DbConnect.JavaConnect.getQueryUserTests()\": " + e.getMessage() + e);
         }
         return model;
     }
 
-
 }
-
-
