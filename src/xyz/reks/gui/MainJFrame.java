@@ -5,14 +5,14 @@
  */
 package xyz.reks.gui;
 
+import xyz.DbOperations.DbConnectionAndDbInstructions;
 import java.awt.Color;
-import java.sql.Connection;
 import java.util.ArrayList;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
-import xyz.DbConnect.*;
+import xyz.DbOperations.DbInstructions;
 import xyz.testControl.TestEntity;
 
 /**
@@ -21,14 +21,14 @@ import xyz.testControl.TestEntity;
  */
 public class MainJFrame extends javax.swing.JFrame {
 
-    DbConnectionAndDbInstructions conn = null;
     String user;
+    DbInstructions dbStatements = null;
     /**
      * Creates new form MainJFrame
      */
     public MainJFrame() {
         initComponents();
-        conn = new DbConnectionAndDbInstructions();
+        dbStatements = new DbInstructions();
     }
 
     /**
@@ -1545,7 +1545,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jpnlCreateEditTest.setVisible(true);
         jpnlMenu.setVisible(false);
         String sql = "select * from " + user + "_tests";
-        jTable3.setModel(conn.getDbTableData(sql));
+        jTable3.setModel(dbStatements.getQueryToDefTable(sql));
         
         
     }//GEN-LAST:event_b_test_creatorActionPerformed
@@ -1589,7 +1589,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void bSIloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSIloginActionPerformed
 
-        if (conn.authenticateUser(jtfSIUsername.getText(), jpfSIPass.getText())) {
+        if (dbStatements.authenticateUser(jtfSIUsername.getText(), jpfSIPass.getText())) {
             
             jpnlMenu.setVisible(true);
             jpnlSig.setVisible(false);
@@ -1600,7 +1600,7 @@ public class MainJFrame extends javax.swing.JFrame {
             jpfSIPass.setText("Password");
             jpfSIPass.setForeground(new Color(204, 204, 204, 255));
             jtfSignInError.setText("");
-        } else if(conn.isUsernameExistInDb(jtfSIUsername.getText())) {
+        } else if(dbStatements.isUsernameExistInDb(jtfSIUsername.getText())) {
             jtfSignInError.setText("Incorrect Password");
             jpfSIPass.setText("");
             focLostTextFieldFeature(jpfSIPass, "Password");
@@ -1805,9 +1805,9 @@ public class MainJFrame extends javax.swing.JFrame {
         if (!(jtfCAUsername.getBackground().equals(new Color(253, 204, 204, 253)) || jtfCAName.getBackground().equals(new Color(253, 204, 204, 253)) 
                 || jtfCASurname.getBackground().equals(new Color(253, 204, 204, 253)) || jtfCAEmail.getBackground().equals(new Color(253, 204, 204, 253))
                 || jpfCAPass.getBackground().equals(new Color(253, 204, 204, 253)) || jpfCARetypePass.getBackground().equals(new Color(253, 204, 204, 253))
-                || conn.isUsernameExistInDb(jtfCAUsername.getText()))){
+                || dbStatements.isUsernameExistInDb(jtfCAUsername.getText()))){
             
-            conn.createUser(jtfCAUsername.getText(), jtfCAName.getText(), jtfCASurname.getText(), jtfCAEmail.getText(), jpfCAPass.getText());
+            dbStatements.createUser(jtfCAUsername.getText(), jtfCAName.getText(), jtfCASurname.getText(), jtfCAEmail.getText(), jpfCAPass.getText());
             
             jtfCAUsername.setText("Username");
             jtfCAUsername.setForeground(new Color(204, 204, 204, 255));
@@ -1994,7 +1994,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void bCALoginMenu13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCALoginMenu13ActionPerformed
 
-        conn.setDbTableData(user + "_tests", jTable3);
+        dbStatements.setDbTableData(user + "_tests", jTable3);
     }//GEN-LAST:event_bCALoginMenu13ActionPerformed
 
     private void bCALoginMenu11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCALoginMenu11ActionPerformed
