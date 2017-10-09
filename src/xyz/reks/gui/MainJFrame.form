@@ -1209,6 +1209,9 @@
                   </Layout>
                   <SubComponents>
                     <Component class="javax.swing.JTextField" name="jTextField6">
+                      <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
+                      </Properties>
                     </Component>
                     <Component class="java.awt.Button" name="bCALoginMenu6">
                       <Properties>
@@ -2556,9 +2559,9 @@
                       </AuxValues>
                     </Component>
                     <Component class="javax.swing.JTextField" name="jTextField8">
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField8ActionPerformed"/>
-                      </Events>
+                      <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
+                      </Properties>
                     </Component>
                     <Component class="java.awt.Button" name="bCALoginMenu11">
                       <Properties>

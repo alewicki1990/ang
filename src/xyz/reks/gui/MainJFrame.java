@@ -23,6 +23,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     String user;
     DbInstructions dbStatements = null;
+
     /**
      * Creates new form MainJFrame
      */
@@ -496,6 +497,8 @@ public class MainJFrame extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(131, 207, 68)));
         jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jPanel2.setFocusCycleRoot(true);
+
+        jTextField6.setEditable(false);
 
         bCALoginMenu6.setActionCommand("Change test name");
         bCALoginMenu6.setBackground(new java.awt.Color(131, 207, 68));
@@ -1325,11 +1328,7 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
-        jTextField8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField8ActionPerformed(evt);
-            }
-        });
+        jTextField8.setEditable(false);
 
         bCALoginMenu11.setActionCommand("Delete Test");
         bCALoginMenu11.setBackground(new java.awt.Color(131, 207, 68));
@@ -1546,8 +1545,8 @@ public class MainJFrame extends javax.swing.JFrame {
         jpnlMenu.setVisible(false);
         String sql = "select * from " + user + "_tests";
         jTable3.setModel(dbStatements.getQueryToDefTable(sql));
-        
-        
+
+
     }//GEN-LAST:event_b_test_creatorActionPerformed
 
     private void bSelectTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSelectTestActionPerformed
@@ -1567,19 +1566,21 @@ public class MainJFrame extends javax.swing.JFrame {
         jpfSIPass.setForeground(new Color(204, 204, 204, 255));
         jpnlCreateAcc.setVisible(true);
         jpnlSig.setVisible(false);
-        
+
     }//GEN-LAST:event_jlSICreaAccMouseClicked
 
     private void jpfSIPassFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jpfSIPassFocusLost
         focLostTextFieldFeature(jpfSIPass, "Password");
-        if (jpfSIPass.getText().equals("Password"))
+        if (jpfSIPass.getText().equals("Password")) {
             jpfSIPass.setEchoChar((char) 0);
+        }
     }//GEN-LAST:event_jpfSIPassFocusLost
 
     private void jpfSIPassFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jpfSIPassFocusGained
         focGainTextFieldFeature(jpfSIPass, "Password");
-        if (!jpfSIPass.getText().equals("Password"))
+        if (!jpfSIPass.getText().equals("Password")) {
             jpfSIPass.setEchoChar((char) '\u25cf');
+        }
     }//GEN-LAST:event_jpfSIPassFocusGained
 
     private void jlSICloseMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlSICloseMousePressed
@@ -1590,17 +1591,17 @@ public class MainJFrame extends javax.swing.JFrame {
     private void bSIloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSIloginActionPerformed
 
         if (dbStatements.authenticateUser(jtfSIUsername.getText(), jpfSIPass.getText())) {
-            
+
             jpnlMenu.setVisible(true);
             jpnlSig.setVisible(false);
             user = jtfSIUsername.getText();
-            
+
             jtfSIUsername.setText("Username");
             jtfSIUsername.setForeground(new Color(204, 204, 204, 255));
             jpfSIPass.setText("Password");
             jpfSIPass.setForeground(new Color(204, 204, 204, 255));
             jtfSignInError.setText("");
-        } else if(dbStatements.isUsernameExistInDb(jtfSIUsername.getText())) {
+        } else if (dbStatements.isUsernameExistInDb(jtfSIUsername.getText())) {
             jtfSignInError.setText("Incorrect Password");
             jpfSIPass.setText("");
             focLostTextFieldFeature(jpfSIPass, "Password");
@@ -1635,15 +1636,17 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void jpfCARetypePassFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jpfCARetypePassFocusGained
         focGainTextFieldFeature(jpfCARetypePass, "Retype Password");
-        if (!jpfCARetypePass.getText().equals("Retype Password") )
+        if (!jpfCARetypePass.getText().equals("Retype Password")) {
             jpfCARetypePass.setEchoChar((char) '\u25cf');
+        }
     }//GEN-LAST:event_jpfCARetypePassFocusGained
 
     private void jpfCARetypePassFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jpfCARetypePassFocusLost
         focLostTextFieldFeature(jpfCARetypePass, "Retype Password");
-        if (jpfCARetypePass.getText().equals("Retype Password") )
+        if (jpfCARetypePass.getText().equals("Retype Password")) {
             jpfCARetypePass.setEchoChar((char) 0);
-        if (!jpfCARetypePass.getText().equals("Retype Password") & (!jpfCAPass.getText().equals("Password") & !jpfCAPass.getText().equals(jpfCARetypePass.getText())) ){
+        }
+        if (!jpfCARetypePass.getText().equals("Retype Password") & (!jpfCAPass.getText().equals("Password") & !jpfCAPass.getText().equals(jpfCARetypePass.getText()))) {
             switch (jtfCACommunication.getText()) {
                 case "Wrong e-mail format.":
                     jtfCACommunication.setText("Wrong e-mail format and passwords don't match.");
@@ -1656,7 +1659,7 @@ public class MainJFrame extends javax.swing.JFrame {
                     jpfCAPass.setBackground(new Color(253, 204, 204, 253));
                     jpfCARetypePass.setBackground(new Color(253, 204, 204, 253));
             }
-        }            
+        }
     }//GEN-LAST:event_jpfCARetypePassFocusLost
 
     private void jtfCASurnameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCASurnameFocusGained
@@ -1677,15 +1680,17 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void jpfCAPassFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jpfCAPassFocusGained
         focGainTextFieldFeature(jpfCAPass, "Password");
-        if (!jpfCAPass.getText().equals("Password") )
+        if (!jpfCAPass.getText().equals("Password")) {
             jpfCAPass.setEchoChar((char) '\u25cf');
+        }
     }//GEN-LAST:event_jpfCAPassFocusGained
 
     private void jpfCAPassFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jpfCAPassFocusLost
         focLostTextFieldFeature(jpfCAPass, "Password");
-        if (jpfCAPass.getText().equals("Password"))
+        if (jpfCAPass.getText().equals("Password")) {
             jpfCAPass.setEchoChar((char) 0);
-        if (!jpfCAPass.getText().equals("Password") & (!jpfCARetypePass.getText().equals("Retype Password") & !jpfCARetypePass.getText().equals(jpfCAPass.getText())) ){
+        }
+        if (!jpfCAPass.getText().equals("Password") & (!jpfCARetypePass.getText().equals("Retype Password") & !jpfCARetypePass.getText().equals(jpfCAPass.getText()))) {
             switch (jtfCACommunication.getText()) {
                 case "Wrong e-mail format.":
                     jtfCACommunication.setText("Wrong e-mail format and passwords don't match.");
@@ -1697,24 +1702,26 @@ public class MainJFrame extends javax.swing.JFrame {
                     jtfCACommunication.setForeground(new Color(253, 153, 153, 253));
                     jpfCAPass.setBackground(new Color(253, 204, 204, 253));
                     jpfCARetypePass.setBackground(new Color(253, 204, 204, 253));
-                    
+
             }
         }
     }//GEN-LAST:event_jpfCAPassFocusLost
 
     private void jtfCAEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCAEmailFocusGained
         focGainTextFieldFeature(jtfCAEmail, "E-mail");
-        
-        if (jtfCAEmail.getForeground().equals(new Color(204, 204, 204, 255)))
+
+        if (jtfCAEmail.getForeground().equals(new Color(204, 204, 204, 255))) {
             jtfCAEmail.setForeground(new Color(102, 102, 102, 255));
-        
-        if (jtfCAEmail.getBackground().equals(new Color(253, 153, 153, 253)))
+        }
+
+        if (jtfCAEmail.getBackground().equals(new Color(253, 153, 153, 253))) {
             jtfCAEmail.setBackground(new Color(255, 255, 255, 255));
+        }
     }//GEN-LAST:event_jtfCAEmailFocusGained
 
     private void jtfCAEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCAEmailFocusLost
         focLostTextFieldFeature(jtfCAEmail, "E-mail");
-        if (!(jtfCAEmail.getText().equals("E-mail") || isValidEmailAddress(jtfCAEmail.getText()))){
+        if (!(jtfCAEmail.getText().equals("E-mail") || isValidEmailAddress(jtfCAEmail.getText()))) {
             switch (jtfCACommunication.getText()) {
                 case "The passwords don't match.":
                     jtfCACommunication.setText("Wrong e-mail format and passwords don't match.");
@@ -1725,7 +1732,7 @@ public class MainJFrame extends javax.swing.JFrame {
                     jtfCACommunication.setForeground(new Color(255, 153, 153, 255));
                     jtfCAEmail.setBackground(new Color(253, 204, 204, 253));
             }
-        }            
+        }
     }//GEN-LAST:event_jtfCAEmailFocusLost
 
     private void jtfCAUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCAUsernameActionPerformed
@@ -1754,18 +1761,17 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void bCALoginMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCALoginMenuActionPerformed
         if (jtfCAUsername.getBackground().equals(new Color(253, 204, 204, 253)));
-            jtfCAUsername.setBackground(new Color(255, 255, 255, 255));
+        jtfCAUsername.setBackground(new Color(255, 255, 255, 255));
         if (jtfCAName.getBackground().equals(new Color(253, 204, 204, 253)));
-            jtfCAName.setBackground(new Color(255, 255, 255, 255));
+        jtfCAName.setBackground(new Color(255, 255, 255, 255));
         if (jtfCASurname.getBackground().equals(new Color(253, 204, 204, 253)));
-            jtfCASurname.setBackground(new Color(255, 255, 255, 255));
+        jtfCASurname.setBackground(new Color(255, 255, 255, 255));
         if (jtfCAEmail.getBackground().equals(new Color(253, 204, 204, 253)));
-            jtfCAEmail.setBackground(new Color(255, 255, 255, 255));
+        jtfCAEmail.setBackground(new Color(255, 255, 255, 255));
         if (jpfCAPass.getBackground().equals(new Color(253, 204, 204, 253)));
-            jpfCAPass.setBackground(new Color(255, 255, 255, 255));
+        jpfCAPass.setBackground(new Color(255, 255, 255, 255));
         if (jpfCARetypePass.getBackground().equals(new Color(253, 204, 204, 253)));
-            jpfCARetypePass.setBackground(new Color(255, 255, 255, 255));
-
+        jpfCARetypePass.setBackground(new Color(255, 255, 255, 255));
 
         jtfCAUsername.setText("Username");
         jtfCAUsername.setForeground(new Color(204, 204, 204, 255));
@@ -1784,31 +1790,37 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_bCALoginMenuActionPerformed
 
     private void bCACreateAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCACreateAccountActionPerformed
-        if (jtfCAUsername.getText().equals("Username"))
+        if (jtfCAUsername.getText().equals("Username")) {
             jtfCAUsername.setBackground(new Color(253, 204, 204, 253));
-        if (jtfCAName.getText().equals("Name"))
+        }
+        if (jtfCAName.getText().equals("Name")) {
             jtfCAName.setBackground(new Color(253, 204, 204, 253));
-        if (jtfCASurname.getText().equals("Surname"))
+        }
+        if (jtfCASurname.getText().equals("Surname")) {
             jtfCASurname.setBackground(new Color(253, 204, 204, 253));
-        if (jtfCAEmail.getText().equals("E-mail"))
+        }
+        if (jtfCAEmail.getText().equals("E-mail")) {
             jtfCAEmail.setBackground(new Color(253, 204, 204, 253));
-        if (jpfCAPass.getText().equals("Password"))
+        }
+        if (jpfCAPass.getText().equals("Password")) {
             jpfCAPass.setBackground(new Color(253, 204, 204, 253));
-        if (jpfCARetypePass.getText().equals("Retype Password"))
+        }
+        if (jpfCARetypePass.getText().equals("Retype Password")) {
             jpfCARetypePass.setBackground(new Color(253, 204, 204, 253));
-        if (!jpfCARetypePass.getText().equals(jpfCAPass.getText()) & (!jpfCAPass.getText().equals("Password") | !jpfCARetypePass.getText().equals("Retype Password"))){
+        }
+        if (!jpfCARetypePass.getText().equals(jpfCAPass.getText()) & (!jpfCAPass.getText().equals("Password") | !jpfCARetypePass.getText().equals("Retype Password"))) {
             jpfCAPass.setBackground(new Color(253, 204, 204, 253));
             jpfCARetypePass.setBackground(new Color(253, 204, 204, 253));
         }
 
         // if any field has red background then
-        if (!(jtfCAUsername.getBackground().equals(new Color(253, 204, 204, 253)) || jtfCAName.getBackground().equals(new Color(253, 204, 204, 253)) 
+        if (!(jtfCAUsername.getBackground().equals(new Color(253, 204, 204, 253)) || jtfCAName.getBackground().equals(new Color(253, 204, 204, 253))
                 || jtfCASurname.getBackground().equals(new Color(253, 204, 204, 253)) || jtfCAEmail.getBackground().equals(new Color(253, 204, 204, 253))
                 || jpfCAPass.getBackground().equals(new Color(253, 204, 204, 253)) || jpfCARetypePass.getBackground().equals(new Color(253, 204, 204, 253))
-                || dbStatements.isUsernameExistInDb(jtfCAUsername.getText()))){
-            
+                || dbStatements.isUsernameExistInDb(jtfCAUsername.getText()))) {
+
             dbStatements.createUser(jtfCAUsername.getText(), jtfCAName.getText(), jtfCASurname.getText(), jtfCAEmail.getText(), jpfCAPass.getText());
-            
+
             jtfCAUsername.setText("Username");
             jtfCAUsername.setForeground(new Color(204, 204, 204, 255));
             jtfCAName.setText("Name");
@@ -1824,9 +1836,8 @@ public class MainJFrame extends javax.swing.JFrame {
             jpnlSig.setVisible(true);
             jpnlCreateAcc.setVisible(false);
         }
-            
-            
-        
+
+
     }//GEN-LAST:event_bCACreateAccountActionPerformed
 
     private void jtfCANameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCANameActionPerformed
@@ -1854,80 +1865,92 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfSignInErrorActionPerformed
 
     private void jtfCAEmailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfCAEmailKeyReleased
-        if (jtfCAEmail.getText().equals("") || jtfCAEmail.getText().equals("E-mail") || isValidEmailAddress(jtfCAEmail.getText())){
+        if (jtfCAEmail.getText().equals("") || jtfCAEmail.getText().equals("E-mail") || isValidEmailAddress(jtfCAEmail.getText())) {
             jtfCAEmail.setBackground(new Color(255, 255, 255, 255));
-            if (jtfCACommunication.getText().equals("Wrong e-mail format.")){
+            if (jtfCACommunication.getText().equals("Wrong e-mail format.")) {
                 jtfCACommunication.setText("Please fill out all required fields below.");
                 jtfCACommunication.setForeground(new Color(51, 51, 51, 255));
-            } else if (jtfCACommunication.getText().equals("Wrong e-mail format and passwords don't match."))
+            } else if (jtfCACommunication.getText().equals("Wrong e-mail format and passwords don't match.")) {
                 jtfCACommunication.setText("The passwords don't match.");
-        } 
-        if (jtfCAEmail.getText().equals("E-mail"))
+            }
+        }
+        if (jtfCAEmail.getText().equals("E-mail")) {
             jtfCAEmail.setText("");
-        if (jtfCAEmail.getBackground().equals(new Color(253, 204, 204, 253)) & jtfCAEmail.getText().equals("E-mail"))
+        }
+        if (jtfCAEmail.getBackground().equals(new Color(253, 204, 204, 253)) & jtfCAEmail.getText().equals("E-mail")) {
             jtfCAEmail.setBackground(new Color(255, 255, 255, 255));
-            
+        }
+
     }//GEN-LAST:event_jtfCAEmailKeyReleased
 
     private void jpfCAPassKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jpfCAPassKeyReleased
-        if ((jpfCARetypePass.getText().equals("Retype Password") & (jpfCAPass.getText().equals("") || jpfCAPass.getText().equals("Password")) & !(jtfCACommunication.getText().equals("Please fill out all required fields below."))) ^ jpfCARetypePass.getText().equals(jpfCAPass.getText())){
+        if ((jpfCARetypePass.getText().equals("Retype Password") & (jpfCAPass.getText().equals("") || jpfCAPass.getText().equals("Password")) & !(jtfCACommunication.getText().equals("Please fill out all required fields below."))) ^ jpfCARetypePass.getText().equals(jpfCAPass.getText())) {
             jpfCAPass.setBackground(new Color(255, 255, 255, 255));
             jpfCARetypePass.setBackground(new Color(255, 255, 255, 255));
-            if (jtfCACommunication.getText().equals("The passwords don't match.")){
+            if (jtfCACommunication.getText().equals("The passwords don't match.")) {
                 jtfCACommunication.setText("Please fill out all required fields below.");
                 jtfCACommunication.setForeground(new Color(51, 51, 51, 255));
-            } else if (jtfCACommunication.getText().equals("Wrong e-mail format and passwords don't match."))
+            } else if (jtfCACommunication.getText().equals("Wrong e-mail format and passwords don't match.")) {
                 jtfCACommunication.setText("Wrong e-mail format.");
-        } 
-        if (jpfCAPass.getText().equals("Password"))
+            }
+        }
+        if (jpfCAPass.getText().equals("Password")) {
             jpfCAPass.setText("");
-        if (jpfCAPass.getText().equals("") & jpfCAPass.getBackground().equals(new Color(253, 204, 204, 253))){
+        }
+        if (jpfCAPass.getText().equals("") & jpfCAPass.getBackground().equals(new Color(253, 204, 204, 253))) {
             jpfCAPass.setBackground(new Color(255, 255, 255, 255));
             jpfCARetypePass.setBackground(new Color(255, 255, 255, 255));
-            if (jtfCACommunication.getText().equals("The passwords don't match.")){
+            if (jtfCACommunication.getText().equals("The passwords don't match.")) {
                 jtfCACommunication.setText("Please fill out all required fields below.");
                 jtfCACommunication.setForeground(new Color(51, 51, 51, 255));
-            } else if (jtfCACommunication.getText().equals("Wrong e-mail format and passwords don't match."))
+            } else if (jtfCACommunication.getText().equals("Wrong e-mail format and passwords don't match.")) {
                 jtfCACommunication.setText("Wrong e-mail format.");
+            }
         }
     }//GEN-LAST:event_jpfCAPassKeyReleased
 
     private void jpfCARetypePassKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jpfCARetypePassKeyReleased
-        if ((jpfCAPass.getText().equals("Password") & (jpfCARetypePass.getText().equals("") || jpfCARetypePass.getText().equals("Retype Password")) & !(jtfCACommunication.getText().equals("Please fill out all required fields below."))) ^ jpfCAPass.getText().equals(jpfCARetypePass.getText())){
+        if ((jpfCAPass.getText().equals("Password") & (jpfCARetypePass.getText().equals("") || jpfCARetypePass.getText().equals("Retype Password")) & !(jtfCACommunication.getText().equals("Please fill out all required fields below."))) ^ jpfCAPass.getText().equals(jpfCARetypePass.getText())) {
             jpfCARetypePass.setBackground(new Color(255, 255, 255, 255));
             jpfCAPass.setBackground(new Color(255, 255, 255, 255));
-            if (jtfCACommunication.getText().equals("The passwords don't match.")){
+            if (jtfCACommunication.getText().equals("The passwords don't match.")) {
                 jtfCACommunication.setText("Please fill out all required fields below.");
                 jtfCACommunication.setForeground(new Color(51, 51, 51, 255));
-        } else if (jtfCACommunication.getText().equals("Wrong e-mail format and passwords don't match."))
+            } else if (jtfCACommunication.getText().equals("Wrong e-mail format and passwords don't match.")) {
                 jtfCACommunication.setText("Wrong e-mail format.");
-        } 
-        if (jpfCARetypePass.getText().equals("Retype Password"))
+            }
+        }
+        if (jpfCARetypePass.getText().equals("Retype Password")) {
             jpfCARetypePass.setText("");
-        if (jpfCARetypePass.getText().equals("") & jpfCARetypePass.getBackground().equals(new Color(253, 204, 204, 253))){
+        }
+        if (jpfCARetypePass.getText().equals("") & jpfCARetypePass.getBackground().equals(new Color(253, 204, 204, 253))) {
             jpfCARetypePass.setBackground(new Color(255, 255, 255, 255));
             jpfCAPass.setBackground(new Color(255, 255, 255, 255));
-            if (jtfCACommunication.getText().equals("The passwords don't match.")){
+            if (jtfCACommunication.getText().equals("The passwords don't match.")) {
                 jtfCACommunication.setText("Please fill out all required fields below.");
                 jtfCACommunication.setForeground(new Color(51, 51, 51, 255));
-            } else if (jtfCACommunication.getText().equals("Wrong e-mail format and passwords don't match."))
+            } else if (jtfCACommunication.getText().equals("Wrong e-mail format and passwords don't match.")) {
                 jtfCACommunication.setText("Wrong e-mail format.");
+            }
         }
     }//GEN-LAST:event_jpfCARetypePassKeyReleased
 
     private void jtfCAUsernameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfCAUsernameKeyReleased
-        if (jtfCAUsername.getBackground().equals(new Color(253, 204, 204, 253)))
+        if (jtfCAUsername.getBackground().equals(new Color(253, 204, 204, 253))) {
             jtfCAUsername.setBackground(new Color(255, 255, 255, 255));
+        }
     }//GEN-LAST:event_jtfCAUsernameKeyReleased
 
     private void jtfCANameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfCANameKeyReleased
-        if (jtfCAName.getBackground().equals(new Color(253, 204, 204, 253)))
+        if (jtfCAName.getBackground().equals(new Color(253, 204, 204, 253))) {
             jtfCAName.setBackground(new Color(255, 255, 255, 255));
+        }
     }//GEN-LAST:event_jtfCANameKeyReleased
 
     private void jtfCASurnameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfCASurnameKeyReleased
-        if (jtfCASurname.getBackground().equals(new Color(253, 204, 204, 253)))
+        if (jtfCASurname.getBackground().equals(new Color(253, 204, 204, 253))) {
             jtfCASurname.setBackground(new Color(255, 255, 255, 255));
+        }
     }//GEN-LAST:event_jtfCASurnameKeyReleased
 
     private void bCALoginMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCALoginMenu1ActionPerformed
@@ -1976,15 +1999,21 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_bCALoginMenu9ActionPerformed
 
     private void bCALoginMenu10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCALoginMenu10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bCALoginMenu10ActionPerformed
+        if (!jTextField8.getText().equals("")) {
+            jpnlCreateTest.setVisible(true);
+            jTable3.setModel(new DefaultTableModel());
+            jTextField8.setText("");
+            jTextField9.setText("");
+            jpnlCreateEditTest.setVisible(false);
 
-    private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField8ActionPerformed
+        }
+    }//GEN-LAST:event_bCALoginMenu10ActionPerformed
 
     private void bCALoginMenu12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCALoginMenu12ActionPerformed
         jpnlMenu.setVisible(true);
+        jTable3.setModel(new DefaultTableModel());
+        jTextField8.setText("");
+        jTextField9.setText("");
         jpnlCreateEditTest.setVisible(false);
     }//GEN-LAST:event_bCALoginMenu12ActionPerformed
 
@@ -1993,8 +2022,17 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField9ActionPerformed
 
     private void bCALoginMenu13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCALoginMenu13ActionPerformed
+        try {
+            // i create new test with methofd below
+            jTextField6.setText(dbStatements.createNewTest(user, jTextField9.getText()));
+            jpnlCreateTest.setVisible(true);
+            jpnlCreateEditTest.setVisible(false);
 
-        dbStatements.setDbTableData(user + "_tests", jTable3);
+        } catch (Exception e) {
+            System.out.println("bCALoginMenu13ActionPerformed" + e.getMessage());
+        }
+
+
     }//GEN-LAST:event_bCALoginMenu13ActionPerformed
 
     private void bCALoginMenu11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCALoginMenu11ActionPerformed
@@ -2038,39 +2076,43 @@ public class MainJFrame extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MainJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MainJFrame().setVisible(true);
-                
+
             }
         });
     }
+
     private boolean isValidEmailAddress(String email) {
-       String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
-       java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
-       java.util.regex.Matcher m = p.matcher(email);
-       return m.matches();
+        String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+        java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
+        java.util.regex.Matcher m = p.matcher(email);
+        return m.matches();
     }
-    private void focGainTextFieldFeature(JTextField fc, String defaultWord){
-        if (fc.getText().equals(defaultWord)){
+
+    private void focGainTextFieldFeature(JTextField fc, String defaultWord) {
+        if (fc.getText().equals(defaultWord)) {
             fc.setText("");
-            if (fc.getForeground().equals(new Color(204, 204, 204, 255)))
+            if (fc.getForeground().equals(new Color(204, 204, 204, 255))) {
                 fc.setForeground(new Color(102, 102, 102, 255));
+            }
         }
     }
-    
-    private void focLostTextFieldFeature(JTextField fc, String defaultWord){        
-        if (fc.getText().equals("") | fc.getText().equals(defaultWord))
+
+    private void focLostTextFieldFeature(JTextField fc, String defaultWord) {
+        if (fc.getText().equals("") | fc.getText().equals(defaultWord)) {
             fc.setForeground(new Color(204, 204, 204, 255));
-        if (fc.getText().equals(""))
+        }
+        if (fc.getText().equals("")) {
             fc.setText(defaultWord);
+        }
     }
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button bCACreateAccount;
