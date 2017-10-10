@@ -2036,7 +2036,15 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_bCALoginMenu13ActionPerformed
 
     private void bCALoginMenu11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCALoginMenu11ActionPerformed
-        // TODO add your handling code here:
+        try {
+            dbStatements.deleteTest(user, jTextField8.getText());
+            jTextField8.setText("");
+            String sql = "select * from " + user + "_tests";
+            jTable3.setModel(dbStatements.getQueryToDefTable(sql));
+            
+        } catch (Exception e) {
+            System.out.println("bCALoginMenu11ActionPerformed" + e.getMessage());
+        }
     }//GEN-LAST:event_bCALoginMenu11ActionPerformed
 
     private void bCALoginMenu7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCALoginMenu7ActionPerformed
