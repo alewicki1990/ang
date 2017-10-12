@@ -1451,10 +1451,13 @@ public class MainJFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable3MouseClicked(evt);
+            }
+        });
         jScrollPane4.setViewportView(jTable3);
         jTable3.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        JTextArea jta = (JTextArea) jTable3.getEditorComponent();
-        jta.setEditable(false);
 
         javax.swing.GroupLayout jpnlCreateEditTestLayout = new javax.swing.GroupLayout(jpnlCreateEditTest);
         jpnlCreateEditTest.setLayout(jpnlCreateEditTestLayout);
@@ -2041,7 +2044,7 @@ public class MainJFrame extends javax.swing.JFrame {
             jTextField8.setText("");
             String sql = "select * from " + user + "_tests";
             jTable3.setModel(dbStatements.getQueryToDefTable(sql));
-            
+
         } catch (Exception e) {
             System.out.println("bCALoginMenu11ActionPerformed" + e.getMessage());
         }
@@ -2063,6 +2066,13 @@ public class MainJFrame extends javax.swing.JFrame {
     private void bCALoginMenu15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCALoginMenu15ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_bCALoginMenu15ActionPerformed
+
+    private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
+        int selectedRowIndexNum = jTable3.getSelectedRow();
+        String selectedTest = (String) jTable3.getValueAt(selectedRowIndexNum, 0);
+        jTextField8.setText(selectedTest);
+
+    }//GEN-LAST:event_jTable3MouseClicked
 
     /**
      * @param args the command line arguments

@@ -2733,8 +2733,11 @@
                           </Table>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable3MouseClicked"/>
+                      </Events>
                       <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="jTable3.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);&#xa;JTextArea jta = (JTextArea) jTable3.getEditorComponent();&#xa;jta.setEditable(false);"/>
+                        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="jTable3.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);"/>
                       </AuxValues>
                     </Component>
                   </SubComponents>

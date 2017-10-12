@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package xyz.DbConnect;
+package xyz.DbOperations;
 
 /**
  *
@@ -39,7 +39,7 @@ public class DbConnectionAndDbInstructions {
     }
 
     public boolean isUsernameExistInDb(String username) {
-        String sqlCheckUsernameInDb = "SELECT username FROM users WHERE username= ?";
+        String sqlCheckUsernameInDb = "SELECT username FROM users WHERE username= ? ;";
         ResultSet rs;
         try {
             Statement stmt = conn.createStatement();
@@ -56,7 +56,7 @@ public class DbConnectionAndDbInstructions {
     }
 
     public boolean authenticateUser(String username, String pass) {
-        String sqlAuthentication = "SELECT username FROM users WHERE username= ? AND password = ? ";
+        String sqlAuthentication = "SELECT username FROM users WHERE username= ? AND password = ? ;";
         ResultSet rs;
 
         try {
@@ -91,7 +91,7 @@ public class DbConnectionAndDbInstructions {
             System.out.println("xyz.DbConnect.JavaConnect.createUser()" + e.getMessage());
         }
 
-        String sqlUserTestList = "CREATE TABLE " + username + "_tests (test_name CHAR, active_date DATE, chg_date DATE)";
+        String sqlUserTestList = "CREATE TABLE " + username + "_tests (test_name CHAR, active_date DATE, chg_date DATE);";
         try {
             PreparedStatement stmt = conn.prepareStatement(sqlUserTestList);
             stmt.executeUpdate();
