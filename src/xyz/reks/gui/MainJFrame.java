@@ -5,7 +5,6 @@
  */
 package xyz.reks.gui;
 
-import xyz.DbOperations.DbConnectionAndDbInstructions;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JTextArea;
@@ -2003,6 +2002,11 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void bCALoginMenu10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCALoginMenu10ActionPerformed
         if (!jTextField8.getText().equals("")) {
+
+            String sql = "select * from " + user + "_" + jTextField8.getText();
+            jTable2.setModel(dbStatements.getQueryToDefTable(sql));
+            jTextField6.setText(jTextField8.getText());
+
             jpnlCreateTest.setVisible(true);
             jTable3.setModel(new DefaultTableModel());
             jTextField8.setText("");
@@ -2059,6 +2063,8 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_bCALoginMenu8ActionPerformed
 
     private void bCALoginMenu14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCALoginMenu14ActionPerformed
+        String sql = "select * from " + user + "_tests";
+        jTable3.setModel(dbStatements.getQueryToDefTable(sql));
         jpnlCreateEditTest.setVisible(true);
         jpnlCreateTest.setVisible(false);
     }//GEN-LAST:event_bCALoginMenu14ActionPerformed
