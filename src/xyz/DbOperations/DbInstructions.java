@@ -111,7 +111,7 @@ public class DbInstructions {
 
                 while (rs.next()) {
                     Object[] objects = new Object[columns.getColumnCount()];
-                    // tanks to umit ozkan for the bug fix!
+
                     for (int i = 0; i < columns.getColumnCount(); i++) {
                         objects[i] = rs.getObject(i + 1);
                     }
@@ -126,9 +126,9 @@ public class DbInstructions {
         return model;
     }
 
-    public String createNewTest(String username, String newTestName) {
+    public void createNewTest(String userName, String newTestName) {
 
-        String sqlInsertUser = "INSERT INTO " + username + "_tests (test_name) values ( ? );";
+        String sqlInsertUser = "INSERT INTO " + userName + "_tests (test_name) values ( ? );";
         try (Connection conn = DbConncect.getDbConnInstance();
                 PreparedStatement stmt = conn.prepareStatement(sqlInsertUser);) {
 
@@ -137,31 +137,37 @@ public class DbInstructions {
 
         } catch (SQLException e) {
             System.out.println("xyz.DbConnect.JavaConnect.createUser()" + e.getMessage());
-            return null;
         }
-        System.out.println("tu syf");
-        String sqlUserTestList = "CREATE TABLE " + username + "_" + newTestName + " (primal_word CHAR NOT NULL, derivate_word CHAR NOT NULL, "
+
+        String sqlUserTestContentTable = "CREATE TABLE " + userName + "_" + newTestName + " (primal_word CHAR NOT NULL, derivate_word CHAR NOT NULL, "
                 + "PRIMARY KEY (primal_word, derivate_word))";
         try (Connection conn = DbConncect.getDbConnInstance();
-                PreparedStatement stmt = conn.prepareStatement(sqlUserTestList)) {
+                PreparedStatement stmt = conn.prepareStatement(sqlUserTestContentTable)) {
 
             stmt.executeUpdate();
-            return username + "_" + newTestName;
 
         } catch (SQLException e) {
             System.out.println("xyz.DbConnect.JavaConnect.createUser()" + e.getMessage());
-            return null;
         }
+
+        String sqlUserTestContentTableTmp = "CREATE TABLE " + userName + "_" + newTestName + "_temporary_table AS SELECT* FROM " + userName + "_" + newTestName + ";";
+        try (Connection conn = DbConncect.getDbConnInstance();
+                PreparedStatement stmt = conn.prepareStatement(sqlUserTestContentTableTmp)) {
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println("xyz.DbConnect.JavaConnect.createUser()" + e.getMessage());
+        }
+
     }
 
     public void deleteTest(String username, String testName) {
-        String deleteFromListTableQuery = "DELETE FROM " + username + "_tests" + "WHERE test_name = " + testName;
+        String deleteFromListTableQuery = "DELETE FROM " + username + "_tests " + "WHERE test_name='" + testName + "';";
         String dropTableQuery = "DROP TABLE " + username + "_" + testName;
-
         try (Connection conn = DbConncect.getDbConnInstance();
                 PreparedStatement stmt = conn.prepareStatement(deleteFromListTableQuery);) {
             stmt.executeUpdate();
-
         } catch (SQLException e) {
             System.out.println("xyz.DbConnect.JavaConnect.deleteTest()" + e.getMessage());
             return;
@@ -170,14 +176,64 @@ public class DbInstructions {
         try (Connection conn = DbConncect.getDbConnInstance();
                 PreparedStatement stmt = conn.prepareStatement(dropTableQuery);) {
             stmt.executeUpdate();
-
         } catch (SQLException e) {
             System.out.println("xyz.DbConnect.JavaConnect.deleteTest()" + e.getMessage());
             return;
         }
 
     }
-    
-    
 
+    public void chgSelectedTestName(String userName, String oldTestName, String newTestName) throws Exception {
+        
+        String sqlCheckIfTestNameInListExist = "SELECT test_name FROM " + userName + "_tests WHERE test_name='" + oldTestName + "';";
+        try (Connection conn = DbConncect.getDbConnInstance();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sqlCheckIfTestNameInListExist)) {
+
+            if (!rs.isBeforeFirst()) {
+                throw new SQLException();
+            }
+
+        } catch (SQLException e) {
+            System.out.println("xyz.DbConnect.JavaConnect.sqlCheckIfTestNameInListExist()" + e);
+            throw new Exception();
+        }
+        
+        String sqlCheckIfContestTestTableExist = "SELECT name FROM sqlite_master WHERE type='table' AND name='" + userName + "_" + oldTestName + "';";
+        try (Connection conn = DbConncect.getDbConnInstance();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sqlCheckIfContestTestTableExist)) {
+
+            if (!rs.isBeforeFirst()) {
+                throw new SQLException();
+            }
+
+        } catch (SQLException e) {
+            System.out.println("xyz.DbConnect.JavaConnect.sqlCheckIfContestTestTableExist()" + e);
+            throw new Exception();
+        }
+        
+        String sqlChgTestName = "ALTER TABLE " + userName + "_" + oldTestName + " RENAME TO " + userName + "_" + newTestName + ";";
+        try (Connection conn = DbConncect.getDbConnInstance();
+                Statement stmt = conn.prepareStatement(sqlChgTestName)) {
+
+            stmt.executeUpdate(sqlChgTestName);
+
+        } catch (SQLException e) {
+            System.out.println("xyz.DbConnect.JavaConnect.sqlChgTestName()" + e.getMessage());
+            throw new Exception();
+        }
+        
+        String sqlChgTestNameInTestList = "UPDATE " + userName + "_tests SET test_name='" + newTestName + "' WHERE test_name='" + oldTestName + "';";
+        try (Connection conn = DbConncect.getDbConnInstance();
+                Statement stmt = conn.prepareStatement(sqlChgTestNameInTestList)) {
+
+            stmt.executeUpdate(sqlChgTestNameInTestList);
+                    
+        } catch (SQLException e) {
+            System.out.println("xyz.DbConnect.JavaConnect.sqlChgTestNameInTestList()" + e.getMessage());
+            throw new Exception();
+        }
+        
+    }
 }
