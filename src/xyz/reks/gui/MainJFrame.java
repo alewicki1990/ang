@@ -6,12 +6,22 @@
 package xyz.reks.gui;
 
 import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.filechooser.FileFilter;
 import javax.swing.table.DefaultTableModel;
 import xyz.DbOperations.DbInstructions;
+import xyz.testControl.PairOfWords;
 import xyz.testControl.TestEntity;
 
 /**
@@ -20,8 +30,9 @@ import xyz.testControl.TestEntity;
  */
 public class MainJFrame extends javax.swing.JFrame {
 
-    String user;
+    String user = null;
     DbInstructions dbStatements = null;
+    TestEntity test = null;
 
     /**
      * Creates new form MainJFrame
@@ -41,6 +52,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        bgChooseLanguageOrderInFile = new javax.swing.ButtonGroup();
         jpnlBg = new javax.swing.JPanel();
         jpnlMain = new javax.swing.JPanel();
         jpnlSignIn = new javax.swing.JPanel();
@@ -76,12 +88,12 @@ public class MainJFrame extends javax.swing.JFrame {
         jlCETNewTestName = new javax.swing.JLabel();
         jtfCETNewTestName = new javax.swing.JTextField();
         jpnlCETAddEditWord = new javax.swing.JPanel();
-        bCETAddEditWord = new java.awt.Button();
+        bCETAddEditWords = new java.awt.Button();
         jtfCETPlWord = new javax.swing.JTextField();
-        jtfCETEngWord = new javax.swing.JTextField();
         jlCETEngWord = new javax.swing.JLabel();
         jlCETPlWord = new javax.swing.JLabel();
-        bCETInsertWordListFromFile = new java.awt.Button();
+        bCETDeleteWords = new java.awt.Button();
+        jtfCETEngWord = new javax.swing.JTextField();
         jpnlCETMenu = new javax.swing.JPanel();
         bCETSaveTest = new java.awt.Button();
         bCETReturnToTestList = new java.awt.Button();
@@ -90,9 +102,13 @@ public class MainJFrame extends javax.swing.JFrame {
         bCETDiscardChg = new java.awt.Button();
         jspCETInfo = new javax.swing.JScrollPane();
         jtaCETInfo = new javax.swing.JTextArea();
+        jPanel1 = new javax.swing.JPanel();
+        jrbCETFirstPl = new javax.swing.JRadioButton();
+        jrbCETFirstEng = new javax.swing.JRadioButton();
+        bCETInsertWordListFromFile = new java.awt.Button();
         jpnlChooseTest = new javax.swing.JPanel();
         jspCTSelectedTestWords = new javax.swing.JScrollPane();
-        jtCTSelectedTestWords = new javax.swing.JTable();
+        jtCTSelectedTestContent = new javax.swing.JTable();
         jtfCTTestActiveDate = new javax.swing.JTextField();
         jtfCTTestOwner = new javax.swing.JTextField();
         jlCTTestOwner = new javax.swing.JLabel();
@@ -115,6 +131,14 @@ public class MainJFrame extends javax.swing.JFrame {
         jlTPlWord = new javax.swing.JLabel();
         ljTEngWord = new javax.swing.JLabel();
         bTReturnToMainMenu = new java.awt.Button();
+        jtfTInfo = new javax.swing.JTextField();
+        jlTNumOfRec = new javax.swing.JLabel();
+        jlTNumOfMist = new javax.swing.JLabel();
+        jlTNumOfRecToFin = new javax.swing.JLabel();
+        jlTCountNumOfMist = new javax.swing.JLabel();
+        jlTCountNumOfRec = new javax.swing.JLabel();
+        jlTCountNumOfRecToFin = new javax.swing.JLabel();
+        jsTUnderCounters = new javax.swing.JSeparator();
         jpnlTestListChg = new javax.swing.JPanel();
         jpTLCEditOrDelExistTest = new javax.swing.JPanel();
         jlTLCTestName = new javax.swing.JLabel();
@@ -338,7 +362,7 @@ public class MainJFrame extends javax.swing.JFrame {
                     .addComponent(jlSICreaAcc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlSIFacebook, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlSIRecAcc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(156, Short.MAX_VALUE))
+                .addContainerGap(151, Short.MAX_VALUE))
         );
 
         jpfSIPass.setEchoChar((char)0);
@@ -498,6 +522,11 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         ));
         jtCETTestContent.setGridColor(new java.awt.Color(131, 207, 68));
+        jtCETTestContent.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtCETTestContentMouseClicked(evt);
+            }
+        });
         jspCETTestContent.setViewportView(jtCETTestContent);
 
         jpnlCETTestName.setBackground(new java.awt.Color(255, 255, 255));
@@ -559,18 +588,18 @@ public class MainJFrame extends javax.swing.JFrame {
         jpnlCETAddEditWord.setBackground(new java.awt.Color(255, 255, 255));
         jpnlCETAddEditWord.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(131, 207, 68)));
 
-        bCETAddEditWord.setActionCommand("Add/Edit Word");
-        bCETAddEditWord.setBackground(new java.awt.Color(131, 207, 68));
-        bCETAddEditWord.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        bCETAddEditWord.setForeground(new java.awt.Color(255, 255, 255));
-        bCETAddEditWord.setLabel("Add/Edit Word");
-        bCETAddEditWord.setMaximumSize(new java.awt.Dimension(50, 20));
-        bCETAddEditWord.setMinimumSize(new java.awt.Dimension(50, 20));
-        bCETAddEditWord.setName("Add/Edit Word"); // NOI18N
-        bCETAddEditWord.setPreferredSize(new java.awt.Dimension(180, 33));
-        bCETAddEditWord.addActionListener(new java.awt.event.ActionListener() {
+        bCETAddEditWords.setActionCommand("Add Words");
+        bCETAddEditWords.setBackground(new java.awt.Color(131, 207, 68));
+        bCETAddEditWords.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        bCETAddEditWords.setForeground(new java.awt.Color(255, 255, 255));
+        bCETAddEditWords.setLabel("Add Words");
+        bCETAddEditWords.setMaximumSize(new java.awt.Dimension(50, 20));
+        bCETAddEditWords.setMinimumSize(new java.awt.Dimension(50, 20));
+        bCETAddEditWords.setName("Add Words"); // NOI18N
+        bCETAddEditWords.setPreferredSize(new java.awt.Dimension(180, 33));
+        bCETAddEditWords.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bCETAddEditWordActionPerformed(evt);
+                bCETAddEditWordsActionPerformed(evt);
             }
         });
 
@@ -578,18 +607,18 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jlCETPlWord.setText("Polish Word");
 
-        bCETInsertWordListFromFile.setActionCommand("Insert words from file");
-        bCETInsertWordListFromFile.setBackground(new java.awt.Color(131, 207, 68));
-        bCETInsertWordListFromFile.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        bCETInsertWordListFromFile.setForeground(new java.awt.Color(255, 255, 255));
-        bCETInsertWordListFromFile.setLabel("Insert words from file");
-        bCETInsertWordListFromFile.setMaximumSize(new java.awt.Dimension(50, 20));
-        bCETInsertWordListFromFile.setMinimumSize(new java.awt.Dimension(50, 20));
-        bCETInsertWordListFromFile.setName("Insert words from file"); // NOI18N
-        bCETInsertWordListFromFile.setPreferredSize(new java.awt.Dimension(180, 33));
-        bCETInsertWordListFromFile.addActionListener(new java.awt.event.ActionListener() {
+        bCETDeleteWords.setActionCommand("Delete Words");
+        bCETDeleteWords.setBackground(new java.awt.Color(131, 207, 68));
+        bCETDeleteWords.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        bCETDeleteWords.setForeground(new java.awt.Color(255, 255, 255));
+        bCETDeleteWords.setLabel("Delete Words");
+        bCETDeleteWords.setMaximumSize(new java.awt.Dimension(50, 20));
+        bCETDeleteWords.setMinimumSize(new java.awt.Dimension(50, 20));
+        bCETDeleteWords.setName("Delete Words"); // NOI18N
+        bCETDeleteWords.setPreferredSize(new java.awt.Dimension(180, 33));
+        bCETDeleteWords.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bCETInsertWordListFromFileActionPerformed(evt);
+                bCETDeleteWordsActionPerformed(evt);
             }
         });
 
@@ -599,32 +628,32 @@ public class MainJFrame extends javax.swing.JFrame {
             jpnlCETAddEditWordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnlCETAddEditWordLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(jpnlCETAddEditWordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(bCETInsertWordListFromFile, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jpnlCETAddEditWordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jtfCETPlWord)
-                        .addComponent(jtfCETEngWord)
-                        .addComponent(jlCETEngWord)
-                        .addComponent(jlCETPlWord)
-                        .addComponent(bCETAddEditWord, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)))
-                .addGap(15, 15, 15))
+                .addGroup(jpnlCETAddEditWordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlCETPlWord)
+                    .addGroup(jpnlCETAddEditWordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jlCETEngWord, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(bCETAddEditWords, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                        .addComponent(bCETDeleteWords, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                        .addComponent(jtfCETEngWord, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jtfCETPlWord)))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         jpnlCETAddEditWordLayout.setVerticalGroup(
             jpnlCETAddEditWordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnlCETAddEditWordLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jlCETEngWord)
-                .addGap(5, 5, 5)
-                .addComponent(jtfCETEngWord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
+                .addGap(18, 18, 18)
                 .addComponent(jlCETPlWord)
-                .addGap(5, 5, 5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jtfCETPlWord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(bCETAddEditWord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jlCETEngWord)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jtfCETEngWord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
+                .addComponent(bCETAddEditWords, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
-                .addComponent(bCETInsertWordListFromFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addComponent(bCETDeleteWords, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jpnlCETMenu.setBackground(new java.awt.Color(255, 255, 255));
@@ -733,13 +762,72 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(bCETReturnToTestList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(bCETReturnToMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addGap(53, 53, 53))
         );
 
         jtaCETInfo.setColumns(20);
+        jtaCETInfo.setLineWrap(true);
         jtaCETInfo.setRows(5);
         jtaCETInfo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 240, 240)));
         jspCETInfo.setViewportView(jtaCETInfo);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(131, 207, 68)));
+
+        jrbCETFirstPl.setBackground(new java.awt.Color(255, 255, 255));
+        bgChooseLanguageOrderInFile.add(jrbCETFirstPl);
+        jrbCETFirstPl.setText(" First Word is Polish");
+        jrbCETFirstPl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrbCETFirstPlActionPerformed(evt);
+            }
+        });
+
+        jrbCETFirstEng.setBackground(new java.awt.Color(255, 255, 255));
+        bgChooseLanguageOrderInFile.add(jrbCETFirstEng);
+        jrbCETFirstEng.setText(" First Word is English");
+
+        bCETInsertWordListFromFile.setActionCommand("Insert words from file");
+        bCETInsertWordListFromFile.setBackground(new java.awt.Color(131, 207, 68));
+        bCETInsertWordListFromFile.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        bCETInsertWordListFromFile.setForeground(new java.awt.Color(255, 255, 255));
+        bCETInsertWordListFromFile.setLabel("Insert words from file");
+        bCETInsertWordListFromFile.setMaximumSize(new java.awt.Dimension(50, 20));
+        bCETInsertWordListFromFile.setMinimumSize(new java.awt.Dimension(50, 20));
+        bCETInsertWordListFromFile.setName("Insert words from file"); // NOI18N
+        bCETInsertWordListFromFile.setPreferredSize(new java.awt.Dimension(180, 33));
+        bCETInsertWordListFromFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bCETInsertWordListFromFileActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jrbCETFirstPl)
+                    .addComponent(jrbCETFirstEng))
+                .addGap(100, 100, 100)
+                .addComponent(bCETInsertWordListFromFile, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jrbCETFirstPl)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jrbCETFirstEng)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(bCETInsertWordListFromFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
 
         javax.swing.GroupLayout jpnlCreateEditTestLayout = new javax.swing.GroupLayout(jpnlCreateEditTest);
         jpnlCreateEditTest.setLayout(jpnlCreateEditTestLayout);
@@ -748,39 +836,39 @@ public class MainJFrame extends javax.swing.JFrame {
             .addGroup(jpnlCreateEditTestLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jspCETTestContent, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17)
+                .addGap(18, 18, 18)
                 .addGroup(jpnlCreateEditTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jpnlCETAddEditWord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jpnlCETTestName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jpnlCreateEditTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jpnlCreateEditTestLayout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jpnlCETMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpnlCreateEditTestLayout.createSequentialGroup()
+                        .addGroup(jpnlCreateEditTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jpnlCETAddEditWord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jpnlCETTestName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(jspCETInfo)))
-                .addContainerGap(16, Short.MAX_VALUE))
+                        .addGroup(jpnlCreateEditTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jspCETInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jpnlCETMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         jpnlCreateEditTestLayout.setVerticalGroup(
             jpnlCreateEditTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnlCreateEditTestLayout.createSequentialGroup()
                 .addGap(13, 13, 13)
                 .addGroup(jpnlCreateEditTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jspCETTestContent, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jpnlCreateEditTestLayout.createSequentialGroup()
-                        .addGroup(jpnlCreateEditTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jspCETTestContent, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addGroup(jpnlCreateEditTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jpnlCreateEditTestLayout.createSequentialGroup()
-                                .addGap(48, 48, 48)
                                 .addComponent(jpnlCETTestName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(20, 20, 20)
-                                .addComponent(jpnlCETAddEditWord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(13, 13, 13))
-                    .addGroup(jpnlCreateEditTestLayout.createSequentialGroup()
-                        .addGap(115, 115, 115)
-                        .addComponent(jpnlCETMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jspCETInfo)
-                        .addContainerGap())))
+                                .addComponent(jpnlCETAddEditWord, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jpnlCreateEditTestLayout.createSequentialGroup()
+                                .addComponent(jspCETInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jpnlCETMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(10, 10, 10)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jpnlMain.add(jpnlCreateEditTest, "card8");
@@ -790,7 +878,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jpnlChooseTest.setMinimumSize(new java.awt.Dimension(1000, 555));
         jpnlChooseTest.setPreferredSize(new java.awt.Dimension(1000, 550));
 
-        jtCTSelectedTestWords.setModel(new javax.swing.table.DefaultTableModel(
+        jtCTSelectedTestContent.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -801,7 +889,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
             }
         ));
-        jspCTSelectedTestWords.setViewportView(jtCTSelectedTestWords);
+        jspCTSelectedTestWords.setViewportView(jtCTSelectedTestContent);
 
         jtfCTTestActiveDate.setEditable(false);
         jtfCTTestActiveDate.addActionListener(new java.awt.event.ActionListener() {
@@ -811,6 +899,11 @@ public class MainJFrame extends javax.swing.JFrame {
         });
 
         jtfCTTestOwner.setEditable(false);
+        jtfCTTestOwner.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfCTTestOwnerActionPerformed(evt);
+            }
+        });
 
         jlCTTestOwner.setText("Test Owner");
 
@@ -866,13 +959,23 @@ public class MainJFrame extends javax.swing.JFrame {
 
             }
         ));
+        jtCTTestList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtCTTestListMouseClicked(evt);
+            }
+        });
         jspCTTestList.setViewportView(jtCTTestList);
 
         jlCTTestList.setText("Test List:");
 
-        jlCTTestContent.setText("Test Content");
+        jlCTTestContent.setText("Test Content:");
 
         jtfCTTestName.setEditable(false);
+        jtfCTTestName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfCTTestNameActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpnlChooseTestLayout = new javax.swing.GroupLayout(jpnlChooseTest);
         jpnlChooseTest.setLayout(jpnlChooseTestLayout);
@@ -944,6 +1047,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jpnlTest.setBackground(new java.awt.Color(255, 255, 255));
         jpnlTest.setPreferredSize(new java.awt.Dimension(1000, 550));
 
+        jtfTPlWord.setEditable(false);
         jtfTPlWord.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jtfTPlWord.setForeground(new java.awt.Color(51, 51, 51));
         jtfTPlWord.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -961,8 +1065,6 @@ public class MainJFrame extends javax.swing.JFrame {
         jsTUnderPlWord.setBackground(new java.awt.Color(131, 207, 68));
         jsTUnderPlWord.setForeground(new java.awt.Color(131, 207, 68));
 
-        jtfTEngWord.setEditable(false);
-        jtfTEngWord.setBackground(new java.awt.Color(255, 255, 255));
         jtfTEngWord.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jtfTEngWord.setForeground(new java.awt.Color(51, 51, 51));
         jtfTEngWord.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -1003,44 +1105,103 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
+        jtfTInfo.setEditable(false);
+        jtfTInfo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jtfTInfo.setForeground(new java.awt.Color(255, 51, 51));
+        jtfTInfo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jtfTInfo.setBorder(null);
+        jtfTInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfTInfoActionPerformed(evt);
+            }
+        });
+
+        jlTNumOfRec.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jlTNumOfRec.setText("Number of records:");
+
+        jlTNumOfMist.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jlTNumOfMist.setText("Number of mistakes:");
+
+        jlTNumOfRecToFin.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jlTNumOfRecToFin.setText("Number of records to finish:");
+
+        jlTCountNumOfMist.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        jlTCountNumOfRec.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        jlTCountNumOfRecToFin.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        jsTUnderCounters.setBackground(new java.awt.Color(131, 207, 68));
+        jsTUnderCounters.setForeground(new java.awt.Color(131, 207, 68));
+
         javax.swing.GroupLayout jpnlTestLayout = new javax.swing.GroupLayout(jpnlTest);
         jpnlTest.setLayout(jpnlTestLayout);
         jpnlTestLayout.setHorizontalGroup(
             jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnlTestLayout.createSequentialGroup()
-                .addContainerGap(250, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jlTNumOfRec)
+                .addGap(5, 5, 5)
                 .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlTestLayout.createSequentialGroup()
-                        .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ljTEngWord, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jlTPlWord, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jtfTEngWord, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
-                            .addComponent(jsTUnderEngWord, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
-                            .addComponent(jsTUnderPlWord, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
-                            .addComponent(jtfTPlWord, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE))
-                        .addGap(250, 250, 250))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlTestLayout.createSequentialGroup()
                         .addComponent(bTReturnToMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(390, 390, 390))))
+                        .addGap(390, 390, 390))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlTestLayout.createSequentialGroup()
+                        .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jpnlTestLayout.createSequentialGroup()
+                                .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(ljTEngWord, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jlTPlWord, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jtfTInfo)
+                                        .addComponent(jsTUnderEngWord, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+                                        .addComponent(jsTUnderPlWord, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+                                        .addComponent(jtfTPlWord, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE))
+                                    .addComponent(jtfTEngWord, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jpnlTestLayout.createSequentialGroup()
+                                .addComponent(jlTCountNumOfRec, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(jlTNumOfMist)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jlTCountNumOfMist, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(jlTNumOfRecToFin)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jlTCountNumOfRecToFin, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(55, 55, 55)))
+                        .addGap(240, 240, 240))))
+            .addComponent(jsTUnderCounters)
         );
         jpnlTestLayout.setVerticalGroup(
             jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlTestLayout.createSequentialGroup()
-                .addGap(220, 220, 220)
-                .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(ljTEngWord, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-                    .addComponent(jtfTEngWord))
+                .addContainerGap()
+                .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlTNumOfRecToFin)
+                    .addComponent(jlTNumOfRec)
+                    .addComponent(jlTCountNumOfMist, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlTCountNumOfRecToFin, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlTCountNumOfRec, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlTNumOfMist))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jsTUnderCounters, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54)
+                .addComponent(jtfTInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jlTPlWord, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfTPlWord, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jsTUnderEngWord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jlTPlWord, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-                    .addComponent(jtfTPlWord))
+                .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(ljTEngWord, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfTEngWord, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jsTUnderPlWord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 135, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
                 .addComponent(bTReturnToMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(70, 70, 70))
         );
@@ -1489,7 +1650,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jpnlCreateAccLayout.setHorizontalGroup(
             jpnlCreateAccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlCreateAccLayout.createSequentialGroup()
-                .addContainerGap(120, Short.MAX_VALUE)
+                .addContainerGap(143, Short.MAX_VALUE)
                 .addGroup(jpnlCreateAccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jCASeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtfCACommunication, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1578,7 +1739,7 @@ public class MainJFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpnlBg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jpnlBg, javax.swing.GroupLayout.DEFAULT_SIZE, 1023, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1589,11 +1750,38 @@ public class MainJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtfTEngWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfTEngWordActionPerformed
-        // TODO add your handling code here:
+        if (test.getOnePair().getTranslatedWord().equals(jtfTEngWord.getText()) & test.countPairsOfWords() > 1) {
+            test.removeOnePairOfWords();
+            test.shuffleTestContent();
+            jtfTPlWord.setText(test.getOnePair().getPrimalWord());
+            jtfTEngWord.setText("");
+            jtfTInfo.setForeground(new Color(131, 207, 68, 255));
+            jtfTInfo.setText("Correct answer");
+            jtfTEngWord.requestFocusInWindow();
+            jlTCountNumOfRecToFin.setText(Integer.toString(test.getNumberOfPairsToEnd()));
+        } else if (test.getOnePair().getTranslatedWord().equals(jtfTEngWord.getText()) & test.countPairsOfWords() == 1) {
+            jtfTPlWord.setText("");
+            jtfTEngWord.setText("");
+            jtfTInfo.setForeground(new Color(131, 207, 68, 255));
+            jtfTInfo.setText("Test is completed");
+            jtfTEngWord.setEditable(false);
+            bTReturnToMainMenu.requestFocusInWindow();
+            jlTCountNumOfRecToFin.setText("0");
+        } else {
+            jtfTInfo.setText("Incorrect answer. correct: " + test.getOnePair().getTranslatedWord());
+            test.shuffleTestContent();
+            jtfTPlWord.setText(test.getOnePair().getPrimalWord());
+            jtfTEngWord.setText("");
+            jtfTInfo.setForeground(new Color(255, 0, 0, 255));
+            jtfTEngWord.requestFocusInWindow();
+            test.addPointToMistakes();
+            jlTCountNumOfMist.setText(Integer.toString(test.getNumberOfMistakes()));
+
+        }
+
     }//GEN-LAST:event_jtfTEngWordActionPerformed
 
     private void jtfTPlWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfTPlWordActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_jtfTPlWordActionPerformed
 
     private void bMLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bMLogoutActionPerformed
@@ -1610,15 +1798,15 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_bMScoresActionPerformed
 
     private void bMTestCreatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bMTestCreatorActionPerformed
-        jpnlTestListChg.setVisible(true);
-        jpnlMenu.setVisible(false);
         String sql = "select * from " + user + "_tests";
         jtTLCTestList.setModel(dbStatements.getQueryToDefTable(sql));
-
-
+        jpnlTestListChg.setVisible(true);
+        jpnlMenu.setVisible(false);
     }//GEN-LAST:event_bMTestCreatorActionPerformed
 
     private void bMSelectTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bMSelectTestActionPerformed
+        String sql = "select * from " + user + "_tests";
+        jtCTTestList.setModel(dbStatements.getQueryToDefTable(sql));
         jpnlChooseTest.setVisible(true);
         jpnlMenu.setVisible(false);
     }//GEN-LAST:event_bMSelectTestActionPerformed
@@ -2023,39 +2211,108 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfCASurnameKeyReleased
 
     private void bCTReturnToMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCTReturnToMainMenuActionPerformed
+        jtCTTestList.setModel(new DefaultTableModel());
+        jtCTSelectedTestContent.setModel(new DefaultTableModel());
+        jtfCTBestScore.setText("");
+        jtfCTTestName.setText("");
+        jtfCTTestOwner.setText("");
+        jtfCTTestActiveDate.setText("");
+        jtCTTestList.setModel(new DefaultTableModel());
+        jtCTSelectedTestContent.setModel(new DefaultTableModel());
         jpnlMenu.setVisible(true);
         jpnlChooseTest.setVisible(false);
     }//GEN-LAST:event_bCTReturnToMainMenuActionPerformed
 
     private void bCTStartTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCTStartTestActionPerformed
+        test = new TestEntity(dbStatements.getTestListArrayList(jtfCTTestOwner.getText(), jtfCTTestName.getText()));
+
+        jtfTPlWord.setText(test.getOnePair().getPrimalWord());
         jpnlTest.setVisible(true);
         jpnlChooseTest.setVisible(false);
+        jtfTEngWord.requestFocusInWindow();
+        jlTCountNumOfRec.setText(Integer.toString(test.countPairsOfWords()));
+        jlTCountNumOfRecToFin.setText(Integer.toString(test.countPairsOfWords()));
+        jlTCountNumOfMist.setText("0");
+
+        jtfCTBestScore.setText("");
+        jtfCTTestOwner.setText("");
+        jtfCTTestActiveDate.setText("");
+        jtCTTestList.setModel(new DefaultTableModel());
+        jtCTSelectedTestContent.setModel(new DefaultTableModel());
+
+
     }//GEN-LAST:event_bCTStartTestActionPerformed
 
     private void bMEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bMEditActionPerformed
-        jpnlMenu.setVisible(true);
-        jpnlCreateEditTest.setVisible(false);
+        String sql = "select * from " + user + "_tests";
+        jtCTTestList.setModel(dbStatements.getQueryToDefTable(sql));
+        jpnlChooseTest.setVisible(true);
+        jpnlMenu.setVisible(false);
     }//GEN-LAST:event_bMEditActionPerformed
 
     private void bCETReturnToMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCETReturnToMainMenuActionPerformed
         jpnlMenu.setVisible(true);
         jpnlCreateEditTest.setVisible(false);
+        jtfCETEngWord.setText("");
+        jtfCETPlWord.setText("");
+        jtfCETNewTestName.setText("");
+        jtfCETSelectedTestName.setText("");
+
     }//GEN-LAST:event_bCETReturnToMainMenuActionPerformed
 
-    private void bCETAddEditWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCETAddEditWordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bCETAddEditWordActionPerformed
+    private void bCETAddEditWordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCETAddEditWordsActionPerformed
+        DefaultTableModel model = (DefaultTableModel) jtCETTestContent.getModel();
+        if (existsInJTableColumn(model, 0, jtfCETEngWord.getText())) {
+            if (existsInJTableColumn(model, 1, jtfCETPlWord.getText())) {
+                jtaCETInfo.setText("Error: This pair of words exists in test.");
+            } else {
+                if (!jtfCETEngWord.getText().equals("") || !jtfCETPlWord.getText().equals("")) {
+                    model.addRow(new Object[]{jtfCETPlWord.getText(), jtfCETEngWord.getText()});
+                }
+                jtaCETInfo.setText("Pair of words added, but english word exists in test.");
+            }
+        } else if (!existsInJTableColumn(model, 0, jtfCETEngWord.getText())) {
+            if (existsInJTableColumn(model, 1, jtfCETPlWord.getText())) {
+                if (!jtfCETEngWord.getText().equals("") || !jtfCETPlWord.getText().equals("")) {
+                    model.addRow(new Object[]{jtfCETPlWord.getText(), jtfCETEngWord.getText()});
+                }
+                jtaCETInfo.setText("Pair of words added, but polish word exists in test.");
+            } else {
+                jtaCETInfo.setText("Pair of words added.");
+                if (!jtfCETEngWord.getText().equals("") || !jtfCETPlWord.getText().equals("")) {
+                    model.addRow(new Object[]{jtfCETPlWord.getText(), jtfCETEngWord.getText()});
+                }
+            }
+        }
+    }//GEN-LAST:event_bCETAddEditWordsActionPerformed
 
     private void bCETChangeTestNAmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCETChangeTestNAmeActionPerformed
         try {
+
             dbStatements.chgSelectedTestName(user, jtfCETSelectedTestName.getText(), jtfCETNewTestName.getText());
-        } catch (Exception e){
+            jtfCETSelectedTestName.setText(jtfCETNewTestName.getText());
+            jtfCETNewTestName.setText("");
+            jtaCETInfo.setText("Test name is changed.");
+
+        } catch (Exception e) {
             System.out.println("bCETChangeTestNAmeActionPerformed" + e.getMessage());
+            jtaCETInfo.setText("You cannot change test like that.");
         }
     }//GEN-LAST:event_bCETChangeTestNAmeActionPerformed
 
     private void bCETSaveTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCETSaveTestActionPerformed
-        // TODO add your handling code here:
+
+        dbStatements.deleteTestContent(user, jtfCETSelectedTestName.getText());
+        int nRow = jtCETTestContent.getRowCount();
+        for (int i = 0; i < nRow; i++) {
+            try {
+                dbStatements.insertContentIntoTest(user, jtfCETSelectedTestName.getText(), jtCETTestContent.getValueAt(i, 0).toString(), jtCETTestContent.getValueAt(i, 1).toString());
+            } catch (Exception ex) {
+                Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        jtaCETInfo.setText("Test saved.");
+
     }//GEN-LAST:event_bCETSaveTestActionPerformed
 
     private void jtfCTTestActiveDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCTTestActiveDateActionPerformed
@@ -2067,8 +2324,25 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfCTBestScoreActionPerformed
 
     private void bTReturnToMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bTReturnToMainMenuActionPerformed
+        if(jlTCountNumOfRecToFin.getText().equals("0"))
+            try {
+                dbStatements.updateTestsActiveDate(user, jtfCTTestName.getText());
+        } catch (Exception ex) {
+            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+            
+        jtfCTTestName.setText("");
+        test = null;
+        jtfTInfo.setText("");
+        jtfTEngWord.setText("");
+        jtfTPlWord.setText("");
+        jlTCountNumOfRec.setText("");
+        jlTCountNumOfMist.setText("");
+        jlTCountNumOfRecToFin.setText("");
         jpnlMenu.setVisible(true);
         jpnlTest.setVisible(false);
+        jtfTEngWord.setEditable(true);
     }//GEN-LAST:event_bTReturnToMainMenuActionPerformed
 
     private void bTLCEditTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bTLCEditTestActionPerformed
@@ -2107,8 +2381,10 @@ public class MainJFrame extends javax.swing.JFrame {
                 dbStatements.createNewTest(user, jtfTLCNewTestName.getText());
                 jtfCETSelectedTestName.setText(jtfTLCNewTestName.getText());
 
-                String pushTmpTestConent = "SELECT * FROM " + user + "_" + jtfTLCNewTestName.getText() + "_temporary_table;";
-                jtCTSelectedTestWords.setModel(dbStatements.getQueryToDefTable(pushTmpTestConent));
+                //String pushTmpTestConent = "SELECT * FROM " + user + "_" + jtfTLCNewTestName.getText() + "_temporary_table;";
+                String sql = "select * from " + user + "_" + jtfTLCNewTestName.getText();
+                jtCETTestContent.setModel(dbStatements.getQueryToDefTable(sql));
+                jtfCETSelectedTestName.setText(jtfTLCNewTestName.getText());
 
                 jtfTLCNewTestName.setText("");
                 jtfTLCTestName.setText("");
@@ -2129,24 +2405,67 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_bTLCCreateNewTestActionPerformed
 
     private void bTLCDeleteTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bTLCDeleteTestActionPerformed
-        try {
-            dbStatements.deleteTest(user, jtfTLCTestName.getText());
-            jtfTLCTestName.setText("");
-            String sql = "select * from " + user + "_tests";
-            jtTLCTestList.setModel(dbStatements.getQueryToDefTable(sql));
-            jtaCETInfo.setText("Test deleted.");
+        if (!jtfTLCTestName.getText().equals("")) {
+            try {
+                dbStatements.deleteTest(user, jtfTLCTestName.getText());
+                jtfTLCTestName.setText("");
+                String sql = "select * from " + user + "_tests";
+                jtTLCTestList.setModel(dbStatements.getQueryToDefTable(sql));
+                jtaCETInfo.setText("Test deleted.");
 
-        } catch (Exception e) {
-            System.out.println("bCALoginMenu11ActionPerformed" + e.getMessage());
+            } catch (Exception e) {
+                System.out.println("bCALoginMenu11ActionPerformed" + e.getMessage());
+            }
         }
     }//GEN-LAST:event_bTLCDeleteTestActionPerformed
 
     private void bCETInsertWordListFromFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCETInsertWordListFromFileActionPerformed
-        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.showOpenDialog(null);
+        File f = fileChooser.getSelectedFile();
+        //String filename = f.getAbsolutePath();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(f));
+            Object[] tableLines = br.lines().toArray();
+            DefaultTableModel model = (DefaultTableModel) jtCETTestContent.getModel();
+
+            // extratct data from lines
+            // set data to jtable model
+            if (jrbCETFirstPl.isSelected()) {
+                for (Object tableLine : tableLines) {
+                    String line = tableLine.toString().trim();
+                    String[] dataRow = line.split(" - ");
+                    model.addRow(dataRow);
+                    jtaCETInfo.setText("Data added from file");
+                }
+            } else if (jrbCETFirstEng.isSelected()) {
+                for (Object tableLine : tableLines) {
+                    String line = tableLine.toString().trim();
+                    String[] dataRow = line.split(" - ");
+                    String adjuvant = dataRow[0];
+                    dataRow[0] = dataRow[1]; 
+                    dataRow[1] =adjuvant;
+                    model.addRow(dataRow);
+                    jtaCETInfo.setText("Data added from file");
+                }
+            } else {
+                jtaCETInfo.setText("Select proper radiobutton");
+            }
+
+            
+        } catch (Exception e) {
+            System.out.println("bCALoginMenu11ActionPerformed" + e.getMessage());
+        }
+
     }//GEN-LAST:event_bCETInsertWordListFromFileActionPerformed
 
     private void bCETDiscardChgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCETDiscardChgActionPerformed
-        // TODO add your handling code here:
+        String sql = "select * from " + user + "_" + jtfCETSelectedTestName.getText();
+        jtCETTestContent.setModel(dbStatements.getQueryToDefTable(sql));
+        jtfCETEngWord.setText("");
+        jtfCETPlWord.setText("");
+        jtfCETNewTestName.setText("");
+        jtaCETInfo.setText("Data changes discarded");
     }//GEN-LAST:event_bCETDiscardChgActionPerformed
 
     private void bCETReturnToTestListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCETReturnToTestListActionPerformed
@@ -2154,10 +2473,44 @@ public class MainJFrame extends javax.swing.JFrame {
         jtTLCTestList.setModel(dbStatements.getQueryToDefTable(sql));
         jpnlTestListChg.setVisible(true);
         jpnlCreateEditTest.setVisible(false);
+        jtfCETEngWord.setText("");
+        jtfCETPlWord.setText("");
+        jtfCETNewTestName.setText("");
+        jtfCETSelectedTestName.setText("");
+        jtaCETInfo.setText("");
     }//GEN-LAST:event_bCETReturnToTestListActionPerformed
 
     private void bCETExportTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCETExportTestActionPerformed
-        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Save a File");
+        fileChooser.setFileFilter(new FileTypeFilter(".txt", "Text file"));
+        fileChooser.showSaveDialog(null);
+        //File f = new File(SaveAs.getSelectedFile() + ".txt");
+        File f = fileChooser.getSelectedFile();
+
+        try (FileWriter fw = new FileWriter(f.getAbsoluteFile() + ".txt");
+                BufferedWriter bw = new BufferedWriter(fw);) {
+            int count = 1;
+
+            for (int i = 0; i < jtCETTestContent.getRowCount(); i++) {
+                for (int j = 0; j < jtCETTestContent.getColumnCount(); j++) {
+                    System.out.println("count przed if: " + count);
+                    if (!(count % 2 == 0)) {
+                        System.out.println("count w if1: " + count);
+                        bw.write(jtCETTestContent.getModel().getValueAt(i, j) + " - ");
+                    } else {
+                        System.out.println("count w if2: " + count);
+                        bw.write(jtCETTestContent.getModel().getValueAt(i, j) + "\n");
+                    }
+                    System.out.println("count poza if: " + count);
+                    count++;
+                }
+            }
+            jtaCETInfo.setText("File saved ");
+
+        } catch (Exception e) {
+            System.out.println("bCETExportTestActionPerformed" + e.getMessage());
+        }
     }//GEN-LAST:event_bCETExportTestActionPerformed
 
     private void jtTLCTestListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtTLCTestListMouseClicked
@@ -2166,6 +2519,73 @@ public class MainJFrame extends javax.swing.JFrame {
         jtfTLCTestName.setText(selectedTest);
 
     }//GEN-LAST:event_jtTLCTestListMouseClicked
+
+    private void bCETDeleteWordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCETDeleteWordsActionPerformed
+        int selectedRowIndexNum = jtCETTestContent.getSelectedRow();
+        String engWord = jtfCETEngWord.getText().trim();
+        String plWord = jtfCETPlWord.getText().trim();
+        System.out.println("1");
+        DefaultTableModel table = (DefaultTableModel) jtCETTestContent.getModel();
+        for (int i = 0; i < table.getRowCount(); i++) {
+            System.out.println("2: " + i);
+            String firstColumnString = table.getValueAt(i, 0).toString().trim();
+            String secondColumnString = table.getValueAt(i, 1).toString().trim();
+
+            System.out.println("firstColumnString: " + firstColumnString);
+            System.out.println("secondColumnString: " + secondColumnString);
+            System.out.println("engWord: " + engWord);
+            System.out.println("plWord: " + plWord);
+
+            if (firstColumnString.equals(engWord) & secondColumnString.equals(plWord)) {
+                System.out.println("3: " + i);
+                table.removeRow(i);
+            }
+        }
+
+        int rowsCount = jtCETTestContent.getRowCount();
+        if (rowsCount > 0) {
+            jtCETTestContent.getSelectionModel().setSelectionInterval(rowsCount - 1, rowsCount - 1);
+            jtfCETEngWord.setText((String) jtCETTestContent.getValueAt(rowsCount - 1, 0));
+            jtfCETPlWord.setText((String) jtCETTestContent.getValueAt(rowsCount - 1, 1));
+        } else {
+            jtfCETEngWord.setText("");
+            jtfCETPlWord.setText("");
+        }
+    }//GEN-LAST:event_bCETDeleteWordsActionPerformed
+
+    private void jtCETTestContentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtCETTestContentMouseClicked
+        int selectedRowIndexNum = jtCETTestContent.getSelectedRow();
+        jtfCETEngWord.setText((String) jtCETTestContent.getValueAt(selectedRowIndexNum, 0));
+        jtfCETPlWord.setText((String) jtCETTestContent.getValueAt(selectedRowIndexNum, 1));
+    }//GEN-LAST:event_jtCETTestContentMouseClicked
+
+    private void jtCTTestListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtCTTestListMouseClicked
+        int selectedRowIndexNum = jtCTTestList.getSelectedRow();
+        String sql = "select * from " + user + "_" + (String) jtCTTestList.getValueAt(selectedRowIndexNum, 0);
+        jtCTSelectedTestContent.setModel(dbStatements.getQueryToDefTable(sql));
+
+        jtfCTTestName.setText((String) jtCTTestList.getValueAt(selectedRowIndexNum, 0));
+        jtfCTTestOwner.setText(user);
+        jtfCTTestActiveDate.setText((String) jtCTTestList.getValueAt(selectedRowIndexNum, 1));
+
+
+    }//GEN-LAST:event_jtCTTestListMouseClicked
+
+    private void jtfTInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfTInfoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfTInfoActionPerformed
+
+    private void jtfCTTestOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCTTestOwnerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfCTTestOwnerActionPerformed
+
+    private void jtfCTTestNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCTTestNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfCTTestNameActionPerformed
+
+    private void jrbCETFirstPlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbCETFirstPlActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jrbCETFirstPlActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2224,12 +2644,24 @@ public class MainJFrame extends javax.swing.JFrame {
         }
     }
 
+    public boolean existsInJTableColumn(DefaultTableModel table, int columnId, Object entry) {
+        boolean result = false;
+        String entryString = entry.toString().trim();
+        for (int i = 0; i < table.getRowCount(); i++) {
+            String s = table.getValueAt(i, columnId).toString().trim();
+            if (entryString.equals(s)) {
+                result = true;
+            }
+        }
+        return result;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button bCACreateAccount;
     private java.awt.Button bCALoginMenu;
-    private java.awt.Button bCETAddEditWord;
+    private java.awt.Button bCETAddEditWords;
     private java.awt.Button bCETChangeTestNAme;
+    private java.awt.Button bCETDeleteWords;
     private java.awt.Button bCETDiscardChg;
     private java.awt.Button bCETExportTest;
     private java.awt.Button bCETInsertWordListFromFile;
@@ -2250,6 +2682,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private java.awt.Button bTLCEditTest;
     private java.awt.Button bTLCReturnToMainMenu;
     private java.awt.Button bTReturnToMainMenu;
+    private javax.swing.ButtonGroup bgChooseLanguageOrderInFile;
     private javax.swing.JSeparator jCASeparator1;
     private javax.swing.JSeparator jCASeparator2;
     private javax.swing.JSeparator jCASeparator3;
@@ -2257,6 +2690,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JSeparator jCASeparator5;
     private javax.swing.JSeparator jCASeparator6;
     private javax.swing.JSeparator jCASeparator7;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel jlCETEngWord;
     private javax.swing.JLabel jlCETNewTestName;
     private javax.swing.JLabel jlCETPlWord;
@@ -2274,9 +2708,15 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jlSIFacebook;
     private javax.swing.JLabel jlSIPass;
     private javax.swing.JLabel jlSIRecAcc;
+    private javax.swing.JLabel jlTCountNumOfMist;
+    private javax.swing.JLabel jlTCountNumOfRec;
+    private javax.swing.JLabel jlTCountNumOfRecToFin;
     private javax.swing.JLabel jlTLCNewTestName;
     private javax.swing.JLabel jlTLCTestName;
     private javax.swing.JLabel jlTLCUsresTestList;
+    private javax.swing.JLabel jlTNumOfMist;
+    private javax.swing.JLabel jlTNumOfRec;
+    private javax.swing.JLabel jlTNumOfRecToFin;
     private javax.swing.JLabel jlTPlWord;
     private javax.swing.JLabel jllSILogin;
     private javax.swing.JPanel jpTLCEditOrDelExistTest;
@@ -2297,8 +2737,11 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jpnlSignIn;
     private javax.swing.JPanel jpnlTest;
     private javax.swing.JPanel jpnlTestListChg;
+    private javax.swing.JRadioButton jrbCETFirstEng;
+    private javax.swing.JRadioButton jrbCETFirstPl;
     private javax.swing.JSeparator jsSISeparator1;
     private javax.swing.JSeparator jsSISeparator2;
+    private javax.swing.JSeparator jsTUnderCounters;
     private javax.swing.JSeparator jsTUnderEngWord;
     private javax.swing.JSeparator jsTUnderPlWord;
     private javax.swing.JScrollPane jspCETInfo;
@@ -2308,7 +2751,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jspTLCInfo;
     private javax.swing.JScrollPane jspTLCTestList;
     private javax.swing.JTable jtCETTestContent;
-    private javax.swing.JTable jtCTSelectedTestWords;
+    private javax.swing.JTable jtCTSelectedTestContent;
     private javax.swing.JTable jtCTTestList;
     private javax.swing.JTable jtTLCTestList;
     private javax.swing.JTextArea jtaCETInfo;
@@ -2329,6 +2772,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jtfSIError;
     private javax.swing.JTextField jtfSIUsername;
     private javax.swing.JTextField jtfTEngWord;
+    private javax.swing.JTextField jtfTInfo;
     private javax.swing.JTextField jtfTLCNewTestName;
     private javax.swing.JTextField jtfTLCTestName;
     private javax.swing.JTextField jtfTPlWord;

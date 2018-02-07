@@ -5,50 +5,61 @@
  */
 package xyz.testControl;
 
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Collections;
+
 /**
  *
  * @author alewicki
  */
+
 public class TestEntity {
-    
-    public TestEntity( String testName) {
-        this.testName = testName;
+
+    private ArrayList<PairOfWords> testList;
+    private int mistakes = 0;
+    private int numberOfPairsToEnd = 0;
+
+    public TestEntity(ArrayList<PairOfWords> testList) {
+        this.testList = testList;
+        numberOfPairsToEnd = countPairsOfWords();
     }
 
-    public TestEntity(String testName, String createDate, String chgDate) {
-        this.testName = testName;
-        this.createDate = createDate;
-        this.chgDate = chgDate;
+    public PairOfWords getOnePair() {
+        return testList.get(0);
     }
 
-    private String testName = null;
-    private String createDate = null;
-    private String chgDate = null;    
-
-
-    public String getTestName() {
-        return testName;
+    public void removeOnePairOfWords() {
+        testList.remove(0);
+        numberOfPairsToEnd--;
     }
 
-    public String getCreateDate() {
-        return createDate;
+    public void shuffleTestContent() {
+        Collections.shuffle(testList);
     }
 
-    public String getChgDate() {
-        return chgDate;
+    public int countPairsOfWords() {
+        return testList.size();
     }
 
-    public void setTestName(String testName) {
-        this.testName = testName;
+    public boolean checkCorrectness(String typedWord) {
+        if (testList.get(0).getTranslatedWord().equals(typedWord)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public void setCreateDate(String createDate) {
-        this.createDate = createDate;
+    public void addPointToMistakes() {
+        mistakes++;
     }
 
-    public void setChgDate(String chgDate) {
-        this.chgDate = chgDate;
+    public int getNumberOfMistakes() {
+        return mistakes;
     }
-    
-    
+
+    public int getNumberOfPairsToEnd() {
+        return numberOfPairsToEnd;
+    }
+
 }
