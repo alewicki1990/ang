@@ -99,7 +99,13 @@ public class DbInstructions {
             System.out.println("xyz.DbConnect.JavaConnect.createUser()" + e.getMessage());
         }
 
-        String sqlUserTestList = "CREATE TABLE " + username + "_tests (test_name CHAR, active_date DATE, chg_date DATE)";
+        String sqlUserTestList = "CREATE TABLE " + username + "_tests (\n"
+                + "    test_name       CHAR     PRIMARY KEY,\n"
+                + "    create_date     DATETIME,\n"
+                + "    last_completion DATETIME,\n"
+                + "    mistakes_counter NUMERIC,\n"
+                + "    chg_date        DATETIME\n"
+                + ");";
         try (Connection conn = DbConncect.getDbConnInstance();
                 PreparedStatement stmt = conn.prepareStatement(sqlUserTestList)) {
             stmt.executeUpdate();
@@ -149,7 +155,7 @@ public class DbInstructions {
 
     public void createNewTest(String userName, String newTestName) {
 
-        String sqlInsertUser = "INSERT INTO " + userName + "_tests (test_name) values ( ? );";
+        String sqlInsertUser = "INSERT INTO " + userName + "_tests (test_name, create_date ) values ( ?, DateTime('now') );";
         try (Connection conn = DbConncect.getDbConnInstance();
                 PreparedStatement stmt = conn.prepareStatement(sqlInsertUser);) {
 
@@ -230,7 +236,7 @@ public class DbInstructions {
             System.out.println("xyz.DbConnect.JavaConnect.InsertContentIntoTest()" + e.getMessage());
             return;
         }
-        
+
         String sqlChgTestNameInTestList = "UPDATE " + username + "_tests SET chg_date=DateTime('now') WHERE test_name='" + testName + "';";
         try (Connection conn = DbConncect.getDbConnInstance();
                 PreparedStatement stmt = conn.prepareStatement(sqlChgTestNameInTestList)) {
@@ -241,7 +247,7 @@ public class DbInstructions {
             System.out.println("update testname xyz.DbConnect.JavaConnect.chgSelectedTestName()" + e.getMessage());
             throw new Exception();
         }
-        
+
     }
 
     public void chgSelectedTestName(String userName, String oldTestName, String newTestName) throws Exception {
@@ -336,9 +342,9 @@ public class DbInstructions {
         }
 
     }
-    
-    public void updateTestsActiveDate(String userName, String testName) throws Exception{
-        String sqlChgTestNameInTestList = "UPDATE " + userName + "_tests SET active_date=DateTime('now') WHERE test_name='" + testName + "';";
+
+    public void updateTestsScore(String userName, String testName, String score) throws Exception {
+        String sqlChgTestNameInTestList = "UPDATE " + userName + "_tests SET last_completion=DateTime('now'), mistakes_counter=" + score + " WHERE test_name='" + testName + "';";
         try (Connection conn = DbConncect.getDbConnInstance();
                 PreparedStatement stmt = conn.prepareStatement(sqlChgTestNameInTestList)) {
 
