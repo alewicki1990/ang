@@ -245,6 +245,7 @@
                     <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jpfSIPassFocusGained"/>
                     <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jpfSIPassFocusLost"/>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jpfSIPassActionPerformed"/>
+                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jpfSIPassKeyPressed"/>
                   </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="jpfSIPass.setEchoChar((char)0);"/>
@@ -281,6 +282,7 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bSILoginActionPerformed"/>
+                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="bSILoginKeyPressed"/>
                   </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="MainJFrame_button1"/>
@@ -1768,16 +1770,16 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jlCTTestList" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                                          <Component id="jspCTSelectedTestWords" alignment="1" min="-2" pref="500" max="-2" attributes="0"/>
-                                          <Component id="jspCTTestList" alignment="1" min="-2" pref="500" max="-2" attributes="0"/>
+                                      <Component id="jlCTTestContent" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="jspCTSelectedTestWords" pref="600" max="32767" attributes="0"/>
+                                          <Component id="jspCTTestList" max="32767" attributes="0"/>
                                       </Group>
-                                      <Component id="jlCTTestContent" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -1794,7 +1796,7 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="70" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2037,7 +2039,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="bTReturnToMainMenu" min="-2" pref="200" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="390" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="370" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
@@ -2228,6 +2230,7 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bTReturnToMainMenuActionPerformed"/>
+                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="bTReturnToMainMenuKeyPressed"/>
                   </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="MainJFrame_button1"/>
@@ -2694,7 +2697,7 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="143" max="32767" attributes="0"/>
+                          <EmptySpace pref="120" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="jCASeparator7" min="-2" pref="760" max="-2" attributes="0"/>
                               <Component id="jtfCACommunication" min="-2" pref="760" max="-2" attributes="0"/>
