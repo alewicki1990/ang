@@ -100,11 +100,13 @@ public class DbInstructions {
         }
 
         String sqlUserTestList = "CREATE TABLE " + username + "_tests (\n"
-                + "    test_name       CHAR     PRIMARY KEY,\n"
-                + "    create_date     DATETIME,\n"
-                + "    last_completion DATETIME,\n"
+                + "    test_name        CHAR               PRIMARY KEY,\n"
+                + "    create_date      DATETIME,\n"
+                + "    last_completion  DATETIME,\n"
                 + "    mistakes_counter NUMERIC,\n"
-                + "    chg_date        DATETIME\n"
+                + "    number_of_words  NUMERIC,\n"
+                + "    chg_date         DATETIME,\n"
+                + "    best_time        DATETIME\n"
                 + ");";
         try (Connection conn = DbConncect.getDbConnInstance();
                 PreparedStatement stmt = conn.prepareStatement(sqlUserTestList)) {
@@ -240,9 +242,7 @@ public class DbInstructions {
         String sqlChgTestNameInTestList = "UPDATE " + username + "_tests SET chg_date=DateTime('now') WHERE test_name='" + testName + "';";
         try (Connection conn = DbConncect.getDbConnInstance();
                 PreparedStatement stmt = conn.prepareStatement(sqlChgTestNameInTestList)) {
-
             stmt.executeUpdate();
-
         } catch (SQLException e) {
             System.out.println("update testname xyz.DbConnect.JavaConnect.chgSelectedTestName()" + e.getMessage());
             throw new Exception();
@@ -344,7 +344,12 @@ public class DbInstructions {
     }
 
     public void updateTestsScore(String userName, String testName, String score) throws Exception {
-        String sqlChgTestNameInTestList = "UPDATE " + userName + "_tests SET last_completion=DateTime('now'), mistakes_counter=" + score + " WHERE test_name='" + testName + "';";
+        
+        
+        String sqlChgTestNameInTestList = "UPDATE " + userName + "_tests"
+                + " SET last_completion=DateTime('now'),"
+                + " mistakes_counter=" + score 
+                + " WHERE test_name='" + testName + "';";
         try (Connection conn = DbConncect.getDbConnInstance();
                 PreparedStatement stmt = conn.prepareStatement(sqlChgTestNameInTestList)) {
 
