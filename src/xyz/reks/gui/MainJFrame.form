@@ -2419,7 +2419,7 @@
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace pref="120" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jFPSeparator1" alignment="1" min="-2" pref="760" max="-2" attributes="0"/>
+                              <Component id="jFPUnderCommunication" alignment="1" min="-2" pref="760" max="-2" attributes="0"/>
                               <Component id="jtfFPCommunication" alignment="1" min="-2" pref="760" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="120" max="-2" attributes="0"/>
@@ -2429,9 +2429,9 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="270" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jFPSeparator2" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="jFPUnderUsername" alignment="1" max="32767" attributes="0"/>
                                       <Component id="jtfFPUsername" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="jFPSeparator3" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="jFPUnderEmail" alignment="1" max="32767" attributes="0"/>
                                       <Component id="jtfFPEmail" alignment="1" min="-2" pref="460" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -2454,15 +2454,15 @@
                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           <Component id="jtfFPCommunication" min="-2" pref="33" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jFPSeparator1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jFPUnderCommunication" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                           <Component id="jtfFPUsername" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jFPSeparator2" min="-2" pref="5" max="-2" attributes="0"/>
+                          <Component id="jFPUnderUsername" min="-2" pref="5" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                           <Component id="jtfFPEmail" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jFPSeparator3" min="-2" pref="5" max="-2" attributes="0"/>
+                          <Component id="jFPUnderEmail" min="-2" pref="5" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jbFPSendEmail" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -2498,6 +2498,16 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfFPCommunicationActionPerformed"/>
                   </Events>
                 </Component>
+                <Component class="javax.swing.JSeparator" name="jFPUnderCommunication">
+                  <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="44" green="cf" red="83" type="rgb"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="44" green="cf" red="83" type="rgb"/>
+                    </Property>
+                  </Properties>
+                </Component>
                 <Component class="javax.swing.JTextField" name="jtfFPUsername">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -2523,27 +2533,7 @@
                     <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfFPUsernameKeyTyped"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JSeparator" name="jFPSeparator1">
-                  <Properties>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="44" green="cf" red="83" type="rgb"/>
-                    </Property>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="44" green="cf" red="83" type="rgb"/>
-                    </Property>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JSeparator" name="jFPSeparator2">
-                  <Properties>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="44" green="cf" red="83" type="rgb"/>
-                    </Property>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="44" green="cf" red="83" type="rgb"/>
-                    </Property>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JSeparator" name="jFPSeparator3">
+                <Component class="javax.swing.JSeparator" name="jFPUnderUsername">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="44" green="cf" red="83" type="rgb"/>
@@ -2577,6 +2567,16 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfFPEmailActionPerformed"/>
                     <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfFPEmailKeyTyped"/>
                   </Events>
+                </Component>
+                <Component class="javax.swing.JSeparator" name="jFPUnderEmail">
+                  <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="44" green="cf" red="83" type="rgb"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="44" green="cf" red="83" type="rgb"/>
+                    </Property>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JButton" name="jbFPSendEmail">
                   <Properties>

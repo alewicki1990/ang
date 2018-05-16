@@ -177,11 +177,11 @@ public class MainJFrame extends javax.swing.JFrame {
         bCALoginMenu = new javax.swing.JButton();
         jpnlForgottenPassword = new javax.swing.JPanel();
         jtfFPCommunication = new javax.swing.JTextField();
+        jFPUnderCommunication = new javax.swing.JSeparator();
         jtfFPUsername = new javax.swing.JTextField();
-        jFPSeparator1 = new javax.swing.JSeparator();
-        jFPSeparator2 = new javax.swing.JSeparator();
-        jFPSeparator3 = new javax.swing.JSeparator();
+        jFPUnderUsername = new javax.swing.JSeparator();
         jtfFPEmail = new javax.swing.JTextField();
+        jFPUnderEmail = new javax.swing.JSeparator();
         jbFPSendEmail = new javax.swing.JButton();
         jbFPLoginMenu = new javax.swing.JButton();
 
@@ -1669,6 +1669,9 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
+        jFPUnderCommunication.setBackground(new java.awt.Color(131, 207, 68));
+        jFPUnderCommunication.setForeground(new java.awt.Color(131, 207, 68));
+
         jtfFPUsername.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jtfFPUsername.setForeground(new java.awt.Color(204, 204, 204));
         jtfFPUsername.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -1695,14 +1698,8 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
-        jFPSeparator1.setBackground(new java.awt.Color(131, 207, 68));
-        jFPSeparator1.setForeground(new java.awt.Color(131, 207, 68));
-
-        jFPSeparator2.setBackground(new java.awt.Color(131, 207, 68));
-        jFPSeparator2.setForeground(new java.awt.Color(131, 207, 68));
-
-        jFPSeparator3.setBackground(new java.awt.Color(131, 207, 68));
-        jFPSeparator3.setForeground(new java.awt.Color(131, 207, 68));
+        jFPUnderUsername.setBackground(new java.awt.Color(131, 207, 68));
+        jFPUnderUsername.setForeground(new java.awt.Color(131, 207, 68));
 
         jtfFPEmail.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jtfFPEmail.setForeground(new java.awt.Color(204, 204, 204));
@@ -1730,6 +1727,9 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
+        jFPUnderEmail.setBackground(new java.awt.Color(131, 207, 68));
+        jFPUnderEmail.setForeground(new java.awt.Color(131, 207, 68));
+
         jbFPSendEmail.setBackground(new java.awt.Color(131, 207, 68));
         jbFPSendEmail.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jbFPSendEmail.setText("Send email with new password");
@@ -1755,7 +1755,7 @@ public class MainJFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlForgottenPasswordLayout.createSequentialGroup()
                 .addContainerGap(120, Short.MAX_VALUE)
                 .addGroup(jpnlForgottenPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jFPSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFPUnderCommunication, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtfFPCommunication, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(120, 120, 120))
             .addGroup(jpnlForgottenPasswordLayout.createSequentialGroup()
@@ -1763,9 +1763,9 @@ public class MainJFrame extends javax.swing.JFrame {
                     .addGroup(jpnlForgottenPasswordLayout.createSequentialGroup()
                         .addGap(270, 270, 270)
                         .addGroup(jpnlForgottenPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jFPSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jFPUnderUsername, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jtfFPUsername, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jFPSeparator3, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jFPUnderEmail, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jtfFPEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jpnlForgottenPasswordLayout.createSequentialGroup()
                         .addGap(280, 280, 280)
@@ -1781,15 +1781,15 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addComponent(jtfFPCommunication, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jFPSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jFPUnderCommunication, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(60, 60, 60)
                 .addComponent(jtfFPUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jFPSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jFPUnderUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
                 .addComponent(jtfFPEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jFPSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jFPUnderEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jbFPSendEmail)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -2918,9 +2918,9 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JSeparator jCASeparator5;
     private javax.swing.JSeparator jCASeparator6;
     private javax.swing.JSeparator jCASeparator7;
-    private javax.swing.JSeparator jFPSeparator1;
-    private javax.swing.JSeparator jFPSeparator2;
-    private javax.swing.JSeparator jFPSeparator3;
+    private javax.swing.JSeparator jFPUnderCommunication;
+    private javax.swing.JSeparator jFPUnderEmail;
+    private javax.swing.JSeparator jFPUnderUsername;
     private javax.swing.JButton jbCETAddEditWords;
     private javax.swing.JButton jbCETChangeTestNAme;
     private javax.swing.JButton jbCETDeleteWords;
