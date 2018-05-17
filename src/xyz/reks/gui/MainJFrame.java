@@ -962,7 +962,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jlTPlWord.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         jlTPlWord.setForeground(new java.awt.Color(102, 102, 102));
         jlTPlWord.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlTPlWord.setText("PL");
+        jlTPlWord.setText("Q:");
         jlTPlWord.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jlTPlWord.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jlTPlWord.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -985,7 +985,7 @@ public class MainJFrame extends javax.swing.JFrame {
         ljTEngWord.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         ljTEngWord.setForeground(new java.awt.Color(102, 102, 102));
         ljTEngWord.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ljTEngWord.setText("ENG");
+        ljTEngWord.setText("A:");
         ljTEngWord.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         ljTEngWord.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
@@ -1060,9 +1060,9 @@ public class MainJFrame extends javax.swing.JFrame {
                             .addComponent(jlTCountNumOfMist, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlTestLayout.createSequentialGroup()
-                        .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ljTEngWord, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jlTPlWord, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jlTPlWord, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                            .addComponent(ljTEngWord, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)

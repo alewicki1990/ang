@@ -1366,9 +1366,9 @@
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="ljTEngWord" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jlTPlWord" alignment="1" min="-2" pref="36" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="jlTPlWord" pref="36" max="32767" attributes="0"/>
+                                      <Component id="ljTEngWord" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -1534,7 +1534,7 @@
                       <Color blue="66" green="66" red="66" type="rgb"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="PL"/>
+                    <Property name="text" type="java.lang.String" value="Q:"/>
                     <Property name="verticalAlignment" type="int" value="1"/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                       <Color id="Default Cursor"/>
@@ -1580,7 +1580,7 @@
                       <Color blue="66" green="66" red="66" type="rgb"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="ENG"/>
+                    <Property name="text" type="java.lang.String" value="A:"/>
                     <Property name="verticalAlignment" type="int" value="1"/>
                     <Property name="horizontalTextPosition" type="int" value="4"/>
                   </Properties>
