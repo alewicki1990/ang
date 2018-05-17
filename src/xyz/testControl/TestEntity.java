@@ -5,13 +5,12 @@
  */
 package xyz.testControl;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collections;
 
 /**
  *
- * @author alewicki
+ * @author alewicki1990
  */
 
 public class TestEntity {

@@ -12,17 +12,14 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-import javax.swing.filechooser.FileFilter;
 import javax.swing.table.DefaultTableModel;
+import xyz.DbOperations.DbAuthentication;
 import xyz.DbOperations.DbInstructions;
-import xyz.testControl.PairOfWords;
 import xyz.testControl.TestEntity;
 
 /**
@@ -31,16 +28,14 @@ import xyz.testControl.TestEntity;
  */
 public class MainJFrame extends javax.swing.JFrame {
 
-    String user = null;
-    DbInstructions dbStatements = null;
-    TestEntity test = null;
+    private DbInstructions dbStatements = null;
+    private TestEntity test = null;
 
     /**
      * Creates new form MainJFrame
      */
     public MainJFrame() {
         initComponents();
-        dbStatements = new DbInstructions();
     }
 
     /**
@@ -107,8 +102,6 @@ public class MainJFrame extends javax.swing.JFrame {
         jspCTSelectedTestWords = new javax.swing.JScrollPane();
         jtCTSelectedTestContent = new javax.swing.JTable();
         jtfCTTestActiveDate = new javax.swing.JTextField();
-        jtfCTTestOwner = new javax.swing.JTextField();
-        jlCTTestOwner = new javax.swing.JLabel();
         jlCTTestActiveDate = new javax.swing.JLabel();
         jlCTSelectedTest = new javax.swing.JLabel();
         jlCTBestScore = new javax.swing.JLabel();
@@ -121,14 +114,17 @@ public class MainJFrame extends javax.swing.JFrame {
         jbCTStartTest = new javax.swing.JButton();
         jbCTReturnToMainMenu = new javax.swing.JButton();
         jpnlTest = new javax.swing.JPanel();
-        jsTAboveCounters = new javax.swing.JSeparator();
+        jsTAbove = new javax.swing.JSeparator();
+        jlTNumOfRecToFin = new javax.swing.JLabel();
+        jlTCountNumOfRecToFin = new javax.swing.JLabel();
+        jlTTimeLeft = new javax.swing.JLabel();
+        jlTTimeLeftTimer = new javax.swing.JLabel();
         jlTNumOfRec = new javax.swing.JLabel();
         jlTCountNumOfRec = new javax.swing.JLabel();
         jlTNumOfMist = new javax.swing.JLabel();
         jlTCountNumOfMist = new javax.swing.JLabel();
-        jlTNumOfRecToFin = new javax.swing.JLabel();
-        jlTCountNumOfRecToFin = new javax.swing.JLabel();
-        jsTUnderCounters = new javax.swing.JSeparator();
+        jlTTimeSpend = new javax.swing.JLabel();
+        jlTTimeSpendTimer = new javax.swing.JLabel();
         jlTPlWord = new javax.swing.JLabel();
         jtfTPlWord = new javax.swing.JTextField();
         jsTUnderEngWord = new javax.swing.JSeparator();
@@ -137,11 +133,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jsTUnderPlWord = new javax.swing.JSeparator();
         jtfTInfo = new javax.swing.JTextField();
         jbTReturnToMainMenu = new javax.swing.JButton();
-        jsTAboveTimers = new javax.swing.JSeparator();
-        jlTTimeSpend = new javax.swing.JLabel();
-        jlTTimeSpendTimer = new javax.swing.JLabel();
-        jlTTimeLeft = new javax.swing.JLabel();
-        jlTTimeLeftTimer = new javax.swing.JLabel();
+        jsTBelow = new javax.swing.JSeparator();
         jpnlTestListChg = new javax.swing.JPanel();
         jpTLCEditOrDelExistTest = new javax.swing.JPanel();
         jlTLCTestName = new javax.swing.JLabel();
@@ -317,7 +309,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jpnlSignInLayout.setHorizontalGroup(
             jpnlSignInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlSignInLayout.createSequentialGroup()
-                .addContainerGap(235, Short.MAX_VALUE)
+                .addContainerGap(258, Short.MAX_VALUE)
                 .addGroup(jpnlSignInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jlSIPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jllSILogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -363,7 +355,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addGroup(jpnlSignInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlSICreaAcc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlSIRecAcc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(163, Short.MAX_VALUE))
+                .addContainerGap(168, Short.MAX_VALUE))
         );
 
         jpfSIPass.setEchoChar((char)0);
@@ -813,15 +805,6 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
-        jtfCTTestOwner.setEditable(false);
-        jtfCTTestOwner.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfCTTestOwnerActionPerformed(evt);
-            }
-        });
-
-        jlCTTestOwner.setText("Test Owner");
-
         jlCTTestActiveDate.setText("Test Active Date");
 
         jlCTSelectedTest.setText("Selected Test");
@@ -901,16 +884,13 @@ public class MainJFrame extends javax.swing.JFrame {
                         .addGap(80, 80, 80)
                         .addGroup(jpnlChooseTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jtfCTTestActiveDate, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-                            .addComponent(jtfCTTestOwner)
-                            .addComponent(jlCTTestOwner)
                             .addComponent(jlCTTestActiveDate)
                             .addComponent(jlCTSelectedTest)
                             .addComponent(jlCTBestScore)
                             .addComponent(jtfCTBestScore)
                             .addComponent(jtfCTTestName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jpnlChooseTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jbCTStartTest, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-                                .addComponent(jbCTReturnToMainMenu, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                            .addComponent(jbCTStartTest, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                            .addComponent(jbCTReturnToMainMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(69, Short.MAX_VALUE))
         );
         jpnlChooseTestLayout.setVerticalGroup(
@@ -927,17 +907,13 @@ public class MainJFrame extends javax.swing.JFrame {
                         .addGap(5, 5, 5)
                         .addComponent(jspCTSelectedTestWords, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpnlChooseTestLayout.createSequentialGroup()
-                        .addGap(61, 61, 61)
+                        .addGap(120, 120, 120)
                         .addComponent(jlCTSelectedTest)
-                        .addGap(5, 5, 5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jtfCTTestName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(jlCTTestOwner)
-                        .addGap(5, 5, 5)
-                        .addComponent(jtfCTTestOwner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
+                        .addGap(18, 18, 18)
                         .addComponent(jlCTTestActiveDate)
-                        .addGap(5, 5, 5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jtfCTTestActiveDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20)
                         .addComponent(jlCTBestScore)
@@ -955,8 +931,18 @@ public class MainJFrame extends javax.swing.JFrame {
         jpnlTest.setBackground(new java.awt.Color(255, 255, 255));
         jpnlTest.setPreferredSize(new java.awt.Dimension(1000, 550));
 
-        jsTAboveCounters.setBackground(new java.awt.Color(131, 207, 68));
-        jsTAboveCounters.setForeground(new java.awt.Color(131, 207, 68));
+        jsTAbove.setBackground(new java.awt.Color(131, 207, 68));
+        jsTAbove.setForeground(new java.awt.Color(131, 207, 68));
+
+        jlTNumOfRecToFin.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jlTNumOfRecToFin.setText("Number of questions to finish:");
+
+        jlTCountNumOfRecToFin.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        jlTTimeLeft.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jlTTimeLeft.setText("Time left for current question:");
+
+        jlTTimeLeftTimer.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jlTNumOfRec.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jlTNumOfRec.setText("Whole number of questions:");
@@ -968,13 +954,10 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jlTCountNumOfMist.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        jlTNumOfRecToFin.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jlTNumOfRecToFin.setText("Number of questions to finish:");
+        jlTTimeSpend.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jlTTimeSpend.setText("Time spent: ");
 
-        jlTCountNumOfRecToFin.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-
-        jsTUnderCounters.setBackground(new java.awt.Color(131, 207, 68));
-        jsTUnderCounters.setForeground(new java.awt.Color(131, 207, 68));
+        jlTTimeSpendTimer.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jlTPlWord.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         jlTPlWord.setForeground(new java.awt.Color(102, 102, 102));
@@ -1046,87 +1029,75 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
-        jsTAboveTimers.setBackground(new java.awt.Color(131, 207, 68));
-        jsTAboveTimers.setForeground(new java.awt.Color(131, 207, 68));
-
-        jlTTimeSpend.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jlTTimeSpend.setText("Time spent: ");
-
-        jlTTimeSpendTimer.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-
-        jlTTimeLeft.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jlTTimeLeft.setText("Time left for current question:");
-
-        jlTTimeLeftTimer.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jsTBelow.setBackground(new java.awt.Color(131, 207, 68));
+        jsTBelow.setForeground(new java.awt.Color(131, 207, 68));
 
         javax.swing.GroupLayout jpnlTestLayout = new javax.swing.GroupLayout(jpnlTest);
         jpnlTest.setLayout(jpnlTestLayout);
         jpnlTestLayout.setHorizontalGroup(
             jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jsTUnderCounters)
-            .addComponent(jsTAboveTimers)
-            .addGroup(jpnlTestLayout.createSequentialGroup()
-                .addContainerGap()
+            .addComponent(jsTBelow)
+            .addComponent(jsTAbove)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlTestLayout.createSequentialGroup()
+                .addContainerGap(269, Short.MAX_VALUE)
                 .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlTestLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jbTReturnToMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(370, 370, 370))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlTestLayout.createSequentialGroup()
+                        .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jlTNumOfRec)
+                            .addComponent(jlTTimeLeft)
+                            .addComponent(jlTNumOfRecToFin)
+                            .addComponent(jlTNumOfMist)
+                            .addComponent(jlTTimeSpend))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlTestLayout.createSequentialGroup()
-                                .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ljTEngWord, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jlTPlWord, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jtfTInfo)
-                                        .addComponent(jsTUnderEngWord, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
-                                        .addComponent(jsTUnderPlWord, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
-                                        .addComponent(jtfTPlWord, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE))
-                                    .addComponent(jtfTEngWord, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(240, 240, 240))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlTestLayout.createSequentialGroup()
-                                .addComponent(jbTReturnToMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(370, 370, 370))))
-                    .addGroup(jpnlTestLayout.createSequentialGroup()
+                            .addComponent(jlTCountNumOfRecToFin, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlTCountNumOfRec, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlTTimeSpendTimer, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlTTimeLeftTimer, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlTCountNumOfMist, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlTestLayout.createSequentialGroup()
                         .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jpnlTestLayout.createSequentialGroup()
-                                .addComponent(jlTTimeSpend)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jlTTimeSpendTimer, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(14, 14, 14)
-                                .addComponent(jlTTimeLeft)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jlTTimeLeftTimer, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jpnlTestLayout.createSequentialGroup()
-                                .addComponent(jlTNumOfRec)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jlTCountNumOfRec, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jlTNumOfMist)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jlTCountNumOfMist, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jlTNumOfRecToFin)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jlTCountNumOfRecToFin, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(189, Short.MAX_VALUE))))
-            .addComponent(jsTAboveCounters)
+                            .addComponent(ljTEngWord, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jlTPlWord, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jtfTInfo)
+                                .addComponent(jsTUnderEngWord, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jsTUnderPlWord, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jtfTPlWord, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jtfTEngWord, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(231, 231, 231))))
         );
         jpnlTestLayout.setVerticalGroup(
             jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlTestLayout.createSequentialGroup()
-                .addComponent(jsTAboveCounters, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jsTAbove, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlTCountNumOfMist, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlTCountNumOfRec, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlTNumOfMist)
-                    .addComponent(jlTNumOfRec)
                     .addComponent(jlTNumOfRecToFin)
                     .addComponent(jlTCountNumOfRecToFin, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jsTUnderCounters, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(137, 137, 137)
+                .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlTTimeLeft)
+                    .addComponent(jlTTimeLeftTimer, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jlTNumOfRec)
+                    .addComponent(jlTCountNumOfRec, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlTNumOfMist)
+                    .addComponent(jlTCountNumOfMist, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jlTTimeSpend)
+                    .addComponent(jlTTimeSpendTimer, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jlTPlWord, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtfTPlWord, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1140,18 +1111,10 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(jsTUnderPlWord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jtfTInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
                 .addComponent(jbTReturnToMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jsTAboveTimers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jlTTimeSpend)
-                        .addComponent(jlTTimeLeft))
-                    .addComponent(jlTTimeLeftTimer, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlTTimeSpendTimer, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17))
+                .addGap(78, 78, 78)
+                .addComponent(jsTBelow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jpnlMain.add(jpnlTest, "card5");
@@ -1571,7 +1534,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jpnlCreateAccLayout.setHorizontalGroup(
             jpnlCreateAccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlCreateAccLayout.createSequentialGroup()
-                .addContainerGap(122, Short.MAX_VALUE)
+                .addContainerGap(120, Short.MAX_VALUE)
                 .addGroup(jpnlCreateAccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jCASeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtfCACommunication, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1871,7 +1834,6 @@ public class MainJFrame extends javax.swing.JFrame {
         jpfSIPass.setForeground(new Color(204, 204, 204, 255));
         jpnlCreateAcc.setVisible(true);
         jpnlSignIn.setVisible(false);
-
     }//GEN-LAST:event_jlSICreaAccMouseClicked
 
     private void jpfSIPassFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jpfSIPassFocusLost
@@ -1972,7 +1934,6 @@ public class MainJFrame extends javax.swing.JFrame {
                     jtfCACommunication.setForeground(new Color(253, 153, 153, 253));
                     jpfCAPass.setBackground(new Color(253, 204, 204, 253));
                     jpfCARetypePass.setBackground(new Color(253, 204, 204, 253));
-
             }
         }
     }//GEN-LAST:event_jpfCAPassFocusLost
@@ -2080,11 +2041,9 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void jtCTTestListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtCTTestListMouseClicked
         int selectedRowIndexNum = jtCTTestList.getSelectedRow();
-        String sql = "select * from " + user + "_" + (String) jtCTTestList.getValueAt(selectedRowIndexNum, 0);
-        jtCTSelectedTestContent.setModel(dbStatements.getQueryToDefTable(sql));
+        jtCTSelectedTestContent.setModel(dbStatements.getIndicatedTestsContent((String) jtCTTestList.getValueAt(selectedRowIndexNum, 0)));
 
         jtfCTTestName.setText((String) jtCTTestList.getValueAt(selectedRowIndexNum, 0));
-        jtfCTTestOwner.setText(user);
         jtfCTTestActiveDate.setText((String) jtCTTestList.getValueAt(selectedRowIndexNum, 1));
 
 
@@ -2093,10 +2052,6 @@ public class MainJFrame extends javax.swing.JFrame {
     private void jtfTInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfTInfoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfTInfoActionPerformed
-
-    private void jtfCTTestOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCTTestOwnerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfCTTestOwnerActionPerformed
 
     private void jtfCTTestNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCTTestNameActionPerformed
         // TODO add your handling code here:
@@ -2107,18 +2062,18 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jrbCETFirstPlActionPerformed
 
     private void jbSILoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSILoginActionPerformed
-        if (dbStatements.authenticateUser(jtfSIUsername.getText(), jpfSIPass.getText())) {
+        if (DbAuthentication.authenticateUser(jtfSIUsername.getText(), jpfSIPass.getText())) {
+            dbStatements = new DbInstructions(jtfSIUsername.getText());
 
             jpnlMenu.setVisible(true);
             jpnlSignIn.setVisible(false);
-            user = jtfSIUsername.getText();
 
             jtfSIUsername.setText("Username");
             jtfSIUsername.setForeground(new Color(204, 204, 204, 255));
             jpfSIPass.setText("Password");
             jpfSIPass.setForeground(new Color(204, 204, 204, 255));
             jtfSIError.setText("");
-        } else if (dbStatements.isUsernameExistInDb(jtfSIUsername.getText())) {
+        } else if (DbAuthentication.isUsernameExistInDb(jtfSIUsername.getText())) {
             jtfSIError.setText("Incorrect Password");
             jpfSIPass.setText("");
             focLostTextFieldFeature(jpfSIPass, "Password");
@@ -2137,18 +2092,17 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void jbSILoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbSILoginKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            if (dbStatements.authenticateUser(jtfSIUsername.getText(), jpfSIPass.getText())) {
-
+            if (DbAuthentication.authenticateUser(jtfSIUsername.getText(), jpfSIPass.getText())) {
+                dbStatements = new DbInstructions(jtfSIUsername.getText());
                 jpnlMenu.setVisible(true);
                 jpnlSignIn.setVisible(false);
-                user = jtfSIUsername.getText();
 
                 jtfSIUsername.setText("Username");
                 jtfSIUsername.setForeground(new Color(204, 204, 204, 255));
                 jpfSIPass.setText("Password");
                 jpfSIPass.setForeground(new Color(204, 204, 204, 255));
                 jtfSIError.setText("");
-            } else if (dbStatements.isUsernameExistInDb(jtfSIUsername.getText())) {
+            } else if (DbAuthentication.isUsernameExistInDb(jtfSIUsername.getText())) {
                 jtfSIError.setText("Incorrect Password");
                 jpfSIPass.setText("");
                 focLostTextFieldFeature(jpfSIPass, "Password");
@@ -2167,22 +2121,21 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jbSILoginKeyPressed
 
     private void jbMSelectTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbMSelectTestActionPerformed
-        String sql = "select test_name, create_date, last_completion, mistakes_counter from " + user + "_tests";
-        jtCTTestList.setModel(dbStatements.getQueryToDefTable(sql));
+
+        jtCTTestList.setModel(dbStatements.getShortInfoAboutTests());
         jpnlChooseTest.setVisible(true);
         jpnlMenu.setVisible(false);
     }//GEN-LAST:event_jbMSelectTestActionPerformed
 
     private void jbMListOfTestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbMListOfTestsActionPerformed
-        String sql = "select test_name, create_date, last_completion, mistakes_counter from " + user + "_tests";
-        jtCTTestList.setModel(dbStatements.getQueryToDefTable(sql));
+
+        jtCTTestList.setModel(dbStatements.getShortInfoAboutTests());
         jpnlChooseTest.setVisible(true);
         jpnlMenu.setVisible(false);
     }//GEN-LAST:event_jbMListOfTestsActionPerformed
 
     private void jbMTestCreatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbMTestCreatorActionPerformed
-        String sql = "select test_name, create_date, chg_date from " + user + "_tests";
-        jtTLCTestList.setModel(dbStatements.getQueryToDefTable(sql));
+        jtTLCTestList.setModel(dbStatements.getShortestInfoAboutTests());
         jpnlTestListChg.setVisible(true);
         jpnlMenu.setVisible(false);
     }//GEN-LAST:event_jbMTestCreatorActionPerformed
@@ -2220,9 +2173,9 @@ public class MainJFrame extends javax.swing.JFrame {
         if (!(jtfCAUsername.getBackground().equals(new Color(253, 204, 204, 253)) || jtfCAName.getBackground().equals(new Color(253, 204, 204, 253))
                 || jtfCASurname.getBackground().equals(new Color(253, 204, 204, 253)) || jtfCAEmail.getBackground().equals(new Color(253, 204, 204, 253))
                 || jpfCAPass.getBackground().equals(new Color(253, 204, 204, 253)) || jpfCARetypePass.getBackground().equals(new Color(253, 204, 204, 253))
-                || dbStatements.isUsernameExistInDb(jtfCAUsername.getText()))) {
+                || DbAuthentication.isUsernameExistInDb(jtfCAUsername.getText()))) {
 
-            dbStatements.createUser(jtfCAUsername.getText(), jtfCAName.getText(), jtfCASurname.getText(), jtfCAEmail.getText(), jpfCAPass.getText());
+            DbAuthentication.createUser(jtfCAUsername.getText(), jtfCAName.getText(), jtfCASurname.getText(), jtfCAEmail.getText(), jpfCAPass.getText());
 
             jtfCAUsername.setText("Username");
             jtfCAUsername.setForeground(new Color(204, 204, 204, 255));
@@ -2333,7 +2286,7 @@ public class MainJFrame extends javax.swing.JFrame {
         }
         // if any field has red background then
         if (!(jtfFPUsername.getBackground().equals(new Color(253, 204, 204, 253)) || jtfFPEmail.getBackground().equals(new Color(253, 204, 204, 253))
-                || dbStatements.isUsernameExistInDb(jtfFPUsername.getText()))) {
+                || DbAuthentication.isUsernameExistInDb(jtfFPUsername.getText()))) {
 
             jtfFPUsername.setText("Username");
             jtfFPUsername.setForeground(new Color(204, 204, 204, 255));
@@ -2475,18 +2428,17 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void jpfSIPassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jpfSIPassKeyTyped
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            if (dbStatements.authenticateUser(jtfSIUsername.getText(), jpfSIPass.getText())) {
+            if (DbAuthentication.authenticateUser(jtfSIUsername.getText(), jpfSIPass.getText())) {
 
                 jpnlMenu.setVisible(true);
                 jpnlSignIn.setVisible(false);
-                user = jtfSIUsername.getText();
 
                 jtfSIUsername.setText("Username");
                 jtfSIUsername.setForeground(new Color(204, 204, 204, 255));
                 jpfSIPass.setText("Password");
                 jpfSIPass.setForeground(new Color(204, 204, 204, 255));
                 jtfSIError.setText("");
-            } else if (dbStatements.isUsernameExistInDb(jtfSIUsername.getText())) {
+            } else if (DbAuthentication.isUsernameExistInDb(jtfSIUsername.getText())) {
                 jtfSIError.setText("Incorrect Password");
                 jpfSIPass.setText("");
                 focLostTextFieldFeature(jpfSIPass, "Password");
@@ -2506,7 +2458,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void jbCETChangeTestNAmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCETChangeTestNAmeActionPerformed
         try {
-            dbStatements.chgSelectedTestName(user, jtfCETSelectedTestName.getText(), jtfCETNewTestName.getText());
+            dbStatements.chgSelectedTestName(jtfCETSelectedTestName.getText(), jtfCETNewTestName.getText());
             jtfCETSelectedTestName.setText(jtfCETNewTestName.getText());
             jtfCETNewTestName.setText("");
             jtaCETInfo.setText("Test name is changed.");
@@ -2577,8 +2529,7 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jbCETDeleteWordsActionPerformed
 
     private void jbCETSaveTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCETSaveTestActionPerformed
-        String sql = "select * from " + user + "_" + jtfCETSelectedTestName.getText();
-        jtCETTestContent.setModel(dbStatements.getQueryToDefTable(sql));
+        jtCETTestContent.setModel(dbStatements.getIndicatedTestsContent(jtfCETSelectedTestName.getText()));
         jtfCETEngWord.setText("");
         jtfCETPlWord.setText("");
         jtfCETNewTestName.setText("");
@@ -2586,8 +2537,7 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jbCETSaveTestActionPerformed
 
     private void jbCETReturnToMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCETReturnToMainMenuActionPerformed
-        String sql = "select test_name, create_date, chg_date from " + user + "_tests";
-        jtTLCTestList.setModel(dbStatements.getQueryToDefTable(sql));
+        jtTLCTestList.setModel(dbStatements.getShortestInfoAboutTests());
         jpnlTestListChg.setVisible(true);
         jpnlCreateEditTest.setVisible(false);
         jtfCETEngWord.setText("");
@@ -2636,11 +2586,11 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jbCETInsertWordListFromFileActionPerformed
 
     private void jbCETReturnToTestListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCETReturnToTestListActionPerformed
-        dbStatements.deleteTestContent(user, jtfCETSelectedTestName.getText());
+        dbStatements.deleteTestContent(jtfCETSelectedTestName.getText());
         int nRow = jtCETTestContent.getRowCount();
         for (int i = 0; i < nRow; i++) {
             try {
-                dbStatements.insertContentIntoTest(user, jtfCETSelectedTestName.getText(), jtCETTestContent.getValueAt(i, 0).toString(), jtCETTestContent.getValueAt(i, 1).toString());
+                dbStatements.insertContentIntoTest(jtfCETSelectedTestName.getText(), jtCETTestContent.getValueAt(i, 0).toString(), jtCETTestContent.getValueAt(i, 1).toString());
             } catch (Exception ex) {
                 Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -2692,7 +2642,7 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jbCETDiscardChgActionPerformed
 
     private void jbCTStartTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCTStartTestActionPerformed
-        test = new TestEntity(dbStatements.getTestListArrayList(jtfCTTestOwner.getText(), jtfCTTestName.getText()));
+        test = new TestEntity(dbStatements.getTestListArrayList(jtfCTTestName.getText()));
 
         jtfTPlWord.setText(test.getOnePair().getPrimalWord());
         jpnlTest.setVisible(true);
@@ -2700,10 +2650,9 @@ public class MainJFrame extends javax.swing.JFrame {
         jtfTEngWord.requestFocusInWindow();
         jlTCountNumOfRec.setText(Integer.toString(test.countPairsOfWords()));
         jlTCountNumOfRecToFin.setText(Integer.toString(test.countPairsOfWords()));
-        jlTCountNumOfMist.setText("0");
+        jlTCountNumOfMist.setText(Integer.toString(test.getNumberOfMistakes()));
 
         jtfCTBestScore.setText("");
-        jtfCTTestOwner.setText("");
         jtfCTTestActiveDate.setText("");
         jtCTTestList.setModel(new DefaultTableModel());
         jtCTSelectedTestContent.setModel(new DefaultTableModel());
@@ -2714,7 +2663,6 @@ public class MainJFrame extends javax.swing.JFrame {
         jtCTSelectedTestContent.setModel(new DefaultTableModel());
         jtfCTBestScore.setText("");
         jtfCTTestName.setText("");
-        jtfCTTestOwner.setText("");
         jtfCTTestActiveDate.setText("");
         jtCTTestList.setModel(new DefaultTableModel());
         jtCTSelectedTestContent.setModel(new DefaultTableModel());
@@ -2725,7 +2673,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private void jbTReturnToMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbTReturnToMainMenuActionPerformed
         if (jlTCountNumOfRecToFin.getText().equals("0")) {
             try {
-                dbStatements.updateTestsScore(user, jtfCTTestName.getText(), jlTCountNumOfMist.getText());
+                dbStatements.updateTestsScore(jtfCTTestName.getText(), jlTCountNumOfMist.getText());
             } catch (Exception ex) {
                 Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -2748,7 +2696,7 @@ public class MainJFrame extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (jlTCountNumOfRecToFin.getText().equals("0")) {
                 try {
-                    dbStatements.updateTestsScore(user, jtfCTTestName.getText(), jlTCountNumOfMist.getText());
+                    dbStatements.updateTestsScore(jtfCTTestName.getText(), jlTCountNumOfMist.getText());
                 } catch (Exception ex) {
                     Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -2771,10 +2719,9 @@ public class MainJFrame extends javax.swing.JFrame {
     private void jbTLCDeleteTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbTLCDeleteTestActionPerformed
         if (!jtfTLCTestName.getText().equals("")) {
             try {
-                dbStatements.deleteTest(user, jtfTLCTestName.getText());
+                dbStatements.deleteTest(jtfTLCTestName.getText());
                 jtfTLCTestName.setText("");
-                String sql = "select * from " + user + "_tests";
-                jtTLCTestList.setModel(dbStatements.getQueryToDefTable(sql));
+                jtTLCTestList.setModel(dbStatements.getFullInfoAboutTests());
                 jtaCETInfo.setText("Test deleted.");
 
             } catch (Exception e) {
@@ -2786,8 +2733,8 @@ public class MainJFrame extends javax.swing.JFrame {
     private void jbTLCEditTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbTLCEditTestActionPerformed
         if (!jtfTLCTestName.getText().equals("")) {
 
-            String sql = "select * from " + user + "_" + jtfTLCTestName.getText();
-            jtCETTestContent.setModel(dbStatements.getQueryToDefTable(sql));
+
+            jtCETTestContent.setModel(dbStatements.getIndicatedTestsContent(jtfTLCTestName.getText()));
             jtfCETSelectedTestName.setText(jtfTLCTestName.getText());
 
             jrbCETFirstPl.setSelected(true);
@@ -2804,12 +2751,11 @@ public class MainJFrame extends javax.swing.JFrame {
     private void jbTLCCreateNewTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbTLCCreateNewTestActionPerformed
         if (!jtfTLCNewTestName.getText().equals("") && !jtfTLCNewTestName.getText().endsWith("_temporary_table")) {
             try {
-                dbStatements.createNewTest(user, jtfTLCNewTestName.getText());
+                dbStatements.createNewTest(jtfTLCNewTestName.getText());
                 jtfCETSelectedTestName.setText(jtfTLCNewTestName.getText());
 
                 //String pushTmpTestConent = "SELECT * FROM " + user + "_" + jtfTLCNewTestName.getText() + "_temporary_table;";
-                String sql = "select * from " + user + "_" + jtfTLCNewTestName.getText();
-                jtCETTestContent.setModel(dbStatements.getQueryToDefTable(sql));
+                jtCETTestContent.setModel(dbStatements.getIndicatedTestsContent(jtfTLCNewTestName.getText()));
                 jtfCETSelectedTestName.setText(jtfTLCNewTestName.getText());
 
                 jrbCETFirstPl.setSelected(true);
@@ -2953,7 +2899,6 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jlCTTestActiveDate;
     private javax.swing.JLabel jlCTTestContent;
     private javax.swing.JLabel jlCTTestList;
-    private javax.swing.JLabel jlCTTestOwner;
     private javax.swing.JLabel jlLLoadGif;
     private javax.swing.JLabel jlLLoadinginfo;
     private javax.swing.JLabel jlSICreaAcc;
@@ -2997,9 +2942,8 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton jrbCETFirstPl;
     private javax.swing.JSeparator jsSISeparator1;
     private javax.swing.JSeparator jsSISeparator2;
-    private javax.swing.JSeparator jsTAboveCounters;
-    private javax.swing.JSeparator jsTAboveTimers;
-    private javax.swing.JSeparator jsTUnderCounters;
+    private javax.swing.JSeparator jsTAbove;
+    private javax.swing.JSeparator jsTBelow;
     private javax.swing.JSeparator jsTUnderEngWord;
     private javax.swing.JSeparator jsTUnderPlWord;
     private javax.swing.JScrollPane jspCETInfo;
@@ -3027,7 +2971,6 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jtfCTBestScore;
     private javax.swing.JTextField jtfCTTestActiveDate;
     private javax.swing.JTextField jtfCTTestName;
-    private javax.swing.JTextField jtfCTTestOwner;
     private javax.swing.JTextField jtfFPCommunication;
     private javax.swing.JTextField jtfFPEmail;
     private javax.swing.JTextField jtfFPUsername;

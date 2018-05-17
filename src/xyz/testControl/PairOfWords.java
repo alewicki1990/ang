@@ -7,7 +7,7 @@ package xyz.testControl;
 
 /**
  *
- * @author alewicki
+ * @author alewicki1990
  */
 public class PairOfWords {
 

@@ -12,60 +12,25 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Arrays;
 import javax.swing.table.DefaultTableModel;
 import xyz.testControl.PairOfWords;
 
 /**
  *
- * @author Użytkownik
+ * @author alewicki1990
  */
 public class DbInstructions {
 
-    public boolean isUsernameExistInDb(String username) {
-        String sqlCheckUsernameInDb = "SELECT username FROM users WHERE username= ?";
-        try (Connection conn = DbConncect.getDbConnInstance();
-                Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery(sqlCheckUsernameInDb)) {
+    String username;
 
-            if (rs.isBeforeFirst()) {
-                return true;
-            }
-
-        } catch (SQLException e) {
-            System.out.println("xyz.DbConnect.JavaConnect.isUsernameExistInDb()" + e);
-            return false;
-        }
-        return false;
+    public DbInstructions(String username) {
+        this.username = username;
     }
 
-    public boolean authenticateUser(String username, String pass) {
-        String sqlAuthentication = "SELECT username FROM users WHERE username= ? AND password = ? ";
-        try (Connection conn = DbConncect.getDbConnInstance();
-                PreparedStatement stmt = conn.prepareStatement(sqlAuthentication)) {
-
-            stmt.setString(1, username);
-            stmt.setString(2, pass);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.isBeforeFirst()) {
-                    return true;
-                }
-            } catch (SQLException e) {
-                System.out.println("xyz.DbConnect.JavaConnect.AuthenticateUser()" + e);
-                return false;
-            }
-
-        } catch (SQLException e) {
-            System.out.println("xyz.DbConnect.JavaConnect.AuthenticateUser()" + e);
-            return false;
-        }
-        return false;
-    }
-
-    public ArrayList<PairOfWords> getTestListArrayList(String userName, String testName) {
+    public ArrayList<PairOfWords> getTestListArrayList(String testName) {
         ArrayList<PairOfWords> recordData = new ArrayList<>();
         PairOfWords record;
-        String sqlAuthentication = "SELECT * FROM " + userName + "_" + testName;
+        String sqlAuthentication = "SELECT * FROM " + username + "_" + testName;
         try (Connection conn = DbConncect.getDbConnInstance();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sqlAuthentication)) {
@@ -82,42 +47,7 @@ public class DbInstructions {
         return recordData;
     }
 
-    public void createUser(String username, String name, String surname, String email, String pass) {
-
-        String sqlInsertUser = "INSERT INTO users (username, name, surname, email, password ) values (?,?,?,?,?);";
-        try (Connection conn = DbConncect.getDbConnInstance();
-                PreparedStatement stmt = conn.prepareStatement(sqlInsertUser);) {
-
-            stmt.setString(1, username);
-            stmt.setString(2, name);
-            stmt.setString(3, surname);
-            stmt.setString(4, email);
-            stmt.setString(5, pass);
-            stmt.executeUpdate();
-
-        } catch (SQLException e) {
-            System.out.println("xyz.DbConnect.JavaConnect.createUser()" + e.getMessage());
-        }
-
-        String sqlUserTestList = "CREATE TABLE " + username + "_tests (\n"
-                + "    test_name        CHAR               PRIMARY KEY,\n"
-                + "    create_date      DATETIME,\n"
-                + "    last_completion  DATETIME,\n"
-                + "    mistakes_counter NUMERIC,\n"
-                + "    number_of_words  NUMERIC,\n"
-                + "    chg_date         DATETIME,\n"
-                + "    best_time        DATETIME\n"
-                + ");";
-        try (Connection conn = DbConncect.getDbConnInstance();
-                PreparedStatement stmt = conn.prepareStatement(sqlUserTestList)) {
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println("xyz.DbConnect.JavaConnect.createUser()" + e.getMessage());
-        }
-
-    }
-
-    public DefaultTableModel getQueryToDefTable(String query) {
+    private DefaultTableModel getQueryToDefTable(String query) {
 
         String sqlGetQueryUserTests = query;
         DefaultTableModel model = new DefaultTableModel();
@@ -155,9 +85,9 @@ public class DbInstructions {
         return model;
     }
 
-    public void createNewTest(String userName, String newTestName) {
+    public void createNewTest(String newTestName) {
 
-        String sqlInsertUser = "INSERT INTO " + userName + "_tests (test_name, create_date ) values ( ?, DateTime('now') );";
+        String sqlInsertUser = "INSERT INTO " + username + "_tests (test_name, create_date ) values ( ?, DateTime('now') );";
         try (Connection conn = DbConncect.getDbConnInstance();
                 PreparedStatement stmt = conn.prepareStatement(sqlInsertUser);) {
 
@@ -168,7 +98,7 @@ public class DbInstructions {
             System.out.println("xyz.DbConnect.JavaConnect.createUser()" + e.getMessage());
         }
 
-        String sqlUserTestContentTable = "CREATE TABLE " + userName + "_" + newTestName + " (primal_word CHAR NOT NULL, derivate_word CHAR NOT NULL, "
+        String sqlUserTestContentTable = "CREATE TABLE " + username + "_" + newTestName + " (primal_word CHAR NOT NULL, derivate_word CHAR NOT NULL, "
                 + "PRIMARY KEY (primal_word, derivate_word));";
         try (Connection conn = DbConncect.getDbConnInstance();
                 PreparedStatement stmt = conn.prepareStatement(sqlUserTestContentTable)) {
@@ -180,7 +110,7 @@ public class DbInstructions {
         }
 
         /*
-        String sqlUserTestContentTableTmp = "CREATE TABLE " + userName + "_" + newTestName + "_temporary_table AS SELECT* FROM " + userName + "_" + newTestName + ";";
+        String sqlUserTestContentTableTmp = "CREATE TABLE " + username + "_" + newTestName + "_temporary_table AS SELECT* FROM " + username + "_" + newTestName + ";";
         try (Connection conn = DbConncect.getDbConnInstance();
                 PreparedStatement stmt = conn.prepareStatement(sqlUserTestContentTableTmp)) {
 
@@ -192,7 +122,7 @@ public class DbInstructions {
          */
     }
 
-    public void deleteTest(String username, String testName) {
+    public void deleteTest(String testName) {
         String deleteFromListTableQuery = "DELETE FROM " + username + "_tests " + "WHERE test_name='" + testName + "';";
         String dropTableQuery = "DROP TABLE " + username + "_" + testName;
         try (Connection conn = DbConncect.getDbConnInstance();
@@ -213,7 +143,7 @@ public class DbInstructions {
 
     }
 
-    public void deleteTestContent(String username, String testName) {
+    public void deleteTestContent(String testName) {
         String deleteWordsFromTable = "DELETE FROM " + username + "_" + testName + ";";
 
         try (Connection conn = DbConncect.getDbConnInstance();
@@ -225,7 +155,7 @@ public class DbInstructions {
         }
     }
 
-    public void insertContentIntoTest(String username, String testName, String primalWord, String derivateWord) throws Exception {
+    public void insertContentIntoTest(String testName, String primalWord, String derivateWord) throws Exception {
         String deleteWordsFromTable = "INSERT INTO " + username + "_" + testName + "(primal_word, derivate_word)"
                 + "VALUES (?,?);";
 
@@ -250,9 +180,9 @@ public class DbInstructions {
 
     }
 
-    public void chgSelectedTestName(String userName, String oldTestName, String newTestName) throws Exception {
+    public void chgSelectedTestName(String oldTestName, String newTestName) throws Exception {
 
-        String sqlCheckIfTestNameInListExist = "SELECT test_name FROM " + userName + "_tests WHERE test_name='" + oldTestName + "';";
+        String sqlCheckIfTestNameInListExist = "SELECT test_name FROM " + username + "_tests WHERE test_name='" + oldTestName + "';";
         try (Connection conn = DbConncect.getDbConnInstance();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sqlCheckIfTestNameInListExist)) {
@@ -266,7 +196,7 @@ public class DbInstructions {
             throw new Exception();
         }
 
-        String sqlCheckIfContestTestTableExist = "SELECT name FROM sqlite_master WHERE type='table' AND name='" + userName + "_" + oldTestName + "';";
+        String sqlCheckIfContestTestTableExist = "SELECT name FROM sqlite_master WHERE type='table' AND name='" + username + "_" + oldTestName + "';";
         try (Connection conn = DbConncect.getDbConnInstance();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sqlCheckIfContestTestTableExist)) {
@@ -280,7 +210,7 @@ public class DbInstructions {
             throw new Exception();
         }
 
-//        String sqlChgTestName = "ALTER TABLE " + userName + "_" + oldTestName + " RENAME TO " + userName + "_" + newTestName + ";";
+//        String sqlChgTestName = "ALTER TABLE " + username + "_" + oldTestName + " RENAME TO " + username + "_" + newTestName + ";";
 //        try (Connection conn = DbConncect.getDbConnInstance();
 //                Statement stmt = conn.prepareStatement(sqlChgTestName)) {
 //
@@ -290,7 +220,7 @@ public class DbInstructions {
 //            System.out.println("xyz.DbConnect.JavaConnect.chgSelectedTestName()" + e.getMessage());
 //            throw new Exception();
 //        }
-        String sqlCreateNewTestTable = "CREATE TABLE " + userName + "_" + newTestName + "\n"
+        String sqlCreateNewTestTable = "CREATE TABLE " + username + "_" + newTestName + "\n"
                 + " (primal_word CHAR NOT NULL, \n"
                 + "derivate_word CHAR NOT NULL, \n"
                 + "PRIMARY KEY (primal_word, derivate_word));";
@@ -305,8 +235,8 @@ public class DbInstructions {
             throw new Exception();
         }
 
-        String sqlInsertDataToNewTestTable = "INSERT INTO " + userName + "_" + newTestName + " SELECT * FROM "
-                + userName + "_" + newTestName + "; ";
+        String sqlInsertDataToNewTestTable = "INSERT INTO " + username + "_" + newTestName + " SELECT * FROM "
+                + username + "_" + newTestName + "; ";
 
         try (Connection conn = DbConncect.getDbConnInstance();
                 PreparedStatement stmt = conn.prepareStatement(sqlInsertDataToNewTestTable)) {
@@ -318,7 +248,7 @@ public class DbInstructions {
             throw new Exception();
         }
 
-        String sqlChgTestNameInTestList = "UPDATE " + userName + "_tests SET test_name='" + newTestName + "', chg_date=DateTime('now') WHERE test_name='" + oldTestName + "';";
+        String sqlChgTestNameInTestList = "UPDATE " + username + "_tests SET test_name='" + newTestName + "', chg_date=DateTime('now') WHERE test_name='" + oldTestName + "';";
         try (Connection conn = DbConncect.getDbConnInstance();
                 PreparedStatement stmt = conn.prepareStatement(sqlChgTestNameInTestList)) {
 
@@ -329,7 +259,7 @@ public class DbInstructions {
             throw new Exception();
         }
 
-        String dropOldTable = "DROP TABLE " + userName + "_" + oldTestName + ";";
+        String dropOldTable = "DROP TABLE " + username + "_" + oldTestName + ";";
 
         try (Connection conn = DbConncect.getDbConnInstance();
                 PreparedStatement stmt = conn.prepareStatement(dropOldTable)) {
@@ -343,12 +273,11 @@ public class DbInstructions {
 
     }
 
-    public void updateTestsScore(String userName, String testName, String score) throws Exception {
-        
-        
-        String sqlChgTestNameInTestList = "UPDATE " + userName + "_tests"
+    public void updateTestsScore(String testName, String score) throws Exception {
+
+        String sqlChgTestNameInTestList = "UPDATE " + username + "_tests"
                 + " SET last_completion=DateTime('now'),"
-                + " mistakes_counter=" + score 
+                + " mistakes_counter=" + score
                 + " WHERE test_name='" + testName + "';";
         try (Connection conn = DbConncect.getDbConnInstance();
                 PreparedStatement stmt = conn.prepareStatement(sqlChgTestNameInTestList)) {
@@ -360,4 +289,25 @@ public class DbInstructions {
             throw new Exception();
         }
     }
+
+    public DefaultTableModel getIndicatedTestsContent(String testName) {
+        String sql = "SELECT * FROM " + username + "_" + testName;
+        return getQueryToDefTable(sql);
+    }
+
+    public DefaultTableModel getShortInfoAboutTests() {
+        String sql = "SELECT test_name, create_date, last_completion, mistakes_counter FROM " + username + "_tests";
+        return getQueryToDefTable(sql);
+    }
+
+    public DefaultTableModel getShortestInfoAboutTests() {
+        String sql = "SELECT test_name, create_date, chg_date FROM " + username + "_tests";
+        return getQueryToDefTable(sql);
+    }
+
+    public DefaultTableModel getFullInfoAboutTests() {
+        String sql = "SELECT * FROM " + username + "_tests";
+        return getQueryToDefTable(sql);
+    }
+
 }

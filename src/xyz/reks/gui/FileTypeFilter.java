@@ -10,7 +10,7 @@ import javax.swing.filechooser.FileFilter;
 
 /**
  *
- * @author Użytkownik
+ * @author alewicki1990
  */
 public class FileTypeFilter extends FileFilter {
 

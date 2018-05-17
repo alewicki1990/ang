@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Użytkownik
+ * @author alewicki1990
  */
 class DbConncect {
 

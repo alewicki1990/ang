@@ -92,7 +92,7 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="235" max="32767" attributes="0"/>
+                          <EmptySpace pref="258" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="jlSIPass" min="-2" max="-2" attributes="0"/>
                               <Component id="jllSILogin" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -150,7 +150,7 @@
                               <Component id="jlSICreaAcc" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jlSIRecAcc" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="163" max="32767" attributes="0"/>
+                          <EmptySpace pref="168" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1135,17 +1135,13 @@
                                   <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="jtfCTTestActiveDate" pref="201" max="32767" attributes="0"/>
-                                      <Component id="jtfCTTestOwner" max="32767" attributes="0"/>
-                                      <Component id="jlCTTestOwner" min="-2" max="-2" attributes="0"/>
                                       <Component id="jlCTTestActiveDate" min="-2" max="-2" attributes="0"/>
                                       <Component id="jlCTSelectedTest" min="-2" max="-2" attributes="0"/>
                                       <Component id="jlCTBestScore" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jtfCTBestScore" alignment="0" max="32767" attributes="0"/>
                                       <Component id="jtfCTTestName" min="-2" pref="200" max="-2" attributes="0"/>
-                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="jbCTStartTest" alignment="0" pref="201" max="32767" attributes="0"/>
-                                          <Component id="jbCTReturnToMainMenu" alignment="0" max="32767" attributes="0"/>
-                                      </Group>
+                                      <Component id="jbCTStartTest" alignment="0" pref="201" max="32767" attributes="0"/>
+                                      <Component id="jbCTReturnToMainMenu" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -1168,17 +1164,13 @@
                                   <Component id="jspCTSelectedTestWords" min="-2" pref="230" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="120" max="-2" attributes="0"/>
                                   <Component id="jlCTSelectedTest" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jtfCTTestName" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                  <Component id="jlCTTestOwner" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                                  <Component id="jtfCTTestOwner" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="jlCTTestActiveDate" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jtfCTTestActiveDate" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                                   <Component id="jlCTBestScore" min="-2" max="-2" attributes="0"/>
@@ -1225,19 +1217,6 @@
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfCTTestActiveDateActionPerformed"/>
                   </Events>
-                </Component>
-                <Component class="javax.swing.JTextField" name="jtfCTTestOwner">
-                  <Properties>
-                    <Property name="editable" type="boolean" value="false"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfCTTestOwnerActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jlCTTestOwner">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Test Owner"/>
-                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jlCTTestActiveDate">
                   <Properties>
@@ -1359,85 +1338,84 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jsTUnderCounters" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jsTAboveTimers" alignment="0" max="32767" attributes="0"/>
-                      <Group type="102" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jsTBelow" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jsTAbove" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace pref="269" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="ljTEngWord" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jlTPlWord" alignment="1" min="-2" pref="36" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="jtfTInfo" max="32767" attributes="0"/>
-                                                  <Component id="jsTUnderEngWord" alignment="1" pref="460" max="32767" attributes="0"/>
-                                                  <Component id="jsTUnderPlWord" alignment="1" pref="460" max="32767" attributes="0"/>
-                                                  <Component id="jtfTPlWord" alignment="1" pref="460" max="32767" attributes="0"/>
-                                              </Group>
-                                              <Component id="jtfTEngWord" min="-2" pref="460" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="-2" pref="240" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Component id="jbTReturnToMainMenu" min="-2" pref="201" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="370" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                                  <Component id="jbTReturnToMainMenu" min="-2" pref="201" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="370" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jlTTimeSpend" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="jlTTimeSpendTimer" min="-2" pref="178" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                                          <Component id="jlTTimeLeft" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jlTTimeLeftTimer" min="-2" pref="178" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jlTNumOfRec" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jlTCountNumOfRec" min="-2" pref="38" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="jlTNumOfMist" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jlTCountNumOfMist" min="-2" pref="38" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="jlTNumOfRecToFin" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jlTCountNumOfRecToFin" min="-2" pref="38" max="-2" attributes="0"/>
-                                      </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="jlTNumOfRec" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jlTTimeLeft" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jlTNumOfRecToFin" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jlTNumOfMist" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jlTTimeSpend" alignment="1" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="189" max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jlTCountNumOfRecToFin" min="-2" pref="38" max="-2" attributes="0"/>
+                                      <Component id="jlTCountNumOfRec" min="-2" pref="38" max="-2" attributes="0"/>
+                                      <Component id="jlTTimeSpendTimer" alignment="0" min="-2" pref="178" max="-2" attributes="0"/>
+                                      <Component id="jlTTimeLeftTimer" min="-2" pref="178" max="-2" attributes="0"/>
+                                      <Component id="jlTCountNumOfMist" min="-2" pref="38" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="ljTEngWord" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jlTPlWord" alignment="1" min="-2" pref="36" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="jtfTInfo" max="32767" attributes="0"/>
+                                          <Component id="jsTUnderEngWord" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="jsTUnderPlWord" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="jtfTPlWord" alignment="1" min="-2" pref="460" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="jtfTEngWord" min="-2" pref="460" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="231" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
-                      <Component id="jsTAboveCounters" alignment="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="jsTAboveCounters" min="-2" pref="2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jsTAbove" min="-2" pref="2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jlTCountNumOfMist" min="-2" pref="25" max="-2" attributes="0"/>
-                              <Component id="jlTCountNumOfRec" min="-2" pref="25" max="-2" attributes="0"/>
-                              <Component id="jlTNumOfMist" min="-2" max="-2" attributes="0"/>
-                              <Component id="jlTNumOfRec" min="-2" max="-2" attributes="0"/>
                               <Component id="jlTNumOfRecToFin" min="-2" max="-2" attributes="0"/>
                               <Component id="jlTCountNumOfRecToFin" min="-2" pref="25" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jsTUnderCounters" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="137" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jlTTimeLeft" min="-2" max="-2" attributes="0"/>
+                              <Component id="jlTTimeLeftTimer" min="-2" pref="25" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jlTNumOfRec" min="-2" max="-2" attributes="0"/>
+                              <Component id="jlTCountNumOfRec" min="-2" pref="25" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jlTNumOfMist" min="-2" max="-2" attributes="0"/>
+                              <Component id="jlTCountNumOfMist" min="-2" pref="25" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jlTTimeSpend" min="-2" max="-2" attributes="0"/>
+                              <Component id="jlTTimeSpendTimer" min="-2" pref="25" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="jlTPlWord" min="-2" pref="35" max="-2" attributes="0"/>
                               <Component id="jtfTPlWord" min="-2" pref="35" max="-2" attributes="0"/>
@@ -1453,32 +1431,52 @@
                           <Component id="jsTUnderPlWord" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jtfTInfo" min="-2" pref="50" max="-2" attributes="0"/>
-                          <EmptySpace pref="99" max="32767" attributes="0"/>
+                          <EmptySpace pref="90" max="32767" attributes="0"/>
                           <Component id="jbTReturnToMainMenu" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="jsTAboveTimers" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jlTTimeSpend" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jlTTimeLeft" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="jlTTimeLeftTimer" min="-2" pref="25" max="-2" attributes="0"/>
-                              <Component id="jlTTimeSpendTimer" min="-2" pref="25" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
+                          <Component id="jsTBelow" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JSeparator" name="jsTAboveCounters">
+                <Component class="javax.swing.JSeparator" name="jsTAbove">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="44" green="cf" red="83" type="rgb"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="44" green="cf" red="83" type="rgb"/>
+                    </Property>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jlTNumOfRecToFin">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="18" style="0"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Number of questions to finish:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jlTCountNumOfRecToFin">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="18" style="0"/>
+                    </Property>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jlTTimeLeft">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="18" style="0"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Time left for current question:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jlTTimeLeftTimer">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="18" style="0"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -1512,28 +1510,18 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jlTNumOfRecToFin">
+                <Component class="javax.swing.JLabel" name="jlTTimeSpend">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="18" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Number of questions to finish:"/>
+                    <Property name="text" type="java.lang.String" value="Time spent: "/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jlTCountNumOfRecToFin">
+                <Component class="javax.swing.JLabel" name="jlTTimeSpendTimer">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="18" style="0"/>
-                    </Property>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JSeparator" name="jsTUnderCounters">
-                  <Properties>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="44" green="cf" red="83" type="rgb"/>
-                    </Property>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="44" green="cf" red="83" type="rgb"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -1661,43 +1649,13 @@
                     <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jbTReturnToMainMenuKeyPressed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JSeparator" name="jsTAboveTimers">
+                <Component class="javax.swing.JSeparator" name="jsTBelow">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="44" green="cf" red="83" type="rgb"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="44" green="cf" red="83" type="rgb"/>
-                    </Property>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jlTTimeSpend">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI" size="18" style="0"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Time spent: "/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jlTTimeSpendTimer">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI" size="18" style="0"/>
-                    </Property>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jlTTimeLeft">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI" size="18" style="0"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Time left for current question:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jlTTimeLeftTimer">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI" size="18" style="0"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -2035,7 +1993,7 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="122" max="32767" attributes="0"/>
+                          <EmptySpace pref="120" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="jCASeparator7" min="-2" pref="760" max="-2" attributes="0"/>
                               <Component id="jtfCACommunication" min="-2" pref="760" max="-2" attributes="0"/>
