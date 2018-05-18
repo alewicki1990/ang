@@ -5,6 +5,7 @@
  */
 package xyz.testControl;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -18,6 +19,7 @@ public class TestEntity {
     private ArrayList<PairOfWords> testList;
     private int mistakes = 0;
     private int numberOfPairsToEnd = 0;
+    private LocalTime spentTime = LocalTime.parse("00:00:00");
 
     public TestEntity(ArrayList<PairOfWords> testList) {
         this.testList = testList;
@@ -60,5 +62,37 @@ public class TestEntity {
     public int getNumberOfPairsToEnd() {
         return numberOfPairsToEnd;
     }
-
+    
+    public void addSecToSpentTime(){
+        spentTime.plusSeconds(1);
+    }
+    
+    public String getSpentTime(){
+        return spentTime.toString();
+    }
+    
+    public boolean checkUsersAnswer(String answer){
+        return testList.get(0).getTranslatedWord().equals(answer);
+    }
+    
+    public String getCurrentQuestion(){
+        return testList.get(0).getPrimalWord();
+    }
+    
+    public String getCurrentAnswer(){
+        return testList.get(0).getTranslatedWord();
+    }    
+    
+    public void resetCurrentSecLeft() {
+        testList.get(0).resetSecLeft();
+    }
+    
+    public void currentSecLeftMinusSecond(){
+        testList.get(0).secLeftMinusSecond();
+    }
+    
+    public String getCurrentSecLeft(){
+        return testList.get(0).getSecLeft();
+    }
+    
 }

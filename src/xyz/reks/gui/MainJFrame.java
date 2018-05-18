@@ -6,6 +6,8 @@
 package xyz.reks.gui;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -31,6 +33,16 @@ public class MainJFrame extends javax.swing.JFrame {
     private DbInstructions dbStatements = null;
     private TestEntity test = null;
 
+    
+    ActionListener taskPerformer = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            for(int i=30; i>0; i-- ){
+                
+            }
+        }
+    };
+    
     /**
      * Creates new form MainJFrame
      */
@@ -1788,16 +1800,17 @@ public class MainJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtfTEngWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfTEngWordActionPerformed
-        if (test.getOnePair().getTranslatedWord().equals(jtfTEngWord.getText()) & test.countPairsOfWords() > 1) {
+        if (test.checkUsersAnswer(jtfTEngWord.getText()) & test.countPairsOfWords() > 1) {
             test.removeOnePairOfWords();
             test.shuffleTestContent();
-            jtfTPlWord.setText(test.getOnePair().getPrimalWord());
+            jtfTPlWord.setText(test.getCurrentQuestion());
             jtfTEngWord.setText("");
             jtfTInfo.setForeground(new Color(131, 207, 68, 255));
             jtfTInfo.setText("Correct answer");
             jtfTEngWord.requestFocusInWindow();
+            jlTTimeLeftTimer.setText(test.getCurrentSecLeft());
             jlTCountNumOfRecToFin.setText(Integer.toString(test.getNumberOfPairsToEnd()));
-        } else if (test.getOnePair().getTranslatedWord().equals(jtfTEngWord.getText()) & test.countPairsOfWords() == 1) {
+        } else if (test.checkUsersAnswer(jtfTEngWord.getText()) & test.countPairsOfWords() == 1) {
             jtfTPlWord.setText("");
             jtfTEngWord.setText("");
             jtfTInfo.setForeground(new Color(131, 207, 68, 255));
@@ -1806,17 +1819,18 @@ public class MainJFrame extends javax.swing.JFrame {
             jbTReturnToMainMenu.requestFocusInWindow();
             jlTCountNumOfRecToFin.setText("0");
         } else {
-            jtfTInfo.setText("Incorrect answer. correct: " + test.getOnePair().getTranslatedWord());
+            jtfTInfo.setText("Incorrect answer. correct: " + test.getCurrentAnswer());
+            test.resetCurrentSecLeft();
             test.shuffleTestContent();
-            jtfTPlWord.setText(test.getOnePair().getPrimalWord());
+            jtfTPlWord.setText(test.getCurrentQuestion());
             jtfTEngWord.setText("");
             jtfTInfo.setForeground(new Color(255, 0, 0, 255));
             jtfTEngWord.requestFocusInWindow();
             test.addPointToMistakes();
             jlTCountNumOfMist.setText(Integer.toString(test.getNumberOfMistakes()));
-
+            jlTTimeLeftTimer.setText(test.getCurrentSecLeft());
         }
-
+        
     }//GEN-LAST:event_jtfTEngWordActionPerformed
 
     private void jtfTPlWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfTPlWordActionPerformed
@@ -2045,8 +2059,6 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jtfCTTestName.setText((String) jtCTTestList.getValueAt(selectedRowIndexNum, 0));
         jtfCTTestActiveDate.setText((String) jtCTTestList.getValueAt(selectedRowIndexNum, 1));
-
-
     }//GEN-LAST:event_jtCTTestListMouseClicked
 
     private void jtfTInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfTInfoActionPerformed
@@ -2268,7 +2280,6 @@ public class MainJFrame extends javax.swing.JFrame {
             jtfFPCommunication.setText("Wrong e-mail format.");
             jtfFPCommunication.setForeground(new Color(255, 153, 153, 255));
             jtfFPEmail.setBackground(new Color(253, 204, 204, 253));
-
         }
     }//GEN-LAST:event_jtfFPEmailFocusLost
 
@@ -2296,8 +2307,6 @@ public class MainJFrame extends javax.swing.JFrame {
             jpnlSignIn.setVisible(true);
             jpnlForgottenPassword.setVisible(false);
         }
-
-
     }//GEN-LAST:event_jbFPSendEmailActionPerformed
 
     private void jbFPLoginMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFPLoginMenuActionPerformed
@@ -2369,7 +2378,7 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfCAEmailKeyTyped
 
     private void jpfCAPassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jpfCAPassKeyTyped
-        if ((jpfCARetypePass.getText().equals("Retype Password") & (jpfCAPass.getText().equals("") || jpfCAPass.getText().equals("Password")) & !(jtfCACommunication.getText().equals("Please fill out all required fields below."))) ^ jpfCARetypePass.getText().equals(jpfCAPass.getText())) {
+        if ((jpfCARetypePass.getPassword().equals("Retype Password") & (jpfCAPass.getText().equals("") || jpfCAPass.getText().equals("Password")) & !(jtfCACommunication.getText().equals("Please fill out all required fields below."))) ^ jpfCARetypePass.getText().equals(jpfCAPass.getText())) {
             jpfCAPass.setBackground(new Color(255, 255, 255, 255));
             jpfCARetypePass.setBackground(new Color(255, 255, 255, 255));
             if (jtfCACommunication.getText().equals("The passwords don't match.")) {
@@ -2379,10 +2388,10 @@ public class MainJFrame extends javax.swing.JFrame {
                 jtfCACommunication.setText("Wrong e-mail format.");
             }
         }
-        if (jpfCAPass.getText().equals("Password")) {
+        if (jpfCAPass.getPassword().equals("Password")) {
             jpfCAPass.setText("");
         }
-        if (jpfCAPass.getText().equals("") & jpfCAPass.getBackground().equals(new Color(253, 204, 204, 253))) {
+        if (jpfCAPass.getPassword().equals("") & jpfCAPass.getBackground().equals(new Color(253, 204, 204, 253))) {
             jpfCAPass.setBackground(new Color(255, 255, 255, 255));
             jpfCARetypePass.setBackground(new Color(255, 255, 255, 255));
             if (jtfCACommunication.getText().equals("The passwords don't match.")) {
@@ -2395,7 +2404,7 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jpfCAPassKeyTyped
 
     private void jpfCARetypePassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jpfCARetypePassKeyTyped
-        if ((jpfCAPass.getText().equals("Password") & (jpfCARetypePass.getText().equals("") || jpfCARetypePass.getText().equals("Retype Password")) & !(jtfCACommunication.getText().equals("Please fill out all required fields below."))) ^ jpfCAPass.getText().equals(jpfCARetypePass.getText())) {
+        if ((jpfCAPass.getPassword().equals("Password") & (jpfCARetypePass.getText().equals("") || jpfCARetypePass.getText().equals("Retype Password")) & !(jtfCACommunication.getText().equals("Please fill out all required fields below."))) ^ jpfCAPass.getText().equals(jpfCARetypePass.getText())) {
             jpfCARetypePass.setBackground(new Color(255, 255, 255, 255));
             jpfCAPass.setBackground(new Color(255, 255, 255, 255));
             if (jtfCACommunication.getText().equals("The passwords don't match.")) {
@@ -2405,10 +2414,10 @@ public class MainJFrame extends javax.swing.JFrame {
                 jtfCACommunication.setText("Wrong e-mail format.");
             }
         }
-        if (jpfCARetypePass.getText().equals("Retype Password")) {
+        if (jpfCARetypePass.getPassword().equals("Retype Password")) {
             jpfCARetypePass.setText("");
         }
-        if (jpfCARetypePass.getText().equals("") & jpfCARetypePass.getBackground().equals(new Color(253, 204, 204, 253))) {
+        if (jpfCARetypePass.getPassword().equals("") & jpfCARetypePass.getBackground().equals(new Color(253, 204, 204, 253))) {
             jpfCARetypePass.setBackground(new Color(255, 255, 255, 255));
             jpfCAPass.setBackground(new Color(255, 255, 255, 255));
             if (jtfCACommunication.getText().equals("The passwords don't match.")) {
@@ -2852,6 +2861,10 @@ public class MainJFrame extends javax.swing.JFrame {
         }
         return result;
     }
+    
+
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bCACreateAccount;
