@@ -6,6 +6,7 @@
 package xyz.testControl;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -19,6 +20,7 @@ public class TestEntity {
     private ArrayList<PairOfWords> testList;
     private int mistakes = 0;
     private int numberOfPairsToEnd = 0;
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
     private LocalTime spentTime = LocalTime.parse("00:00:00");
 
     public TestEntity(ArrayList<PairOfWords> testList) {
@@ -64,11 +66,11 @@ public class TestEntity {
     }
     
     public void addSecToSpentTime(){
-        spentTime.plusSeconds(1);
+        spentTime = spentTime.plusSeconds(1);
     }
     
     public String getSpentTime(){
-        return spentTime.toString();
+        return spentTime.format(formatter).toString();
     }
     
     public boolean checkUsersAnswer(String answer){
