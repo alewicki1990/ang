@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package xyz.reks.gui;
+package pl.website.main;
 
+import pl.website.fileoperations.FileTypeFilter;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,9 +26,9 @@ import javax.swing.ListSelectionModel;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.JTextComponent;
-import xyz.DbOperations.DbAuthentication;
-import xyz.DbOperations.DbInstructions;
-import xyz.testControl.Lesson;
+import pl.website.dboperations.DbAuthentication;
+import pl.website.dboperations.DbInstructions;
+import pl.website.lesson.Lesson;
 
 /**
  *
@@ -211,7 +212,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jtfSIErrorMessage.setBorder(null);
 
         jllSILogin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jllSILogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/xyz/reks/gui/user.png"))); // NOI18N
+        jllSILogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pl/website/main/user.png"))); // NOI18N
         jllSILogin.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jllSILogin.setMaximumSize(new java.awt.Dimension(48, 48));
         jllSILogin.setMinimumSize(new java.awt.Dimension(48, 48));
@@ -240,7 +241,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jsSISeparator1.setForeground(new java.awt.Color(131, 207, 68));
 
         jlSIPass.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlSIPass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/xyz/reks/gui/password.png"))); // NOI18N
+        jlSIPass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pl/website/main/password.png"))); // NOI18N
         jlSIPass.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jlSIPass.setPreferredSize(new java.awt.Dimension(54, 48));
 
@@ -376,7 +377,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jpnlLoader.setLayout(new java.awt.GridBagLayout());
 
         jlLLoadGif.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlLLoadGif.setIcon(new javax.swing.ImageIcon(getClass().getResource("/xyz/reks/gui/loading.gif"))); // NOI18N
+        jlLLoadGif.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pl/website/main/loading.gif"))); // NOI18N
         jlLLoadGif.setPreferredSize(new java.awt.Dimension(256, 135));
         jpnlLoader.add(jlLLoadGif, new java.awt.GridBagConstraints());
 

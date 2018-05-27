@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package xyz.DbOperations;
+package pl.website.dboperations;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
-import xyz.testControl.AnswerQuestion;
+import pl.website.lesson.AnswerQuestion;
 
 /**
  *
