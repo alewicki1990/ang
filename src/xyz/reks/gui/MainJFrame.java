@@ -14,10 +14,12 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.Timer;
@@ -25,7 +27,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.JTextComponent;
 import xyz.DbOperations.DbAuthentication;
 import xyz.DbOperations.DbInstructions;
-import xyz.testControl.TestEntity;
+import xyz.testControl.Lesson;
 
 /**
  *
@@ -42,7 +44,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private final Color GRAY = new Color(102, 102, 102, 255);
 
     private DbInstructions dbStatements = null;
-    private TestEntity test = null;
+    private Lesson test = null;
     private Timer timer = null;
 
     /**
@@ -66,16 +68,16 @@ public class MainJFrame extends javax.swing.JFrame {
         jpnlBg = new javax.swing.JPanel();
         jpnlMain = new javax.swing.JPanel();
         jpnlSignIn = new javax.swing.JPanel();
+        jtfSIErrorMessage = new javax.swing.JTextField();
         jllSILogin = new javax.swing.JLabel();
         jtfSIUsername = new javax.swing.JTextField();
         jsSISeparator1 = new javax.swing.JSeparator();
         jlSIPass = new javax.swing.JLabel();
         jpfSIPass = new javax.swing.JPasswordField();
         jsSISeparator2 = new javax.swing.JSeparator();
+        jbSILogin = new javax.swing.JButton();
         jlSICreaAcc = new javax.swing.JLabel();
         jlSIRecAcc = new javax.swing.JLabel();
-        jtfSIError = new javax.swing.JTextField();
-        jbSILogin = new javax.swing.JButton();
         jpnlLoader = new javax.swing.JPanel();
         jlLLoadGif = new javax.swing.JLabel();
         jlLLoadinginfo = new javax.swing.JLabel();
@@ -87,41 +89,41 @@ public class MainJFrame extends javax.swing.JFrame {
         jspCETTestContent = new javax.swing.JScrollPane();
         jtCETTestContent = new javax.swing.JTable();
         jpnlCETTestName = new javax.swing.JPanel();
-        jtfCETSelectedTestName = new javax.swing.JTextField();
         jlCETSelectedTestName = new javax.swing.JLabel();
+        jtfCETSelectedTestName = new javax.swing.JTextField();
         jlCETNewTestName = new javax.swing.JLabel();
         jtfCETNewTestName = new javax.swing.JTextField();
         jbCETChangeTestNAme = new javax.swing.JButton();
         jpnlCETAddEditWord = new javax.swing.JPanel();
+        jlCETPlWord = new javax.swing.JLabel();
         jtfCETPlWord = new javax.swing.JTextField();
         jlCETEngWord = new javax.swing.JLabel();
-        jlCETPlWord = new javax.swing.JLabel();
         jtfCETEngWord = new javax.swing.JTextField();
         jbCETAddEditWords = new javax.swing.JButton();
         jbCETDeleteWords = new javax.swing.JButton();
-        jpnlCETMenu = new javax.swing.JPanel();
-        jbCETSaveTest = new javax.swing.JButton();
-        jbCETReturnToTestList = new javax.swing.JButton();
-        jbCETExportTest = new javax.swing.JButton();
-        jbCETReturnToMainMenu = new javax.swing.JButton();
-        jbCETDiscardChg = new javax.swing.JButton();
         jspCETInfo = new javax.swing.JScrollPane();
         jtaCETInfo = new javax.swing.JTextArea();
+        jpnlCETMenu = new javax.swing.JPanel();
+        jbCETDiscardChanges = new javax.swing.JButton();
+        jbCETSaveTest = new javax.swing.JButton();
+        jbCETExportTestToFile = new javax.swing.JButton();
+        jbCETReturnToTestList = new javax.swing.JButton();
+        jbCETReturnToMainMenu = new javax.swing.JButton();
         jspCETInsertWordsFromFile = new javax.swing.JPanel();
         jrbCETFirstPl = new javax.swing.JRadioButton();
         jrbCETFirstEng = new javax.swing.JRadioButton();
         jbCETInsertWordListFromFile = new javax.swing.JButton();
         jpnlChooseTest = new javax.swing.JPanel();
-        jspCTSelectedTestWords = new javax.swing.JScrollPane();
-        jtCTSelectedTestContent = new javax.swing.JTable();
-        jtfCTTestActiveDate = new javax.swing.JTextField();
-        jlCTTestActiveDate = new javax.swing.JLabel();
-        jlCTSelectedTest = new javax.swing.JLabel();
+        jlCTTestList = new javax.swing.JLabel();
         jspCTTestList = new javax.swing.JScrollPane();
         jtCTTestList = new javax.swing.JTable();
-        jlCTTestList = new javax.swing.JLabel();
         jlCTTestContent = new javax.swing.JLabel();
+        jspCTSelectedTestWords = new javax.swing.JScrollPane();
+        jtCTSelectedTestContent = new javax.swing.JTable();
+        jlCTSelectedTest = new javax.swing.JLabel();
         jtfCTTestName = new javax.swing.JTextField();
+        jlCTTestActiveDate = new javax.swing.JLabel();
+        jtfCTTestActiveDate = new javax.swing.JTextField();
         jbCTStartTest = new javax.swing.JButton();
         jbCTReturnToMainMenu = new javax.swing.JButton();
         jpnlTest = new javax.swing.JPanel();
@@ -162,20 +164,20 @@ public class MainJFrame extends javax.swing.JFrame {
         jtaTLCInfo = new javax.swing.JTextArea();
         jbTLCReturnToMainMenu = new javax.swing.JButton();
         jpnlCreateAcc = new javax.swing.JPanel();
-        jtfCACommunication = new javax.swing.JTextField();
+        jtfCACommunicationMessage = new javax.swing.JTextField();
+        jsCAUnderCommunicationMessage = new javax.swing.JSeparator();
         jtfCAUsername = new javax.swing.JTextField();
-        jCASeparator7 = new javax.swing.JSeparator();
-        jCASeparator1 = new javax.swing.JSeparator();
+        jsCAUnderUsername = new javax.swing.JSeparator();
         jtfCAName = new javax.swing.JTextField();
-        jCASeparator2 = new javax.swing.JSeparator();
+        jsCAUnderName = new javax.swing.JSeparator();
         jtfCASurname = new javax.swing.JTextField();
-        jCASeparator3 = new javax.swing.JSeparator();
+        jCAUnderSurname = new javax.swing.JSeparator();
         jtfCAEmail = new javax.swing.JTextField();
-        jCASeparator4 = new javax.swing.JSeparator();
+        jCAUnderEmail = new javax.swing.JSeparator();
         jpfCAPass = new javax.swing.JPasswordField();
-        jCASeparator5 = new javax.swing.JSeparator();
+        jCAUnderPass = new javax.swing.JSeparator();
         jpfCARetypePass = new javax.swing.JPasswordField();
-        jCASeparator6 = new javax.swing.JSeparator();
+        jCAUnderRetypePass = new javax.swing.JSeparator();
         bCACreateAccount = new javax.swing.JButton();
         bCALoginMenu = new javax.swing.JButton();
         jpnlForgottenPassword = new javax.swing.JPanel();
@@ -200,6 +202,13 @@ public class MainJFrame extends javax.swing.JFrame {
         jpnlSignIn.setBackground(new java.awt.Color(255, 255, 255));
         jpnlSignIn.setFocusable(false);
         jpnlSignIn.setPreferredSize(new java.awt.Dimension(1000, 550));
+
+        jtfSIErrorMessage.setEditable(false);
+        jtfSIErrorMessage.setBackground(new java.awt.Color(255, 255, 255));
+        jtfSIErrorMessage.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jtfSIErrorMessage.setForeground(new java.awt.Color(255, 153, 153));
+        jtfSIErrorMessage.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jtfSIErrorMessage.setBorder(null);
 
         jllSILogin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jllSILogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/xyz/reks/gui/user.png"))); // NOI18N
@@ -263,6 +272,20 @@ public class MainJFrame extends javax.swing.JFrame {
         jsSISeparator2.setBackground(new java.awt.Color(131, 207, 68));
         jsSISeparator2.setForeground(new java.awt.Color(131, 207, 68));
 
+        jbSILogin.setBackground(new java.awt.Color(131, 207, 68));
+        jbSILogin.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jbSILogin.setText("Sign In");
+        jbSILogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSILoginActionPerformed(evt);
+            }
+        });
+        jbSILogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jbSILoginKeyPressed(evt);
+            }
+        });
+
         jlSICreaAcc.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jlSICreaAcc.setForeground(new java.awt.Color(51, 51, 51));
         jlSICreaAcc.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -289,32 +312,6 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
-        jtfSIError.setEditable(false);
-        jtfSIError.setBackground(new java.awt.Color(255, 255, 255));
-        jtfSIError.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jtfSIError.setForeground(new java.awt.Color(255, 153, 153));
-        jtfSIError.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jtfSIError.setBorder(null);
-        jtfSIError.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfSIErrorActionPerformed(evt);
-            }
-        });
-
-        jbSILogin.setBackground(new java.awt.Color(131, 207, 68));
-        jbSILogin.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jbSILogin.setText("Sign In");
-        jbSILogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbSILoginActionPerformed(evt);
-            }
-        });
-        jbSILogin.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jbSILoginKeyPressed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jpnlSignInLayout = new javax.swing.GroupLayout(jpnlSignIn);
         jpnlSignIn.setLayout(jpnlSignInLayout);
         jpnlSignInLayout.setHorizontalGroup(
@@ -326,7 +323,7 @@ public class MainJFrame extends javax.swing.JFrame {
                     .addComponent(jllSILogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
                 .addGroup(jpnlSignInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jtfSIError, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+                    .addComponent(jtfSIErrorMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
                     .addGroup(jpnlSignInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jpnlSignInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jpnlSignInLayout.createSequentialGroup()
@@ -346,7 +343,7 @@ public class MainJFrame extends javax.swing.JFrame {
             jpnlSignInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnlSignInLayout.createSequentialGroup()
                 .addGap(124, 124, 124)
-                .addComponent(jtfSIError, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jtfSIErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jpnlSignInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jllSILogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -376,11 +373,6 @@ public class MainJFrame extends javax.swing.JFrame {
         jpnlLoader.setBackground(new java.awt.Color(255, 255, 255));
         jpnlLoader.setMinimumSize(new java.awt.Dimension(0, 0));
         jpnlLoader.setPreferredSize(new java.awt.Dimension(1000, 550));
-        jpnlLoader.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jpnlLoaderFocusGained(evt);
-            }
-        });
         jpnlLoader.setLayout(new java.awt.GridBagLayout());
 
         jlLLoadGif.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -455,7 +447,6 @@ public class MainJFrame extends javax.swing.JFrame {
         jpnlCreateEditTest.setMinimumSize(new java.awt.Dimension(1000, 555));
         jpnlCreateEditTest.setPreferredSize(new java.awt.Dimension(1000, 550));
 
-        jtCETTestContent.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(131, 207, 68)));
         jtCETTestContent.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -467,7 +458,6 @@ public class MainJFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jtCETTestContent.setGridColor(new java.awt.Color(131, 207, 68));
         jtCETTestContent.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jtCETTestContentMouseClicked(evt);
@@ -480,9 +470,9 @@ public class MainJFrame extends javax.swing.JFrame {
         jpnlCETTestName.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jpnlCETTestName.setFocusCycleRoot(true);
 
-        jtfCETSelectedTestName.setEditable(false);
-
         jlCETSelectedTestName.setText("Selected test name");
+
+        jtfCETSelectedTestName.setEditable(false);
 
         jlCETNewTestName.setText("New test name");
 
@@ -530,9 +520,9 @@ public class MainJFrame extends javax.swing.JFrame {
         jpnlCETAddEditWord.setBackground(new java.awt.Color(255, 255, 255));
         jpnlCETAddEditWord.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(131, 207, 68)));
 
-        jlCETEngWord.setText("English Word");
-
         jlCETPlWord.setText("Polish Word");
+
+        jlCETEngWord.setText("English Word");
 
         jbCETAddEditWords.setBackground(new java.awt.Color(131, 207, 68));
         jbCETAddEditWords.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -587,14 +577,30 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jtaCETInfo.setColumns(20);
+        jtaCETInfo.setLineWrap(true);
+        jtaCETInfo.setRows(5);
+        jtaCETInfo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 240, 240)));
+        jspCETInfo.setViewportView(jtaCETInfo);
+
         jpnlCETMenu.setBackground(new java.awt.Color(255, 255, 255));
         jpnlCETMenu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(131, 207, 68)));
         jpnlCETMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jpnlCETMenu.setPreferredSize(new java.awt.Dimension(250, 250));
 
+        jbCETDiscardChanges.setBackground(new java.awt.Color(131, 207, 68));
+        jbCETDiscardChanges.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jbCETDiscardChanges.setText("Discard changes");
+        jbCETDiscardChanges.setPreferredSize(new java.awt.Dimension(199, 33));
+        jbCETDiscardChanges.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCETDiscardChangesActionPerformed(evt);
+            }
+        });
+
         jbCETSaveTest.setBackground(new java.awt.Color(131, 207, 68));
         jbCETSaveTest.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jbCETSaveTest.setText("Discard changes");
+        jbCETSaveTest.setText("Save test");
         jbCETSaveTest.setPreferredSize(new java.awt.Dimension(199, 33));
         jbCETSaveTest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -602,9 +608,19 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
+        jbCETExportTestToFile.setBackground(new java.awt.Color(131, 207, 68));
+        jbCETExportTestToFile.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jbCETExportTestToFile.setText("Export test to file");
+        jbCETExportTestToFile.setPreferredSize(new java.awt.Dimension(199, 33));
+        jbCETExportTestToFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCETExportTestToFileActionPerformed(evt);
+            }
+        });
+
         jbCETReturnToTestList.setBackground(new java.awt.Color(131, 207, 68));
         jbCETReturnToTestList.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jbCETReturnToTestList.setText("Save test");
+        jbCETReturnToTestList.setText("Return to tests list");
         jbCETReturnToTestList.setPreferredSize(new java.awt.Dimension(199, 33));
         jbCETReturnToTestList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -612,33 +628,13 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
-        jbCETExportTest.setBackground(new java.awt.Color(131, 207, 68));
-        jbCETExportTest.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jbCETExportTest.setText("Export test to file");
-        jbCETExportTest.setPreferredSize(new java.awt.Dimension(199, 33));
-        jbCETExportTest.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbCETExportTestActionPerformed(evt);
-            }
-        });
-
         jbCETReturnToMainMenu.setBackground(new java.awt.Color(131, 207, 68));
         jbCETReturnToMainMenu.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jbCETReturnToMainMenu.setText("Return to tests list");
+        jbCETReturnToMainMenu.setText("Return to main menu");
         jbCETReturnToMainMenu.setPreferredSize(new java.awt.Dimension(199, 33));
         jbCETReturnToMainMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbCETReturnToMainMenuActionPerformed(evt);
-            }
-        });
-
-        jbCETDiscardChg.setBackground(new java.awt.Color(131, 207, 68));
-        jbCETDiscardChg.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jbCETDiscardChg.setText("Return to main menu");
-        jbCETDiscardChg.setPreferredSize(new java.awt.Dimension(199, 33));
-        jbCETDiscardChg.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbCETDiscardChgActionPerformed(evt);
             }
         });
 
@@ -649,34 +645,28 @@ public class MainJFrame extends javax.swing.JFrame {
             .addGroup(jpnlCETMenuLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(jpnlCETMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbCETDiscardChanges, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbCETSaveTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbCETExportTestToFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbCETReturnToTestList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbCETExportTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbCETReturnToMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbCETDiscardChg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbCETReturnToMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
         jpnlCETMenuLayout.setVerticalGroup(
             jpnlCETMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnlCETMenuLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
+                .addComponent(jbCETDiscardChanges, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
                 .addComponent(jbCETSaveTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(jbCETExportTestToFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(jbCETReturnToTestList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
-                .addComponent(jbCETExportTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
                 .addComponent(jbCETReturnToMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(jbCETDiscardChg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jtaCETInfo.setColumns(20);
-        jtaCETInfo.setLineWrap(true);
-        jtaCETInfo.setRows(5);
-        jtaCETInfo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 240, 240)));
-        jspCETInfo.setViewportView(jtaCETInfo);
 
         jspCETInsertWordsFromFile.setBackground(new java.awt.Color(255, 255, 255));
         jspCETInsertWordsFromFile.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(131, 207, 68)));
@@ -685,11 +675,6 @@ public class MainJFrame extends javax.swing.JFrame {
         jrbCETFirstPl.setBackground(new java.awt.Color(255, 255, 255));
         bgChooseLanguageOrderInFile.add(jrbCETFirstPl);
         jrbCETFirstPl.setText(" First Word is Polish");
-        jrbCETFirstPl.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jrbCETFirstPlActionPerformed(evt);
-            }
-        });
 
         jrbCETFirstEng.setBackground(new java.awt.Color(255, 255, 255));
         bgChooseLanguageOrderInFile.add(jrbCETFirstEng);
@@ -781,29 +766,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jpnlChooseTest.setMinimumSize(new java.awt.Dimension(1000, 555));
         jpnlChooseTest.setPreferredSize(new java.awt.Dimension(1000, 550));
 
-        jtCTSelectedTestContent.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        jspCTSelectedTestWords.setViewportView(jtCTSelectedTestContent);
-
-        jtfCTTestActiveDate.setEditable(false);
-        jtfCTTestActiveDate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfCTTestActiveDateActionPerformed(evt);
-            }
-        });
-
-        jlCTTestActiveDate.setText("Test Active Date");
-
-        jlCTSelectedTest.setText("Selected Test");
+        jlCTTestList.setText("Test List:");
 
         jtCTTestList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -823,16 +786,28 @@ public class MainJFrame extends javax.swing.JFrame {
         });
         jspCTTestList.setViewportView(jtCTTestList);
 
-        jlCTTestList.setText("Test List:");
-
         jlCTTestContent.setText("Test Content:");
 
-        jtfCTTestName.setEditable(false);
-        jtfCTTestName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfCTTestNameActionPerformed(evt);
+        jtCTSelectedTestContent.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
             }
-        });
+        ));
+        jspCTSelectedTestWords.setViewportView(jtCTSelectedTestContent);
+
+        jlCTSelectedTest.setText("Selected Test");
+
+        jtfCTTestName.setEditable(false);
+
+        jlCTTestActiveDate.setText("Test Active Date");
+
+        jtfCTTestActiveDate.setEditable(false);
 
         jbCTStartTest.setBackground(new java.awt.Color(131, 207, 68));
         jbCTStartTest.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -964,11 +939,6 @@ public class MainJFrame extends javax.swing.JFrame {
         jtfTPlWord.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jtfTPlWord.setToolTipText("");
         jtfTPlWord.setBorder(null);
-        jtfTPlWord.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfTPlWordActionPerformed(evt);
-            }
-        });
 
         jsTUnderEngWord.setBackground(new java.awt.Color(131, 207, 68));
         jsTUnderEngWord.setForeground(new java.awt.Color(131, 207, 68));
@@ -999,11 +969,6 @@ public class MainJFrame extends javax.swing.JFrame {
         jtfTInfo.setForeground(new java.awt.Color(255, 51, 51));
         jtfTInfo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jtfTInfo.setBorder(null);
-        jtfTInfo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfTInfoActionPerformed(evt);
-            }
-        });
 
         jbTReturnToMainMenu.setBackground(new java.awt.Color(131, 207, 68));
         jbTReturnToMainMenu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -1030,7 +995,7 @@ public class MainJFrame extends javax.swing.JFrame {
             .addComponent(jsTBelow)
             .addComponent(jsTAbove)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlTestLayout.createSequentialGroup()
-                .addContainerGap(222, Short.MAX_VALUE)
+                .addContainerGap(258, Short.MAX_VALUE)
                 .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlTestLayout.createSequentialGroup()
                         .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1048,24 +1013,21 @@ public class MainJFrame extends javax.swing.JFrame {
                             .addComponent(jtfTTimeSpendTimer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlTestLayout.createSequentialGroup()
+                        .addComponent(jbTReturnToMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(370, 370, 370))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlTestLayout.createSequentialGroup()
                         .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jlTPlWord, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                            .addComponent(jlTEngWord, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jlTPlWord, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jlTEngWord, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jpnlTestLayout.createSequentialGroup()
-                                .addComponent(jtfTEngWord, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(278, 278, 278))
-                            .addGroup(jpnlTestLayout.createSequentialGroup()
-                                .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jtfTInfo)
-                                    .addComponent(jsTUnderEngWord, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jsTUnderPlWord, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jtfTPlWord, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(110, 110, 110))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlTestLayout.createSequentialGroup()
-                        .addComponent(jbTReturnToMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(370, 370, 370))))
+                            .addComponent(jtfTEngWord, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jtfTInfo)
+                                .addComponent(jsTUnderEngWord, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jsTUnderPlWord, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jtfTPlWord, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(242, 242, 242))))
         );
         jpnlTestLayout.setVerticalGroup(
             jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1092,7 +1054,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfTTimeSpendTimer, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtfTTimeSpend))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jpnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jlTPlWord, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtfTPlWord, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1106,7 +1068,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(jsTUnderPlWord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jtfTInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
                 .addComponent(jbTReturnToMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(78, 78, 78)
                 .addComponent(jsTBelow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1176,12 +1138,6 @@ public class MainJFrame extends javax.swing.JFrame {
         jpTLCNewTest.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "New Test", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(131, 207, 68))); // NOI18N
 
         jlTLCNewTestName.setText("New, unique test name");
-
-        jtfTLCNewTestName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfTLCNewTestNameActionPerformed(evt);
-            }
-        });
 
         jbTLCCreateNewTest.setBackground(new java.awt.Color(131, 207, 68));
         jbTLCCreateNewTest.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -1306,27 +1262,17 @@ public class MainJFrame extends javax.swing.JFrame {
         jpnlCreateAcc.setBackground(new java.awt.Color(255, 255, 255));
         jpnlCreateAcc.setPreferredSize(new java.awt.Dimension(1000, 550));
 
-        jtfCACommunication.setEditable(false);
-        jtfCACommunication.setBackground(new java.awt.Color(255, 255, 255));
-        jtfCACommunication.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jtfCACommunication.setForeground(new java.awt.Color(51, 51, 51));
-        jtfCACommunication.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jtfCACommunication.setText("Please fill out all required fields below.");
-        jtfCACommunication.setToolTipText("");
-        jtfCACommunication.setBorder(null);
-        jtfCACommunication.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jtfCACommunicationFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jtfCACommunicationFocusLost(evt);
-            }
-        });
-        jtfCACommunication.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfCACommunicationActionPerformed(evt);
-            }
-        });
+        jtfCACommunicationMessage.setEditable(false);
+        jtfCACommunicationMessage.setBackground(new java.awt.Color(255, 255, 255));
+        jtfCACommunicationMessage.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jtfCACommunicationMessage.setForeground(new java.awt.Color(51, 51, 51));
+        jtfCACommunicationMessage.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jtfCACommunicationMessage.setText("Please fill out all required fields below.");
+        jtfCACommunicationMessage.setToolTipText("");
+        jtfCACommunicationMessage.setBorder(null);
+
+        jsCAUnderCommunicationMessage.setBackground(new java.awt.Color(131, 207, 68));
+        jsCAUnderCommunicationMessage.setForeground(new java.awt.Color(131, 207, 68));
 
         jtfCAUsername.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jtfCAUsername.setForeground(new java.awt.Color(204, 204, 204));
@@ -1354,11 +1300,8 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
-        jCASeparator7.setBackground(new java.awt.Color(131, 207, 68));
-        jCASeparator7.setForeground(new java.awt.Color(131, 207, 68));
-
-        jCASeparator1.setBackground(new java.awt.Color(131, 207, 68));
-        jCASeparator1.setForeground(new java.awt.Color(131, 207, 68));
+        jsCAUnderUsername.setBackground(new java.awt.Color(131, 207, 68));
+        jsCAUnderUsername.setForeground(new java.awt.Color(131, 207, 68));
 
         jtfCAName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jtfCAName.setForeground(new java.awt.Color(204, 204, 204));
@@ -1386,8 +1329,8 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
-        jCASeparator2.setBackground(new java.awt.Color(131, 207, 68));
-        jCASeparator2.setForeground(new java.awt.Color(131, 207, 68));
+        jsCAUnderName.setBackground(new java.awt.Color(131, 207, 68));
+        jsCAUnderName.setForeground(new java.awt.Color(131, 207, 68));
 
         jtfCASurname.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jtfCASurname.setForeground(new java.awt.Color(204, 204, 204));
@@ -1415,8 +1358,8 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
-        jCASeparator3.setBackground(new java.awt.Color(131, 207, 68));
-        jCASeparator3.setForeground(new java.awt.Color(131, 207, 68));
+        jCAUnderSurname.setBackground(new java.awt.Color(131, 207, 68));
+        jCAUnderSurname.setForeground(new java.awt.Color(131, 207, 68));
 
         jtfCAEmail.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jtfCAEmail.setForeground(new java.awt.Color(204, 204, 204));
@@ -1444,8 +1387,8 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
-        jCASeparator4.setBackground(new java.awt.Color(131, 207, 68));
-        jCASeparator4.setForeground(new java.awt.Color(131, 207, 68));
+        jCAUnderEmail.setBackground(new java.awt.Color(131, 207, 68));
+        jCAUnderEmail.setForeground(new java.awt.Color(131, 207, 68));
 
         jpfCAPass.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jpfCAPass.setForeground(new java.awt.Color(204, 204, 204));
@@ -1473,8 +1416,8 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
-        jCASeparator5.setBackground(new java.awt.Color(131, 207, 68));
-        jCASeparator5.setForeground(new java.awt.Color(131, 207, 68));
+        jCAUnderPass.setBackground(new java.awt.Color(131, 207, 68));
+        jCAUnderPass.setForeground(new java.awt.Color(131, 207, 68));
 
         jpfCARetypePass.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jpfCARetypePass.setForeground(new java.awt.Color(204, 204, 204));
@@ -1503,8 +1446,8 @@ public class MainJFrame extends javax.swing.JFrame {
         });
         jpfCARetypePass.setEchoChar((char)0);
 
-        jCASeparator6.setBackground(new java.awt.Color(131, 207, 68));
-        jCASeparator6.setForeground(new java.awt.Color(131, 207, 68));
+        jCAUnderRetypePass.setBackground(new java.awt.Color(131, 207, 68));
+        jCAUnderRetypePass.setForeground(new java.awt.Color(131, 207, 68));
 
         bCACreateAccount.setBackground(new java.awt.Color(131, 207, 68));
         bCACreateAccount.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -1531,26 +1474,26 @@ public class MainJFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlCreateAccLayout.createSequentialGroup()
                 .addContainerGap(120, Short.MAX_VALUE)
                 .addGroup(jpnlCreateAccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jCASeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfCACommunication, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jsCAUnderCommunicationMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfCACommunicationMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(120, 120, 120))
             .addGroup(jpnlCreateAccLayout.createSequentialGroup()
                 .addGroup(jpnlCreateAccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpnlCreateAccLayout.createSequentialGroup()
                         .addGap(270, 270, 270)
                         .addGroup(jpnlCreateAccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jCASeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCAUnderRetypePass, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jpnlCreateAccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jCASeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jCASeparator3)
+                                .addComponent(jsCAUnderUsername, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jCAUnderSurname)
                                 .addComponent(jtfCASurname, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jtfCAUsername, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jtfCAName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jCASeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jsCAUnderName, javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jtfCAEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jCASeparator4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jCAUnderEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jpfCAPass, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jCASeparator5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jCAUnderPass, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jpfCARetypePass, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jpnlCreateAccLayout.createSequentialGroup()
                         .addGap(280, 280, 280)
@@ -1564,33 +1507,33 @@ public class MainJFrame extends javax.swing.JFrame {
             jpnlCreateAccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnlCreateAccLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jtfCACommunication, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jtfCACommunicationMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCASeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jsCAUnderCommunicationMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(60, 60, 60)
                 .addComponent(jtfCAUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCASeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jsCAUnderUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
                 .addComponent(jtfCAName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCASeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jsCAUnderName, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jtfCASurname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCASeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jCAUnderSurname, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jtfCAEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCASeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jCAUnderEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpfCAPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCASeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jCAUnderPass, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpfCARetypePass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCASeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jCAUnderRetypePass, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37)
                 .addComponent(bCACreateAccount)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1613,19 +1556,6 @@ public class MainJFrame extends javax.swing.JFrame {
         jtfFPCommunication.setText("Please fill out all required fields below.");
         jtfFPCommunication.setToolTipText("");
         jtfFPCommunication.setBorder(null);
-        jtfFPCommunication.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jtfFPCommunicationFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jtfFPCommunicationFocusLost(evt);
-            }
-        });
-        jtfFPCommunication.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfFPCommunicationActionPerformed(evt);
-            }
-        });
 
         jFPUnderCommunication.setBackground(new java.awt.Color(131, 207, 68));
         jFPUnderCommunication.setForeground(new java.awt.Color(131, 207, 68));
@@ -1813,128 +1743,119 @@ public class MainJFrame extends javax.swing.JFrame {
             jtfTCountNumOfMist.setText(Integer.toString(test.getNumberOfMistakes()));
             jtfTTimeLeftTimer.setText(test.getCurrentSecLeft());
         }
-
     }//GEN-LAST:event_jtfTEngWordActionPerformed
 
-    private void jtfTPlWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfTPlWordActionPerformed
-    }//GEN-LAST:event_jtfTPlWordActionPerformed
-
-    private void jpnlLoaderFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jpnlLoaderFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jpnlLoaderFocusGained
-
     private void jlSICreaAccMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlSICreaAccMouseClicked
-        jtfSIError.setText("");
+        jtfSIErrorMessage.setText("");
         jtfSIUsername.setText("Username");
         jpfSIPass.setText("Password");
         setSameForeground(LIGHT_GREY, jtfSIUsername, jpfSIPass);
 
-        jpnlCreateAcc.setVisible(true);
-        jpnlSignIn.setVisible(false);
+        swichVisiblePanels(jpnlSignIn, jpnlCreateAcc);
     }//GEN-LAST:event_jlSICreaAccMouseClicked
 
     private void jpfSIPassFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jpfSIPassFocusLost
-        focLostTextFieldFeature(jpfSIPass, "Password");
-        if (jpfSIPass.getPassword().equals("Password")) {
+        setTextFieldSameAsBeforeWriting(jpfSIPass, "Password");
+        if (new String(jpfSIPass.getPassword()).equals("Password")) {
             jpfSIPass.setEchoChar((char) 0);
         }
     }//GEN-LAST:event_jpfSIPassFocusLost
 
     private void jpfSIPassFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jpfSIPassFocusGained
-        focGainTextFieldFeature(jpfSIPass, "Password");
-        if (!jpfSIPass.getPassword().equals("Password")) {
+        setTextFieldReadyForWriting(jpfSIPass, "Password");
+        if (!new String(jpfSIPass.getPassword()).equals("Password")) {
             jpfSIPass.setEchoChar((char) '\u25cf');
         }
     }//GEN-LAST:event_jpfSIPassFocusGained
 
     private void jtfSIUsernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfSIUsernameFocusLost
-        focLostTextFieldFeature(jtfSIUsername, "Username");
+        setTextFieldSameAsBeforeWriting(jtfSIUsername, "Username");
     }//GEN-LAST:event_jtfSIUsernameFocusLost
 
     private void jtfSIUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfSIUsernameFocusGained
-        focGainTextFieldFeature(jtfSIUsername, "Username");
+        setTextFieldReadyForWriting(jtfSIUsername, "Username");
     }//GEN-LAST:event_jtfSIUsernameFocusGained
 
     private void jtfCAUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCAUsernameFocusGained
-        focGainTextFieldFeature(jtfCAUsername, "Username");
+        setTextFieldReadyForWriting(jtfCAUsername, "Username");
     }//GEN-LAST:event_jtfCAUsernameFocusGained
 
     private void jtfCAUsernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCAUsernameFocusLost
-        focLostTextFieldFeature(jtfCAUsername, "Username");
+        setTextFieldSameAsBeforeWriting(jtfCAUsername, "Username");
     }//GEN-LAST:event_jtfCAUsernameFocusLost
 
     private void jpfCARetypePassFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jpfCARetypePassFocusGained
-        focGainTextFieldFeature(jpfCARetypePass, "Retype Password");
-        if (!jpfCARetypePass.getPassword().equals("Retype Password")) {
+        setTextFieldReadyForWriting(jpfCARetypePass, "Retype Password");
+        if (!new String(jpfCARetypePass.getPassword()).equals("Retype Password")) {
             jpfCARetypePass.setEchoChar((char) '\u25cf');
         }
     }//GEN-LAST:event_jpfCARetypePassFocusGained
 
     private void jpfCARetypePassFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jpfCARetypePassFocusLost
-        focLostTextFieldFeature(jpfCARetypePass, "Retype Password");
-        if (jpfCARetypePass.getPassword().equals("Retype Password")) {
+        setTextFieldSameAsBeforeWriting(jpfCARetypePass, "Retype Password");
+        if (new String(jpfCARetypePass.getPassword()).equals("Retype Password")) {
             jpfCARetypePass.setEchoChar((char) 0);
         }
-        if (!jpfCARetypePass.getPassword().equals("Retype Password") & (!jpfCAPass.getPassword().equals("Password") & !jpfCAPass.getPassword().equals(jpfCARetypePass.getPassword()))) {
-            switch (jtfCACommunication.getText()) {
+        if (!new String(jpfCARetypePass.getPassword()).equals("Retype Password") & (!new String(jpfCAPass.getPassword()).equals("Password") & !new String(jpfCAPass.getPassword()).equals(new String(jpfCARetypePass.getPassword())))) {
+            switch (jtfCACommunicationMessage.getText()) {
                 case "Wrong e-mail format.":
-                    jtfCACommunication.setText("Wrong e-mail format and passwords don't match.");
+                    jtfCACommunicationMessage.setText("Wrong e-mail format and passwords don't match.");
 
                     setSameBackground(PINK, jpfCAPass, jpfCARetypePass);
                     break;
                 case "Please fill out all required fields below.":
-                    jtfCACommunication.setText("The passwords don't match.");
-                    setSameBackground(PINK, jtfCACommunication, jpfCAPass, jpfCARetypePass);
+                    jtfCACommunicationMessage.setText("The passwords don't match.");
+                    setSameBackground(PINK, jtfCACommunicationMessage, jpfCAPass, jpfCARetypePass);
 
             }
         }
     }//GEN-LAST:event_jpfCARetypePassFocusLost
 
     private void jtfCASurnameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCASurnameFocusGained
-        focGainTextFieldFeature(jtfCASurname, "Surname");
+        setTextFieldReadyForWriting(jtfCASurname, "Surname");
     }//GEN-LAST:event_jtfCASurnameFocusGained
 
     private void jtfCASurnameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCASurnameFocusLost
-        focLostTextFieldFeature(jtfCASurname, "Surname");
+        setTextFieldSameAsBeforeWriting(jtfCASurname, "Surname");
     }//GEN-LAST:event_jtfCASurnameFocusLost
 
     private void jtfCANameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCANameFocusGained
-        focGainTextFieldFeature(jtfCAName, "Name");
+        setTextFieldReadyForWriting(jtfCAName, "Name");
     }//GEN-LAST:event_jtfCANameFocusGained
 
     private void jtfCANameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCANameFocusLost
-        focLostTextFieldFeature(jtfCAName, "Name");
+        setTextFieldSameAsBeforeWriting(jtfCAName, "Name");
     }//GEN-LAST:event_jtfCANameFocusLost
 
     private void jpfCAPassFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jpfCAPassFocusGained
-        focGainTextFieldFeature(jpfCAPass, "Password");
-        if (!jpfCAPass.getPassword().equals("Password")) {
+        setTextFieldReadyForWriting(jpfCAPass, "Password");
+        if (!new String(jpfCAPass.getPassword()).equals("Password")) {
             jpfCAPass.setEchoChar((char) '\u25cf');
         }
     }//GEN-LAST:event_jpfCAPassFocusGained
 
     private void jpfCAPassFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jpfCAPassFocusLost
-        focLostTextFieldFeature(jpfCAPass, "Password");
-        if (jpfCAPass.getPassword().equals("Password")) {
+        setTextFieldSameAsBeforeWriting(jpfCAPass, "Password");
+        if (new String(jpfCAPass.getPassword()).equals("Password")) {
             jpfCAPass.setEchoChar((char) 0);
         }
-        if (!jpfCAPass.getPassword().equals("Password") & (!jpfCARetypePass.getPassword().equals("Retype Password") & !jpfCARetypePass.getPassword().equals(jpfCAPass.getPassword()))) {
-            switch (jtfCACommunication.getText()) {
+        if (!new String(jpfCAPass.getPassword()).equals("Password") & (!new String(jpfCARetypePass.getPassword()).equals("Retype Password") & !new String(jpfCARetypePass.getPassword()).equals(new String(jpfCAPass.getPassword())))) {
+            switch (jtfCACommunicationMessage.getText()) {
                 case "Wrong e-mail format.":
-                    jtfCACommunication.setText("Wrong e-mail format and passwords don't match.");
+                    jtfCACommunicationMessage.setText("Wrong e-mail format and passwords don't match.");
 
                     setSameBackground(PINK, jpfCAPass, jpfCARetypePass);
 
                     break;
                 case "Please fill out all required fields below.":
-                    jtfCACommunication.setText("The passwords don't match.");
-                    setSameBackground(PINK, jtfCACommunication, jpfCAPass, jpfCARetypePass);
+                    jtfCACommunicationMessage.setText("The passwords don't match.");
+                    setSameBackground(PINK, jtfCACommunicationMessage, jpfCAPass, jpfCARetypePass);
             }
         }
     }//GEN-LAST:event_jpfCAPassFocusLost
 
     private void jtfCAEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCAEmailFocusGained
-        focGainTextFieldFeature(jtfCAEmail, "E-mail");
+        setTextFieldReadyForWriting(jtfCAEmail, "E-mail");
 
         if (jtfCAEmail.getForeground().equals(this.LIGHT_GREY)) {
             jtfCAEmail.setForeground(this.GRAY);
@@ -1946,16 +1867,16 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfCAEmailFocusGained
 
     private void jtfCAEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCAEmailFocusLost
-        focLostTextFieldFeature(jtfCAEmail, "E-mail");
+        setTextFieldSameAsBeforeWriting(jtfCAEmail, "E-mail");
         if (!(jtfCAEmail.getText().equals("E-mail") || isValidEmailAddress(jtfCAEmail.getText()))) {
-            switch (jtfCACommunication.getText()) {
-                case "The passwords don't match.":
-                    jtfCACommunication.setText("Wrong e-mail format and passwords don't match.");
+            switch (jtfCACommunicationMessage.getText()) {
+                case "The passwords doesn't match.":
+                    jtfCACommunicationMessage.setText("Wrong e-mail format and passwords don't match.");
                     jtfCAEmail.setBackground(this.PINK);
                     break;
                 case "Please fill out all required fields below.":
-                    jtfCACommunication.setText("Wrong e-mail format.");
-                    setSameBackground(PINK, jtfCACommunication, jtfCAEmail);
+                    jtfCACommunicationMessage.setText("Wrong e-mail format.");
+                    setSameBackground(PINK, jtfCACommunicationMessage, jtfCAEmail);
             }
         }
     }//GEN-LAST:event_jtfCAEmailFocusLost
@@ -1964,14 +1885,6 @@ public class MainJFrame extends javax.swing.JFrame {
         jtfCAName.requestFocusInWindow();
     }//GEN-LAST:event_jtfCAUsernameActionPerformed
 
-    private void jtfCACommunicationFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCACommunicationFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfCACommunicationFocusGained
-
-    private void jtfCACommunicationFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCACommunicationFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfCACommunicationFocusLost
-
     private void jtfSIUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfSIUsernameActionPerformed
         jpfSIPass.requestFocusInWindow();
     }//GEN-LAST:event_jtfSIUsernameActionPerformed
@@ -1979,10 +1892,6 @@ public class MainJFrame extends javax.swing.JFrame {
     private void jpfCARetypePassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jpfCARetypePassActionPerformed
         bCACreateAccount.requestFocusInWindow();
     }//GEN-LAST:event_jpfCARetypePassActionPerformed
-
-    private void jtfCACommunicationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCACommunicationActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfCACommunicationActionPerformed
 
     private void jtfCANameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCANameActionPerformed
         jtfCASurname.requestFocusInWindow();
@@ -2004,19 +1913,10 @@ public class MainJFrame extends javax.swing.JFrame {
         jbSILogin.requestFocusInWindow();
     }//GEN-LAST:event_jpfSIPassActionPerformed
 
-    private void jtfSIErrorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfSIErrorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfSIErrorActionPerformed
-
-    private void jtfTLCNewTestNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfTLCNewTestNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfTLCNewTestNameActionPerformed
-
     private void jtTLCTestListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtTLCTestListMouseClicked
         int selectedRowIndexNum = jtTLCTestList.getSelectedRow();
         String selectedTest = (String) jtTLCTestList.getValueAt(selectedRowIndexNum, 0);
         jtfTLCTestName.setText(selectedTest);
-
     }//GEN-LAST:event_jtTLCTestListMouseClicked
 
     private void jtCETTestContentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtCETTestContentMouseClicked
@@ -2033,39 +1933,31 @@ public class MainJFrame extends javax.swing.JFrame {
         jtfCTTestActiveDate.setText((String) jtCTTestList.getValueAt(selectedRowIndexNum, 1));
     }//GEN-LAST:event_jtCTTestListMouseClicked
 
-    private void jtfTInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfTInfoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfTInfoActionPerformed
-
-    private void jrbCETFirstPlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbCETFirstPlActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jrbCETFirstPlActionPerformed
-
     private void jbSILoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSILoginActionPerformed
         if (DbAuthentication.authenticateUser(jtfSIUsername.getText(), new String(jpfSIPass.getPassword()))) {
             dbStatements = new DbInstructions(jtfSIUsername.getText());
 
-            jpnlMenu.setVisible(true);
-            jpnlSignIn.setVisible(false);
+            swichVisiblePanels(jpnlSignIn, jpnlMenu);
 
             jtfSIUsername.setText("Username");
             jtfSIUsername.setForeground(this.LIGHT_GREY);
             jpfSIPass.setText("Password");
             jpfSIPass.setForeground(this.LIGHT_GREY);
-            jtfSIError.setText("");
+            jtfSIErrorMessage.setText("");
+
         } else if (DbAuthentication.isUsernameExistInDb(jtfSIUsername.getText())) {
-            jtfSIError.setText("Incorrect Password");
+            jtfSIErrorMessage.setText("Incorrect Password");
             jpfSIPass.setText("");
-            focLostTextFieldFeature(jpfSIPass, "Password");
+            setTextFieldSameAsBeforeWriting(jpfSIPass, "Password");
             jtfSIUsername.setText("Username");
-            focLostTextFieldFeature(jtfSIUsername, "Username");
+            setTextFieldSameAsBeforeWriting(jtfSIUsername, "Username");
             jpfSIPass.setEchoChar((char) 0);
         } else {
-            jtfSIError.setText("User not exist");
+            jtfSIErrorMessage.setText("User not exist");
             jpfSIPass.setText("");
-            focLostTextFieldFeature(jpfSIPass, "Password");
+            setTextFieldSameAsBeforeWriting(jpfSIPass, "Password");
             jtfSIUsername.setText("Username");
-            focLostTextFieldFeature(jtfSIUsername, "Username");
+            setTextFieldSameAsBeforeWriting(jtfSIUsername, "Username");
             jpfSIPass.setEchoChar((char) 0);
         }
     }//GEN-LAST:event_jbSILoginActionPerformed
@@ -2074,27 +1966,27 @@ public class MainJFrame extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (DbAuthentication.authenticateUser(jtfSIUsername.getText(), new String(jpfSIPass.getPassword()))) {
                 dbStatements = new DbInstructions(jtfSIUsername.getText());
-                jpnlMenu.setVisible(true);
-                jpnlSignIn.setVisible(false);
+
+                swichVisiblePanels(jpnlSignIn, jpnlMenu);
 
                 jtfSIUsername.setText("Username");
                 jtfSIUsername.setForeground(this.LIGHT_GREY);
                 jpfSIPass.setText("Password");
                 jpfSIPass.setForeground(this.LIGHT_GREY);
-                jtfSIError.setText("");
+                jtfSIErrorMessage.setText("");
             } else if (DbAuthentication.isUsernameExistInDb(jtfSIUsername.getText())) {
-                jtfSIError.setText("Incorrect Password");
+                jtfSIErrorMessage.setText("Incorrect Password");
                 jpfSIPass.setText("");
-                focLostTextFieldFeature(jpfSIPass, "Password");
+                setTextFieldSameAsBeforeWriting(jpfSIPass, "Password");
                 jtfSIUsername.setText("Username");
-                focLostTextFieldFeature(jtfSIUsername, "Username");
+                setTextFieldSameAsBeforeWriting(jtfSIUsername, "Username");
                 jpfSIPass.setEchoChar((char) 0);
             } else {
-                jtfSIError.setText("User not exist");
+                jtfSIErrorMessage.setText("User not exist");
                 jpfSIPass.setText("");
-                focLostTextFieldFeature(jpfSIPass, "Password");
+                setTextFieldSameAsBeforeWriting(jpfSIPass, "Password");
                 jtfSIUsername.setText("Username");
-                focLostTextFieldFeature(jtfSIUsername, "Username");
+                setTextFieldSameAsBeforeWriting(jtfSIUsername, "Username");
                 jpfSIPass.setEchoChar((char) 0);
             }
         }
@@ -2102,19 +1994,18 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void jbMSelectTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbMSelectTestActionPerformed
         jtCTTestList.setModel(dbStatements.getShortInfoAboutTests());
-        jpnlChooseTest.setVisible(true);
-        jpnlMenu.setVisible(false);
+
+        swichVisiblePanels(jpnlMenu, jpnlChooseTest);
     }//GEN-LAST:event_jbMSelectTestActionPerformed
 
     private void jbMTestCreatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbMTestCreatorActionPerformed
         jtTLCTestList.setModel(dbStatements.getShortestInfoAboutTests());
-        jpnlTestListChg.setVisible(true);
-        jpnlMenu.setVisible(false);
+
+        swichVisiblePanels(jpnlMenu, jpnlTestListChg);
     }//GEN-LAST:event_jbMTestCreatorActionPerformed
 
     private void jbMLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbMLogoutActionPerformed
-        jpnlSignIn.setVisible(true);
-        jpnlMenu.setVisible(false);
+        swichVisiblePanels(jpnlMenu, jpnlSignIn);
     }//GEN-LAST:event_jbMLogoutActionPerformed
 
     private void bCACreateAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCACreateAccountActionPerformed
@@ -2130,31 +2021,36 @@ public class MainJFrame extends javax.swing.JFrame {
         if (jtfCAEmail.getText().equals("E-mail")) {
             jtfCAEmail.setBackground(this.PINK);
         }
-        if (jpfCAPass.getPassword().equals("Password")) {
+        if (new String(new String(jpfCAPass.getPassword())).equals("Password")) {
             jpfCAPass.setBackground(this.PINK);
         }
-        if (jpfCARetypePass.getPassword().equals("Retype Password")) {
+        if (new String(new String(jpfCARetypePass.getPassword())).equals("Retype Password")) {
             jpfCARetypePass.setBackground(this.PINK);
         }
-        if (!jpfCARetypePass.getPassword().equals(jpfCAPass.getPassword()) & (!jpfCAPass.getPassword().equals("Password") | !jpfCARetypePass.getPassword().equals("Retype Password"))) {
+        if (!new String(jpfCARetypePass.getPassword()).equals(new String(jpfCAPass.getPassword())) & (!new String(jpfCAPass.getPassword()).equals("Password") | !new String(jpfCARetypePass.getPassword()).equals("Retype Password"))) {
             setSameBackground(PINK, jpfCAPass, jpfCARetypePass);
         }
 
         // if any field has red background then
         if (!hasSameBackground(PINK, jtfCAUsername, jtfCAName, jtfCASurname, jtfCAEmail, jpfCAPass, jpfCARetypePass) || DbAuthentication.isUsernameExistInDb(jtfCAUsername.getText())) {
 
-            DbAuthentication.createUser(jtfCAUsername.getText(), jtfCAName.getText(), jtfCASurname.getText(), jtfCAEmail.getText(), new String(jpfCAPass.getPassword()));
+            try {
+                DbAuthentication.createUser(jtfCAUsername.getText(), jtfCAName.getText(), jtfCASurname.getText(), jtfCAEmail.getText(), new String(jpfCAPass.getPassword()));
+                swichVisiblePanels(jpnlCreateAcc, jpnlSignIn);
 
-            setSameForeground(LIGHT_GREY, jtfCAUsername, jtfCAName, jtfCASurname, jtfCAEmail, jpfCAPass, jpfCARetypePass);
-            jtfCAUsername.setText("Username");
-            jtfCAName.setText("Name");
-            jtfCASurname.setText("Surname");
-            jtfCAEmail.setText("E-mail");
-            jpfCAPass.setText("Password");
-            jpfCARetypePass.setText("Retype Password");
+            } catch (Exception e) {
+                e.printStackTrace();
+                jtfCACommunicationMessage.setText("Cannot create user.");
+            }
+            
+                            setSameForeground(LIGHT_GREY, jtfCAUsername, jtfCAName, jtfCASurname, jtfCAEmail, jpfCAPass, jpfCARetypePass);
+                jtfCAUsername.setText("Username");
+                jtfCAName.setText("Name");
+                jtfCASurname.setText("Surname");
+                jtfCAEmail.setText("E-mail");
+                jpfCAPass.setText("Password");
+                jpfCARetypePass.setText("Retype Password");
 
-            jpnlSignIn.setVisible(true);
-            jpnlCreateAcc.setVisible(false);
         }
 
 
@@ -2174,28 +2070,15 @@ public class MainJFrame extends javax.swing.JFrame {
         jpfCAPass.setText("Password");
         jpfCARetypePass.setText("Retype Password");
 
-        jpnlSignIn.setVisible(true);
-        jpnlCreateAcc.setVisible(false);
+        swichVisiblePanels(jpnlCreateAcc, jpnlSignIn);
     }//GEN-LAST:event_bCALoginMenuActionPerformed
 
-    private void jtfFPCommunicationFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfFPCommunicationFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfFPCommunicationFocusGained
-
-    private void jtfFPCommunicationFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfFPCommunicationFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfFPCommunicationFocusLost
-
-    private void jtfFPCommunicationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfFPCommunicationActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfFPCommunicationActionPerformed
-
     private void jtfFPUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfFPUsernameFocusGained
-        focGainTextFieldFeature(jtfFPUsername, "Username");
+        setTextFieldReadyForWriting(jtfFPUsername, "Username");
     }//GEN-LAST:event_jtfFPUsernameFocusGained
 
     private void jtfFPUsernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfFPUsernameFocusLost
-        focLostTextFieldFeature(jtfFPUsername, "Username");
+        setTextFieldSameAsBeforeWriting(jtfFPUsername, "Username");
     }//GEN-LAST:event_jtfFPUsernameFocusLost
 
     private void jtfFPUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfFPUsernameActionPerformed
@@ -2203,7 +2086,7 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfFPUsernameActionPerformed
 
     private void jtfFPEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfFPEmailFocusGained
-        focGainTextFieldFeature(jtfFPEmail, "E-mail");
+        setTextFieldReadyForWriting(jtfFPEmail, "E-mail");
 
         if (jtfFPEmail.getForeground().equals(this.LIGHT_GREY)) {
             jtfFPEmail.setForeground(this.GRAY);
@@ -2215,7 +2098,7 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfFPEmailFocusGained
 
     private void jtfFPEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfFPEmailFocusLost
-        focLostTextFieldFeature(jtfFPEmail, "E-mail");
+        setTextFieldSameAsBeforeWriting(jtfFPEmail, "E-mail");
         if (!(jtfFPEmail.getText().equals("E-mail") || isValidEmailAddress(jtfFPEmail.getText()))) {
             jtfFPCommunication.setText("Wrong e-mail format.");
 
@@ -2245,8 +2128,7 @@ public class MainJFrame extends javax.swing.JFrame {
             jtfFPEmail.setText("E-mail");
             jtfFPEmail.setForeground(this.LIGHT_GREY);
 
-            jpnlSignIn.setVisible(true);
-            jpnlForgottenPassword.setVisible(false);
+            swichVisiblePanels(jpnlForgottenPassword, jpnlSignIn);
         }
     }//GEN-LAST:event_jbFPSendEmailActionPerformed
 
@@ -2263,8 +2145,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jtfFPEmail.setText("E-mail");
         jtfFPEmail.setForeground(this.LIGHT_GREY);
 
-        jpnlSignIn.setVisible(true);
-        jpnlForgottenPassword.setVisible(false);
+        swichVisiblePanels(jpnlForgottenPassword, jpnlSignIn);
     }//GEN-LAST:event_jbFPLoginMenuActionPerformed
 
     private void jtfFPUsernameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfFPUsernameKeyTyped
@@ -2290,13 +2171,13 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfFPEmailKeyTyped
 
     private void jlSIRecAccMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlSIRecAccMouseClicked
-        jtfSIError.setText("");
+        jtfSIErrorMessage.setText("");
         jtfSIUsername.setText("Username");
         jtfSIUsername.setForeground(this.LIGHT_GREY);
         jpfSIPass.setText("Password");
         jpfSIPass.setForeground(this.LIGHT_GREY);
-        jpnlForgottenPassword.setVisible(true);
-        jpnlSignIn.setVisible(false);
+
+        swichVisiblePanels(jpnlSignIn, jpnlForgottenPassword);
 
     }//GEN-LAST:event_jlSIRecAccMouseClicked
 
@@ -2319,51 +2200,51 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfCAEmailKeyTyped
 
     private void jpfCAPassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jpfCAPassKeyTyped
-        if ((jpfCARetypePass.getPassword().equals("Retype Password") & (jpfCAPass.getPassword().equals("") || jpfCAPass.getPassword().equals("Password")) & !(jtfCACommunication.getText().equals("Please fill out all required fields below."))) ^ jpfCARetypePass.getPassword().equals(jpfCAPass.getPassword())) {
+        if ((new String(jpfCARetypePass.getPassword()).equals("Retype Password") & (new String(jpfCAPass.getPassword()).equals("") || new String(jpfCAPass.getPassword()).equals("Password")) & !(jtfCACommunicationMessage.getText().equals("Please fill out all required fields below."))) ^ new String(jpfCARetypePass.getPassword()).equals(new String(jpfCAPass.getPassword()))) {
             setSameBackground(this.WHITE, jpfCAPass, jpfCARetypePass);
 
-            if (jtfCACommunication.getText().equals("The passwords don't match.")) {
-                jtfCACommunication.setText("Please fill out all required fields below.");
-                jtfCACommunication.setForeground(this.DARK_GRAY);
-            } else if (jtfCACommunication.getText().equals("Wrong e-mail format and passwords don't match.")) {
-                jtfCACommunication.setText("Wrong e-mail format.");
+            if (jtfCACommunicationMessage.getText().equals("The passwords don't match.")) {
+                jtfCACommunicationMessage.setText("Please fill out all required fields below.");
+                jtfCACommunicationMessage.setForeground(this.DARK_GRAY);
+            } else if (jtfCACommunicationMessage.getText().equals("Wrong e-mail format and passwords don't match.")) {
+                jtfCACommunicationMessage.setText("Wrong e-mail format.");
             }
         }
-        if (jpfCAPass.getPassword().equals("Password")) {
+        if (new String(jpfCAPass.getPassword()).equals("Password")) {
             jpfCAPass.setText("");
         }
-        if (jpfCAPass.getPassword().equals("") & jpfCAPass.getBackground().equals(this.PINK)) {
+        if (new String(jpfCAPass.getPassword()).equals("") & jpfCAPass.getBackground().equals(this.PINK)) {
             setSameBackground(this.WHITE, jpfCAPass, jpfCARetypePass);
 
-            if (jtfCACommunication.getText().equals("The passwords don't match.")) {
-                jtfCACommunication.setText("Please fill out all required fields below.");
-                jtfCACommunication.setForeground(this.DARK_GRAY);
-            } else if (jtfCACommunication.getText().equals("Wrong e-mail format and passwords don't match.")) {
-                jtfCACommunication.setText("Wrong e-mail format.");
+            if (jtfCACommunicationMessage.getText().equals("The passwords don't match.")) {
+                jtfCACommunicationMessage.setText("Please fill out all required fields below.");
+                jtfCACommunicationMessage.setForeground(this.DARK_GRAY);
+            } else if (jtfCACommunicationMessage.getText().equals("Wrong e-mail format and passwords don't match.")) {
+                jtfCACommunicationMessage.setText("Wrong e-mail format.");
             }
         }
     }//GEN-LAST:event_jpfCAPassKeyTyped
 
     private void jpfCARetypePassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jpfCARetypePassKeyTyped
-        if ((jpfCAPass.getPassword().equals("Password") & (jpfCARetypePass.getPassword().equals("") || jpfCARetypePass.getPassword().equals("Retype Password")) & !(jtfCACommunication.getText().equals("Please fill out all required fields below."))) ^ jpfCAPass.getPassword().equals(jpfCARetypePass.getPassword())) {
+        if ((new String(jpfCAPass.getPassword()).equals("Password") & (new String(jpfCARetypePass.getPassword()).equals("") || new String(jpfCARetypePass.getPassword()).equals("Retype Password")) & !(jtfCACommunicationMessage.getText().equals("Please fill out all required fields below."))) ^ new String(jpfCAPass.getPassword()).equals(new String(jpfCARetypePass.getPassword()))) {
             setSameBackground(this.WHITE, jpfCAPass, jpfCARetypePass);
-            if (jtfCACommunication.getText().equals("The passwords don't match.")) {
-                jtfCACommunication.setText("Please fill out all required fields below.");
-                jtfCACommunication.setForeground(this.DARK_GRAY);
-            } else if (jtfCACommunication.getText().equals("Wrong e-mail format and passwords don't match.")) {
-                jtfCACommunication.setText("Wrong e-mail format.");
+            if (jtfCACommunicationMessage.getText().equals("The passwords don't match.")) {
+                jtfCACommunicationMessage.setText("Please fill out all required fields below.");
+                jtfCACommunicationMessage.setForeground(this.DARK_GRAY);
+            } else if (jtfCACommunicationMessage.getText().equals("Wrong e-mail format and passwords don't match.")) {
+                jtfCACommunicationMessage.setText("Wrong e-mail format.");
             }
         }
-        if (jpfCARetypePass.getPassword().equals("Retype Password")) {
+        if (new String(jpfCARetypePass.getPassword()).equals("Retype Password")) {
             jpfCARetypePass.setText("");
         }
-        if (jpfCARetypePass.getPassword().equals("") & jpfCARetypePass.getBackground().equals(this.PINK)) {
+        if (new String(jpfCARetypePass.getPassword()).equals("") & jpfCARetypePass.getBackground().equals(this.PINK)) {
             setSameBackground(this.WHITE, jpfCAPass, jpfCARetypePass);
-            if (jtfCACommunication.getText().equals("The passwords don't match.")) {
-                jtfCACommunication.setText("Please fill out all required fields below.");
-                jtfCACommunication.setForeground(this.DARK_GRAY);
-            } else if (jtfCACommunication.getText().equals("Wrong e-mail format and passwords don't match.")) {
-                jtfCACommunication.setText("Wrong e-mail format.");
+            if (jtfCACommunicationMessage.getText().equals("The passwords don't match.")) {
+                jtfCACommunicationMessage.setText("Please fill out all required fields below.");
+                jtfCACommunicationMessage.setForeground(this.DARK_GRAY);
+            } else if (jtfCACommunicationMessage.getText().equals("Wrong e-mail format and passwords don't match.")) {
+                jtfCACommunicationMessage.setText("Wrong e-mail format.");
             }
         }
     }//GEN-LAST:event_jpfCARetypePassKeyTyped
@@ -2377,28 +2258,26 @@ public class MainJFrame extends javax.swing.JFrame {
     private void jpfSIPassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jpfSIPassKeyTyped
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (DbAuthentication.authenticateUser(jtfSIUsername.getText(), new String(jpfSIPass.getPassword()))) {
-
-                jpnlMenu.setVisible(true);
-                jpnlSignIn.setVisible(false);
+                swichVisiblePanels(jpnlSignIn, jpnlMenu);
 
                 jtfSIUsername.setText("Username");
                 jtfSIUsername.setForeground(this.LIGHT_GREY);
                 jpfSIPass.setText("Password");
                 jpfSIPass.setForeground(this.LIGHT_GREY);
-                jtfSIError.setText("");
+                jtfSIErrorMessage.setText("");
             } else if (DbAuthentication.isUsernameExistInDb(jtfSIUsername.getText())) {
-                jtfSIError.setText("Incorrect Password");
+                jtfSIErrorMessage.setText("Incorrect Password");
                 jpfSIPass.setText("");
-                focLostTextFieldFeature(jpfSIPass, "Password");
+                setTextFieldSameAsBeforeWriting(jpfSIPass, "Password");
                 jtfSIUsername.setText("Username");
-                focLostTextFieldFeature(jtfSIUsername, "Username");
+                setTextFieldSameAsBeforeWriting(jtfSIUsername, "Username");
                 jpfSIPass.setEchoChar((char) 0);
             } else {
-                jtfSIError.setText("User not exist");
+                jtfSIErrorMessage.setText("User not exist");
                 jpfSIPass.setText("");
-                focLostTextFieldFeature(jpfSIPass, "Password");
+                setTextFieldSameAsBeforeWriting(jpfSIPass, "Password");
                 jtfSIUsername.setText("Username");
-                focLostTextFieldFeature(jtfSIUsername, "Username");
+                setTextFieldSameAsBeforeWriting(jtfSIUsername, "Username");
                 jpfSIPass.setEchoChar((char) 0);
             }
         }
@@ -2412,7 +2291,7 @@ public class MainJFrame extends javax.swing.JFrame {
             jtaCETInfo.setText("Test name is changed.");
 
         } catch (Exception e) {
-            System.out.println("bCETChangeTestNAmeActionPerformed" + e.getMessage());
+            e.printStackTrace();
             jtaCETInfo.setText("Illegal action.");
         }
     }//GEN-LAST:event_jbCETChangeTestNAmeActionPerformed
@@ -2466,18 +2345,18 @@ public class MainJFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbCETDeleteWordsActionPerformed
 
-    private void jbCETSaveTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCETSaveTestActionPerformed
+    private void jbCETDiscardChangesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCETDiscardChangesActionPerformed
         jtCETTestContent.setModel(dbStatements.getIndicatedTestsContent(jtfCETSelectedTestName.getText()));
         setEmptyText(jtfCETEngWord, jtfCETPlWord, jtfCETNewTestName);
         jtaCETInfo.setText("Data changes discarded");
-    }//GEN-LAST:event_jbCETSaveTestActionPerformed
+    }//GEN-LAST:event_jbCETDiscardChangesActionPerformed
 
-    private void jbCETReturnToMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCETReturnToMainMenuActionPerformed
+    private void jbCETReturnToTestListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCETReturnToTestListActionPerformed
         jtTLCTestList.setModel(dbStatements.getShortestInfoAboutTests());
-        jpnlTestListChg.setVisible(true);
-        jpnlCreateEditTest.setVisible(false);
+
+        swichVisiblePanels(jpnlCreateEditTest, jpnlTestListChg);
         setEmptyText(jtfCETEngWord, jtfCETPlWord, jtfCETNewTestName, jtfCETSelectedTestName, jtaCETInfo);
-    }//GEN-LAST:event_jbCETReturnToMainMenuActionPerformed
+    }//GEN-LAST:event_jbCETReturnToTestListActionPerformed
 
     private void jbCETInsertWordListFromFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCETInsertWordListFromFileActionPerformed
         JFileChooser fileChooser = new JFileChooser();
@@ -2513,24 +2392,11 @@ public class MainJFrame extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }//GEN-LAST:event_jbCETInsertWordListFromFileActionPerformed
 
-    private void jbCETReturnToTestListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCETReturnToTestListActionPerformed
-        dbStatements.deleteTestContent(jtfCETSelectedTestName.getText());
-        int nRow = jtCETTestContent.getRowCount();
-        for (int i = 0; i < nRow; i++) {
-            try {
-                dbStatements.insertContentIntoTest(jtfCETSelectedTestName.getText(), jtCETTestContent.getValueAt(i, 0).toString(), jtCETTestContent.getValueAt(i, 1).toString());
-            } catch (Exception ex) {
-                Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        jtaCETInfo.setText("Test saved.");
-
-    }//GEN-LAST:event_jbCETReturnToTestListActionPerformed
-
-    private void jbCETExportTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCETExportTestActionPerformed
+    private void jbCETExportTestToFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCETExportTestToFileActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Save a File");
         fileChooser.setFileFilter(new FileTypeFilter(".txt", "Text file"));
@@ -2551,38 +2417,34 @@ public class MainJFrame extends javax.swing.JFrame {
                     } else {
                         bw.write(jtCETTestContent.getModel().getValueAt(i, j) + "\n");
                     }
-                    System.out.println("count poza if: " + count);
                     count++;
                 }
             }
             jtaCETInfo.setText("File saved ");
 
         } catch (Exception e) {
-            System.out.println("bCETExportTestActionPerformed" + e.getMessage());
+            e.printStackTrace();
         }
-    }//GEN-LAST:event_jbCETExportTestActionPerformed
+    }//GEN-LAST:event_jbCETExportTestToFileActionPerformed
 
-    private void jbCETDiscardChgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCETDiscardChgActionPerformed
-        jpnlMenu.setVisible(true);
-        jpnlCreateEditTest.setVisible(false);
-
+    private void jbCETReturnToMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCETReturnToMainMenuActionPerformed
+        swichVisiblePanels(jpnlCreateEditTest, jpnlMenu);
         setEmptyText(jtfCETEngWord, jtfCETPlWord, jtfCETNewTestName, jtfCETSelectedTestName);
-    }//GEN-LAST:event_jbCETDiscardChgActionPerformed
+    }//GEN-LAST:event_jbCETReturnToMainMenuActionPerformed
 
     private void jbTReturnToMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbTReturnToMainMenuActionPerformed
         if (jtfTCountNumOfRecToFin.getText().equals("0")) {
             try {
                 dbStatements.updateTestsScore(jtfCTTestName.getText(), jtfTCountNumOfMist.getText());
-            } catch (Exception ex) {
-                Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 
         test = null;
 
         setEmptyText(jtfCTTestName, jtfTInfo, jtfTEngWord, jtfTPlWord, jtfTCountNumOfRec, jtfTCountNumOfMist, jtfTCountNumOfRecToFin);
-        jpnlMenu.setVisible(true);
-        jpnlTest.setVisible(false);
+        swichVisiblePanels(jpnlTest, jpnlMenu);
         jtfTEngWord.setEditable(true);
         if (timer.isRunning()) {
             timer.stop();
@@ -2594,15 +2456,15 @@ public class MainJFrame extends javax.swing.JFrame {
             if (jtfTCountNumOfRecToFin.getText().equals("0")) {
                 try {
                     dbStatements.updateTestsScore(jtfCTTestName.getText(), jtfTCountNumOfMist.getText());
-                } catch (Exception ex) {
-                    Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
             test = null;
 
             setEmptyText(jtfCTTestName, jtfTInfo, jtfTEngWord, jtfTPlWord, jtfTCountNumOfRec, jtfTCountNumOfMist, jtfTCountNumOfRecToFin);
-            jpnlMenu.setVisible(true);
-            jpnlTest.setVisible(false);
+            swichVisiblePanels(jpnlTest, jpnlMenu);
+
             jtfTEngWord.setEditable(true);
             if (timer.isRunning()) {
                 timer.stop();
@@ -2615,11 +2477,11 @@ public class MainJFrame extends javax.swing.JFrame {
             try {
                 dbStatements.deleteTest(jtfTLCTestName.getText());
                 jtfTLCTestName.setText("");
-                jtTLCTestList.setModel(dbStatements.getFullInfoAboutTests());
+                jtTLCTestList.setModel(dbStatements.getShortestInfoAboutTests());
                 jtaCETInfo.setText("Test deleted.");
 
             } catch (Exception e) {
-                System.out.println("bCALoginMenu11ActionPerformed" + e.getMessage());
+                e.printStackTrace();
             }
         }
     }//GEN-LAST:event_jbTLCDeleteTestActionPerformed
@@ -2631,10 +2493,11 @@ public class MainJFrame extends javax.swing.JFrame {
             jtfCETSelectedTestName.setText(jtfTLCTestName.getText());
 
             jrbCETFirstPl.setSelected(true);
-            jpnlCreateEditTest.setVisible(true);
+
+            swichVisiblePanels(jpnlTestListChg, jpnlCreateEditTest);
             jtTLCTestList.setModel(new DefaultTableModel());
             setEmptyText(jtfTLCTestName, jtfTLCNewTestName, jtaCETInfo);
-            jpnlTestListChg.setVisible(false);
+
         }
     }//GEN-LAST:event_jbTLCEditTestActionPerformed
 
@@ -2650,11 +2513,10 @@ public class MainJFrame extends javax.swing.JFrame {
 
                 jrbCETFirstPl.setSelected(true);
                 setEmptyText(jtfTLCNewTestName, jtfTLCTestName, jtaCETInfo);
-                jpnlCreateEditTest.setVisible(true);
-                jpnlTestListChg.setVisible(false);
 
+                swichVisiblePanels(jpnlTestListChg, jpnlCreateEditTest);
             } catch (Exception e) {
-                System.out.println("bCALoginMenu13ActionPerformed" + e.getMessage());
+                e.printStackTrace();
             }
         } else if (jtfTLCNewTestName.getText().equals("")) {
             jtaTLCInfo.setText("please fill the test name");
@@ -2664,10 +2526,9 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jbTLCCreateNewTestActionPerformed
 
     private void jbTLCReturnToMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbTLCReturnToMainMenuActionPerformed
-        jpnlMenu.setVisible(true);
         jtTLCTestList.setModel(new DefaultTableModel());
         setEmptyText(jtfTLCNewTestName, jtfTLCTestName, jtaCETInfo);
-        jpnlTestListChg.setVisible(false);
+        swichVisiblePanels(jpnlTestListChg, jpnlMenu);
     }//GEN-LAST:event_jbTLCReturnToMainMenuActionPerformed
 
     private void jbCTReturnToMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCTReturnToMainMenuActionPerformed
@@ -2676,25 +2537,17 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jtCTTestList.setModel(new DefaultTableModel());
         jtCTSelectedTestContent.setModel(new DefaultTableModel());
-        jpnlMenu.setVisible(true);
-        jpnlChooseTest.setVisible(false);
+
+        swichVisiblePanels(jpnlChooseTest, jpnlMenu);
     }//GEN-LAST:event_jbCTReturnToMainMenuActionPerformed
 
-    private void jtfCTTestNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCTTestNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfCTTestNameActionPerformed
-
-    private void jtfCTTestActiveDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCTTestActiveDateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfCTTestActiveDateActionPerformed
-
     private void jbCTStartTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCTStartTestActionPerformed
-        test = new TestEntity(dbStatements.getTestListArrayList(jtfCTTestName.getText()));
+        test = new Lesson(dbStatements.getUsersTestListArrayList(jtfCTTestName.getText()));
         timer = new Timer(1000, taskPerformer);
 
         jtfTPlWord.setText(test.getOnePair().getPrimalWord());
-        jpnlTest.setVisible(true);
-        jpnlChooseTest.setVisible(false);
+
+        swichVisiblePanels(jpnlChooseTest, jpnlTest);
         jtfTEngWord.requestFocusInWindow();
         jtfTCountNumOfRec.setText(Integer.toString(test.countPairsOfWords()));
         jtfTCountNumOfRecToFin.setText(Integer.toString(test.countPairsOfWords()));
@@ -2708,6 +2561,21 @@ public class MainJFrame extends javax.swing.JFrame {
         jtCTTestList.setModel(new DefaultTableModel());
         jtCTSelectedTestContent.setModel(new DefaultTableModel());
     }//GEN-LAST:event_jbCTStartTestActionPerformed
+
+    private void jbCETSaveTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCETSaveTestActionPerformed
+        dbStatements.deleteTestContent(jtfCETSelectedTestName.getText());
+        int nRow = jtCETTestContent.getRowCount();
+        for (int i = 0; i < nRow; i++) {
+            try {
+                dbStatements.insertContentIntoTest(jtfCETSelectedTestName.getText(), jtCETTestContent.getValueAt(i, 0).toString(), jtCETTestContent.getValueAt(i, 1).toString());
+            } catch (Exception e) {
+                //Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                e.printStackTrace();
+            }
+        }
+        jtaCETInfo.setText("Test saved.");
+
+    }//GEN-LAST:event_jbCETSaveTestActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2733,11 +2601,8 @@ public class MainJFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainJFrame().setVisible(true);
-
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new MainJFrame().setVisible(true);
         });
     }
 
@@ -2748,7 +2613,7 @@ public class MainJFrame extends javax.swing.JFrame {
         return m.matches();
     }
 
-    private void focGainTextFieldFeature(JTextField fc, String defaultWord) {
+    private void setTextFieldReadyForWriting(JTextField fc, String defaultWord) {
         if (fc.getText().equals(defaultWord)) {
             fc.setText("");
             if (fc.getForeground().equals(this.LIGHT_GREY)) {
@@ -2757,7 +2622,7 @@ public class MainJFrame extends javax.swing.JFrame {
         }
     }
 
-    private void focLostTextFieldFeature(JTextField fc, String defaultWord) {
+    private void setTextFieldSameAsBeforeWriting(JTextField fc, String defaultWord) {
         if (fc.getText().equals("") | fc.getText().equals(defaultWord)) {
             fc.setForeground(this.LIGHT_GREY);
         }
@@ -2837,10 +2702,14 @@ public class MainJFrame extends javax.swing.JFrame {
         }
     }
 
-    public String getText() {
-        return jtfTTimeLeftTimer.getText();
+    public void swichVisiblePanels(JPanel currentPanel, JPanel futurePanel) {
+        futurePanel.setVisible(true);
+        currentPanel.setVisible(false);
     }
 
+// MVC getters and setters for jtextfields
+/*    
+    // get text from jTextField
     public String getTextFromJtfCACommunication() {
         return jtfCACommunication.getText();
     }
@@ -2898,7 +2767,7 @@ public class MainJFrame extends javax.swing.JFrame {
     }
 
     public String getTextFromJtfSIError() {
-        return jtfSIError.getText();
+        return jtfSIErrorMessage.getText();
     }
 
     public String getTextFromJtfSIUsername() {
@@ -2945,6 +2814,7 @@ public class MainJFrame extends javax.swing.JFrame {
         return jtfTTimeSpendTimer.getText();
     }
 
+    // set text in jTextField
     public void setTextInJtfCACommunication(String text) {
         jtfCACommunication.setText(text);
     }
@@ -3002,7 +2872,7 @@ public class MainJFrame extends javax.swing.JFrame {
     }
 
     public void setTextInJtfSIError(String text) {
-        jtfSIError.setText(text);
+        jtfSIErrorMessage.setText(text);
     }
 
     public void setTextInJtfSIUsername(String text) {
@@ -3049,6 +2919,112 @@ public class MainJFrame extends javax.swing.JFrame {
         jtfTTimeSpendTimer.setText(text);
     }
 
+    // get background from jTextField
+    public void getBackgroundInJtfCACommunication() {
+        jtfCACommunication.getBackground();
+    }
+
+    public void getBackgroundInJtfCAEmail() {
+        jtfCAEmail.getBackground();
+    }
+
+    public void getBackgroundInJtfCAName() {
+        jtfCAName.getBackground();
+    }
+
+    public void getBackgroundInJtfCASurname() {
+        jtfCASurname.getBackground();
+    }
+
+    public void getBackgroundInJtfCAUsername() {
+        jtfCAUsername.getBackground();
+    }
+
+    public void getBackgroundInJtfCETEngWord() {
+        jtfCETEngWord.getBackground();
+    }
+
+    public void getBackgroundInJtfCETNewTestName() {
+        jtfCETNewTestName.getBackground();
+    }
+
+    public void getBackgroundInJtfCETPlWord() {
+        jtfCETPlWord.getBackground();
+    }
+
+    public void getBackgroundInJtfCETSelectedTestName() {
+        jtfCETSelectedTestName.getBackground();
+    }
+
+    public void getBackgroundInJtfCTTestActiveDate() {
+        jtfCTTestActiveDate.getBackground();
+    }
+
+    public void getBackgroundInJtfCTTestName() {
+        jtfCTTestName.getBackground();
+    }
+
+    public void getBackgroundInJtfFPCommunication() {
+        jtfFPCommunication.getBackground();
+    }
+
+    public void getBackgroundInJtfFPEmail() {
+        jtfFPEmail.getBackground();
+    }
+
+    public void getBackgroundInJtfFPUsername() {
+        jtfFPUsername.getBackground();
+    }
+
+    public void getBackgroundInJtfSIError() {
+        jtfSIErrorMessage.getBackground();
+    }
+
+    public void getBackgroundInJtfSIUsername() {
+        jtfSIUsername.getBackground();
+    }
+
+    public void getBackgroundInJtfTCountNumOfMist() {
+        jtfTCountNumOfMist.getBackground();
+    }
+
+    public void getBackgroundInJtfTCountNumOfRec() {
+        jtfTCountNumOfRec.getBackground();
+    }
+
+    public void getBackgroundInJtfTCountNumOfRecToFin() {
+        jtfTCountNumOfRecToFin.getBackground();
+    }
+
+    public void getBackgroundInJtfTEngWord() {
+        jtfTEngWord.getBackground();
+    }
+
+    public void getBackgroundInJtfTInfo() {
+        jtfTInfo.getBackground();
+    }
+
+    public void getBackgroundInJtfTLCNewTestName() {
+        jtfTLCNewTestName.getBackground();
+    }
+
+    public void getBackgroundInJtfTLCTestName() {
+        jtfTLCTestName.getBackground();
+    }
+
+    public void getBackgroundInJtfTPlWord() {
+        jtfTPlWord.getBackground();
+    }
+
+    public void getBackgroundInJtfTTimeLeftTimer() {
+        jtfTTimeLeftTimer.getBackground();
+    }
+
+    public void getBackgroundInJtfTTimeSpendTimer() {
+        jtfTTimeSpendTimer.getBackground();
+    }
+
+    // set background in  jTextField
     public void setBackgroundInJtfCACommunication(Color color) {
         jtfCACommunication.setBackground(color);
     }
@@ -3106,7 +3082,7 @@ public class MainJFrame extends javax.swing.JFrame {
     }
 
     public void setBackgroundInJtfSIError(Color color) {
-        jtfSIError.setBackground(color);
+        jtfSIErrorMessage.setBackground(color);
     }
 
     public void setBackgroundInJtfSIUsername(Color color) {
@@ -3152,30 +3128,234 @@ public class MainJFrame extends javax.swing.JFrame {
     public void setBackgroundInJtfTTimeSpendTimer(Color color) {
         jtfTTimeSpendTimer.setBackground(color);
     }
-    
-    
-    
 
+    // get foreground from jTextField
+    public void getForegroundInJtfCACommunication() {
+        jtfCACommunication.getForeground();
+    }
+
+    public void getForegroundInJtfCAEmail() {
+        jtfCAEmail.getForeground();
+    }
+
+    public void getForegroundInJtfCAName() {
+        jtfCAName.getForeground();
+    }
+
+    public void getForegroundInJtfCASurname() {
+        jtfCASurname.getForeground();
+    }
+
+    public void getForegroundInJtfCAUsername() {
+        jtfCAUsername.getForeground();
+    }
+
+    public void getForegroundInJtfCETEngWord() {
+        jtfCETEngWord.getForeground();
+    }
+
+    public void getForegroundInJtfCETNewTestName() {
+        jtfCETNewTestName.getForeground();
+    }
+
+    public void getForegroundInJtfCETPlWord() {
+        jtfCETPlWord.getForeground();
+    }
+
+    public void getForegroundInJtfCETSelectedTestName() {
+        jtfCETSelectedTestName.getForeground();
+    }
+
+    public void getForegroundInJtfCTTestActiveDate() {
+        jtfCTTestActiveDate.getForeground();
+    }
+
+    public void getForegroundInJtfCTTestName() {
+        jtfCTTestName.getForeground();
+    }
+
+    public void getForegroundInJtfFPCommunication() {
+        jtfFPCommunication.getForeground();
+    }
+
+    public void getForegroundInJtfFPEmail() {
+        jtfFPEmail.getForeground();
+    }
+
+    public void getForegroundInJtfFPUsername() {
+        jtfFPUsername.getForeground();
+    }
+
+    public void getForegroundInJtfSIError() {
+        jtfSIErrorMessage.getForeground();
+    }
+
+    public void getForegroundInJtfSIUsername() {
+        jtfSIUsername.getForeground();
+    }
+
+    public void getForegroundInJtfTCountNumOfMist() {
+        jtfTCountNumOfMist.getForeground();
+    }
+
+    public void getForegroundInJtfTCountNumOfRec() {
+        jtfTCountNumOfRec.getForeground();
+    }
+
+    public void getForegroundInJtfTCountNumOfRecToFin() {
+        jtfTCountNumOfRecToFin.getForeground();
+    }
+
+    public void getForegroundInJtfTEngWord() {
+        jtfTEngWord.getForeground();
+    }
+
+    public void getForegroundInJtfTInfo() {
+        jtfTInfo.getForeground();
+    }
+
+    public void getForegroundInJtfTLCNewTestName() {
+        jtfTLCNewTestName.getForeground();
+    }
+
+    public void getForegroundInJtfTLCTestName() {
+        jtfTLCTestName.getForeground();
+    }
+
+    public void getForegroundInJtfTPlWord() {
+        jtfTPlWord.getForeground();
+    }
+
+    public void getForegroundInJtfTTimeLeftTimer() {
+        jtfTTimeLeftTimer.getForeground();
+    }
+
+    public void getForegroundInJtfTTimeSpendTimer() {
+        jtfTTimeSpendTimer.getForeground();
+    }
+
+    // set foreground in jTextField
+    public void setForegroundInJtfCACommunication(Color color) {
+        jtfCACommunication.setForeground(color);
+    }
+
+    public void setForegroundInJtfCAEmail(Color color) {
+        jtfCAEmail.setForeground(color);
+    }
+
+    public void setForegroundInJtfCAName(Color color) {
+        jtfCAName.setForeground(color);
+    }
+
+    public void setForegroundInJtfCASurname(Color color) {
+        jtfCASurname.setForeground(color);
+    }
+
+    public void setForegroundInJtfCAUsername(Color color) {
+        jtfCAUsername.setForeground(color);
+    }
+
+    public void setForegroundInJtfCETEngWord(Color color) {
+        jtfCETEngWord.setForeground(color);
+    }
+
+    public void setForegroundInJtfCETNewTestName(Color color) {
+        jtfCETNewTestName.setForeground(color);
+    }
+
+    public void setForegroundInJtfCETPlWord(Color color) {
+        jtfCETPlWord.setForeground(color);
+    }
+
+    public void setForegroundInJtfCETSelectedTestName(Color color) {
+        jtfCETSelectedTestName.setForeground(color);
+    }
+
+    public void setForegroundInJtfCTTestActiveDate(Color color) {
+        jtfCTTestActiveDate.setForeground(color);
+    }
+
+    public void setForegroundInJtfCTTestName(Color color) {
+        jtfCTTestName.setForeground(color);
+    }
+
+    public void setForegroundInJtfFPCommunication(Color color) {
+        jtfFPCommunication.setForeground(color);
+    }
+
+    public void setForegroundInJtfFPEmail(Color color) {
+        jtfFPEmail.setForeground(color);
+    }
+
+    public void setForegroundInJtfFPUsername(Color color) {
+        jtfFPUsername.setForeground(color);
+    }
+
+    public void setForegroundInJtfSIError(Color color) {
+        jtfSIErrorMessage.setForeground(color);
+    }
+
+    public void setForegroundInJtfSIUsername(Color color) {
+        jtfSIUsername.setForeground(color);
+    }
+
+    public void setForegroundInJtfTCountNumOfMist(Color color) {
+        jtfTCountNumOfMist.setForeground(color);
+    }
+
+    public void setForegroundInJtfTCountNumOfRec(Color color) {
+        jtfTCountNumOfRec.setForeground(color);
+    }
+
+    public void setForegroundInJtfTCountNumOfRecToFin(Color color) {
+        jtfTCountNumOfRecToFin.setForeground(color);
+    }
+
+    public void setForegroundInJtfTEngWord(Color color) {
+        jtfTEngWord.setForeground(color);
+    }
+
+    public void setForegroundInJtfTInfo(Color color) {
+        jtfTInfo.setForeground(color);
+    }
+
+    public void setForegroundInJtfTLCNewTestName(Color color) {
+        jtfTLCNewTestName.setForeground(color);
+    }
+
+    public void setForegroundInJtfTLCTestName(Color color) {
+        jtfTLCTestName.setForeground(color);
+    }
+
+    public void setForegroundInJtfTPlWord(Color color) {
+        jtfTPlWord.setForeground(color);
+    }
+
+    public void setForegroundInJtfTTimeLeftTimer(Color color) {
+        jtfTTimeLeftTimer.setForeground(color);
+    }
+
+    public void setForegroundInJtfTTimeSpendTimer(Color color) {
+        jtfTTimeSpendTimer.setForeground(color);
+    }
+     */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bCACreateAccount;
     private javax.swing.JButton bCALoginMenu;
     private javax.swing.ButtonGroup bgChooseLanguageOrderInFile;
-    private javax.swing.JSeparator jCASeparator1;
-    private javax.swing.JSeparator jCASeparator2;
-    private javax.swing.JSeparator jCASeparator3;
-    private javax.swing.JSeparator jCASeparator4;
-    private javax.swing.JSeparator jCASeparator5;
-    private javax.swing.JSeparator jCASeparator6;
-    private javax.swing.JSeparator jCASeparator7;
+    private javax.swing.JSeparator jCAUnderEmail;
+    private javax.swing.JSeparator jCAUnderPass;
+    private javax.swing.JSeparator jCAUnderRetypePass;
+    private javax.swing.JSeparator jCAUnderSurname;
     private javax.swing.JSeparator jFPUnderCommunication;
     private javax.swing.JSeparator jFPUnderEmail;
     private javax.swing.JSeparator jFPUnderUsername;
     private javax.swing.JButton jbCETAddEditWords;
     private javax.swing.JButton jbCETChangeTestNAme;
     private javax.swing.JButton jbCETDeleteWords;
-    private javax.swing.JButton jbCETDiscardChg;
-    private javax.swing.JButton jbCETExportTest;
+    private javax.swing.JButton jbCETDiscardChanges;
+    private javax.swing.JButton jbCETExportTestToFile;
     private javax.swing.JButton jbCETInsertWordListFromFile;
     private javax.swing.JButton jbCETReturnToMainMenu;
     private javax.swing.JButton jbCETReturnToTestList;
@@ -3233,6 +3413,9 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jpnlTestListChg;
     private javax.swing.JRadioButton jrbCETFirstEng;
     private javax.swing.JRadioButton jrbCETFirstPl;
+    private javax.swing.JSeparator jsCAUnderCommunicationMessage;
+    private javax.swing.JSeparator jsCAUnderName;
+    private javax.swing.JSeparator jsCAUnderUsername;
     private javax.swing.JSeparator jsSISeparator1;
     private javax.swing.JSeparator jsSISeparator2;
     private javax.swing.JSeparator jsTAbove;
@@ -3252,7 +3435,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JTable jtTLCTestList;
     private javax.swing.JTextArea jtaCETInfo;
     private javax.swing.JTextArea jtaTLCInfo;
-    private javax.swing.JTextField jtfCACommunication;
+    private javax.swing.JTextField jtfCACommunicationMessage;
     private javax.swing.JTextField jtfCAEmail;
     private javax.swing.JTextField jtfCAName;
     private javax.swing.JTextField jtfCASurname;
@@ -3266,7 +3449,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jtfFPCommunication;
     private javax.swing.JTextField jtfFPEmail;
     private javax.swing.JTextField jtfFPUsername;
-    private javax.swing.JTextField jtfSIError;
+    private javax.swing.JTextField jtfSIErrorMessage;
     private javax.swing.JTextField jtfSIUsername;
     private javax.swing.JTextField jtfTCountNumOfMist;
     private javax.swing.JTextField jtfTCountNumOfRec;

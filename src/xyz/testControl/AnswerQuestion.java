@@ -5,17 +5,19 @@
  */
 package xyz.testControl;
 
+import java.io.Serializable;
+
 /**
  *
  * @author alewicki1990
  */
-public class PairOfWords {
+public final class AnswerQuestion implements Serializable{
 
     private String primalWord;
     private String translatedWord;
     private int secLeft = 30;
 
-    public PairOfWords(String primalWord, String translatedWord) {
+    public AnswerQuestion(String primalWord, String translatedWord) {
         this.translatedWord = translatedWord;
         this.primalWord = primalWord;
     }
@@ -47,7 +49,4 @@ public class PairOfWords {
     public String getSecLeft(){
         return Integer.toString(secLeft);
     }
-            
-
-    //https://www.youtube.com/watch?v=BmxI9qK3tSo
 }

@@ -99,7 +99,7 @@
                           </Group>
                           <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="jtfSIError" pref="460" max="32767" attributes="0"/>
+                              <Component id="jtfSIErrorMessage" pref="460" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                                       <Group type="102" attributes="0">
@@ -126,7 +126,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
-                          <Component id="jtfSIError" min="-2" pref="27" max="-2" attributes="0"/>
+                          <Component id="jtfSIErrorMessage" min="-2" pref="27" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="jllSILogin" min="-2" max="-2" attributes="0"/>
@@ -156,6 +156,24 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
+                <Component class="javax.swing.JTextField" name="jtfSIErrorMessage">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="18" style="0"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="99" green="99" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="null"/>
+                    </Property>
+                  </Properties>
+                </Component>
                 <Component class="javax.swing.JLabel" name="jllSILogin">
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="0"/>
@@ -253,6 +271,21 @@
                     </Property>
                   </Properties>
                 </Component>
+                <Component class="javax.swing.JButton" name="jbSILogin">
+                  <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="44" green="cf" red="83" type="rgb"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="18" style="0"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Sign In"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbSILoginActionPerformed"/>
+                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jbSILoginKeyPressed"/>
+                  </Events>
+                </Component>
                 <Component class="javax.swing.JLabel" name="jlSICreaAcc">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -301,42 +334,6 @@
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jlSIRecAccMouseClicked"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jtfSIError">
-                  <Properties>
-                    <Property name="editable" type="boolean" value="false"/>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                    </Property>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Tahoma" size="18" style="0"/>
-                    </Property>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="99" green="99" red="ff" type="rgb"/>
-                    </Property>
-                    <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="null"/>
-                    </Property>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfSIErrorActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JButton" name="jbSILogin">
-                  <Properties>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="44" green="cf" red="83" type="rgb"/>
-                    </Property>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI" size="18" style="0"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Sign In"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbSILoginActionPerformed"/>
-                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jbSILoginKeyPressed"/>
-                  </Events>
-                </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="jpnlLoader">
@@ -351,9 +348,6 @@
                   <Dimension value="[1000, 550]"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jpnlLoaderFocusGained"/>
-              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
                   <CardConstraints cardName="card3"/>
@@ -565,13 +559,6 @@
                   <SubComponents>
                     <Component class="javax.swing.JTable" name="jtCETTestContent">
                       <Properties>
-                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                            <LineBorder>
-                              <Color PropertyName="color" blue="44" green="cf" red="83" type="rgb"/>
-                            </LineBorder>
-                          </Border>
-                        </Property>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="4" rowCount="4">
                             <Column editable="true" title="Title 1" type="java.lang.Object"/>
@@ -603,9 +590,6 @@
                               <Renderer/>
                             </Column>
                           </TableColumnModel>
-                        </Property>
-                        <Property name="gridColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="44" green="cf" red="83" type="rgb"/>
                         </Property>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
@@ -672,14 +656,14 @@
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JTextField" name="jtfCETSelectedTestName">
-                      <Properties>
-                        <Property name="editable" type="boolean" value="false"/>
-                      </Properties>
-                    </Component>
                     <Component class="javax.swing.JLabel" name="jlCETSelectedTestName">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Selected test name"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="jtfCETSelectedTestName">
+                      <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jlCETNewTestName">
@@ -760,16 +744,16 @@
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
+                    <Component class="javax.swing.JLabel" name="jlCETPlWord">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Polish Word"/>
+                      </Properties>
+                    </Component>
                     <Component class="javax.swing.JTextField" name="jtfCETPlWord">
                     </Component>
                     <Component class="javax.swing.JLabel" name="jlCETEngWord">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="English Word"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jlCETPlWord">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Polish Word"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="jtfCETEngWord">
@@ -810,6 +794,29 @@
                     </Component>
                   </SubComponents>
                 </Container>
+                <Container class="javax.swing.JScrollPane" name="jspCETInfo">
+                  <AuxValues>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                  </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JTextArea" name="jtaCETInfo">
+                      <Properties>
+                        <Property name="columns" type="int" value="20"/>
+                        <Property name="lineWrap" type="boolean" value="true"/>
+                        <Property name="rows" type="int" value="5"/>
+                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                            <LineBorder>
+                              <Color PropertyName="color" blue="f0" green="f0" red="f0" type="rgb"/>
+                            </LineBorder>
+                          </Border>
+                        </Property>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
                 <Container class="javax.swing.JPanel" name="jpnlCETMenu">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -836,11 +843,11 @@
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jbCETDiscardChanges" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jbCETSaveTest" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jbCETExportTestToFile" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jbCETReturnToTestList" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jbCETExportTest" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jbCETReturnToMainMenu" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jbCETDiscardChg" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace pref="15" max="32767" attributes="0"/>
                           </Group>
@@ -850,22 +857,22 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                              <Component id="jbCETDiscardChanges" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                               <Component id="jbCETSaveTest" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                              <Component id="jbCETExportTestToFile" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                               <Component id="jbCETReturnToTestList" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                              <Component id="jbCETExportTest" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                               <Component id="jbCETReturnToMainMenu" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                              <Component id="jbCETDiscardChg" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JButton" name="jbCETSaveTest">
+                    <Component class="javax.swing.JButton" name="jbCETDiscardChanges">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="44" green="cf" red="83" type="rgb"/>
@@ -879,10 +886,10 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbCETSaveTestActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbCETDiscardChangesActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jbCETReturnToTestList">
+                    <Component class="javax.swing.JButton" name="jbCETSaveTest">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="44" green="cf" red="83" type="rgb"/>
@@ -896,10 +903,10 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbCETReturnToTestListActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbCETSaveTestActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jbCETExportTest">
+                    <Component class="javax.swing.JButton" name="jbCETExportTestToFile">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="44" green="cf" red="83" type="rgb"/>
@@ -913,10 +920,10 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbCETExportTestActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbCETExportTestToFileActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jbCETReturnToMainMenu">
+                    <Component class="javax.swing.JButton" name="jbCETReturnToTestList">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="44" green="cf" red="83" type="rgb"/>
@@ -930,10 +937,10 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbCETReturnToMainMenuActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbCETReturnToTestListActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jbCETDiscardChg">
+                    <Component class="javax.swing.JButton" name="jbCETReturnToMainMenu">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="44" green="cf" red="83" type="rgb"/>
@@ -947,31 +954,8 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbCETDiscardChgActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbCETReturnToMainMenuActionPerformed"/>
                       </Events>
-                    </Component>
-                  </SubComponents>
-                </Container>
-                <Container class="javax.swing.JScrollPane" name="jspCETInfo">
-                  <AuxValues>
-                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                  </AuxValues>
-
-                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                  <SubComponents>
-                    <Component class="javax.swing.JTextArea" name="jtaCETInfo">
-                      <Properties>
-                        <Property name="columns" type="int" value="20"/>
-                        <Property name="lineWrap" type="boolean" value="true"/>
-                        <Property name="rows" type="int" value="5"/>
-                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                            <LineBorder>
-                              <Color PropertyName="color" blue="f0" green="f0" red="f0" type="rgb"/>
-                            </LineBorder>
-                          </Border>
-                        </Property>
-                      </Properties>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -1038,9 +1022,6 @@
                         </Property>
                         <Property name="text" type="java.lang.String" value=" First Word is Polish"/>
                       </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jrbCETFirstPlActionPerformed"/>
-                      </Events>
                     </Component>
                     <Component class="javax.swing.JRadioButton" name="jrbCETFirstEng">
                       <Properties>
@@ -1160,44 +1141,9 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Container class="javax.swing.JScrollPane" name="jspCTSelectedTestWords">
-                  <AuxValues>
-                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                  </AuxValues>
-
-                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                  <SubComponents>
-                    <Component class="javax.swing.JTable" name="jtCTSelectedTestContent">
-                      <Properties>
-                        <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="0" rowCount="4"/>
-                        </Property>
-                        <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-                          <TableColumnModel selectionModel="0"/>
-                        </Property>
-                        <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                          <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
-                        </Property>
-                      </Properties>
-                    </Component>
-                  </SubComponents>
-                </Container>
-                <Component class="javax.swing.JTextField" name="jtfCTTestActiveDate">
+                <Component class="javax.swing.JLabel" name="jlCTTestList">
                   <Properties>
-                    <Property name="editable" type="boolean" value="false"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfCTTestActiveDateActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jlCTTestActiveDate">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Test Active Date"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jlCTSelectedTest">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Selected Test"/>
+                    <Property name="text" type="java.lang.String" value="Test List:"/>
                   </Properties>
                 </Component>
                 <Container class="javax.swing.JScrollPane" name="jspCTTestList">
@@ -1225,23 +1171,52 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JLabel" name="jlCTTestList">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Test List:"/>
-                  </Properties>
-                </Component>
                 <Component class="javax.swing.JLabel" name="jlCTTestContent">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Test Content:"/>
+                  </Properties>
+                </Component>
+                <Container class="javax.swing.JScrollPane" name="jspCTSelectedTestWords">
+                  <AuxValues>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                  </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JTable" name="jtCTSelectedTestContent">
+                      <Properties>
+                        <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                          <Table columnCount="0" rowCount="4"/>
+                        </Property>
+                        <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                          <TableColumnModel selectionModel="0"/>
+                        </Property>
+                        <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                          <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                        </Property>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Component class="javax.swing.JLabel" name="jlCTSelectedTest">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Selected Test"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jtfCTTestName">
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfCTTestNameActionPerformed"/>
-                  </Events>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jlCTTestActiveDate">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Test Active Date"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="jtfCTTestActiveDate">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JButton" name="jbCTStartTest">
                   <Properties>
@@ -1300,7 +1275,7 @@
                       <Component id="jsTBelow" alignment="0" max="32767" attributes="0"/>
                       <Component id="jsTAbove" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="222" max="32767" attributes="0"/>
+                          <EmptySpace pref="258" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
@@ -1321,30 +1296,25 @@
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
+                                  <Component id="jbTReturnToMainMenu" min="-2" pref="201" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="370" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="jlTPlWord" pref="36" max="32767" attributes="0"/>
-                                      <Component id="jlTEngWord" max="32767" attributes="0"/>
+                                      <Component id="jlTPlWord" max="32767" attributes="0"/>
+                                      <Component id="jlTEngWord" min="-2" pref="36" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jtfTEngWord" min="-2" pref="460" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="278" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="jtfTInfo" max="32767" attributes="0"/>
-                                              <Component id="jsTUnderEngWord" alignment="1" max="32767" attributes="0"/>
-                                              <Component id="jsTUnderPlWord" alignment="1" max="32767" attributes="0"/>
-                                              <Component id="jtfTPlWord" alignment="1" min="-2" pref="460" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
+                                      <Component id="jtfTEngWord" alignment="0" min="-2" pref="460" max="-2" attributes="0"/>
+                                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="jtfTInfo" max="32767" attributes="0"/>
+                                          <Component id="jsTUnderEngWord" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="jsTUnderPlWord" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="jtfTPlWord" alignment="1" min="-2" pref="460" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jbTReturnToMainMenu" min="-2" pref="201" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="370" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="242" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -1381,7 +1351,7 @@
                               <Component id="jtfTTimeSpendTimer" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                               <Component id="jtfTTimeSpend" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="jlTPlWord" min="-2" pref="35" max="-2" attributes="0"/>
                               <Component id="jtfTPlWord" min="-2" pref="35" max="-2" attributes="0"/>
@@ -1397,7 +1367,7 @@
                           <Component id="jsTUnderPlWord" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jtfTInfo" min="-2" pref="50" max="-2" attributes="0"/>
-                          <EmptySpace pref="90" max="32767" attributes="0"/>
+                          <EmptySpace pref="97" max="32767" attributes="0"/>
                           <Component id="jbTReturnToMainMenu" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
                           <Component id="jsTBelow" min="-2" max="-2" attributes="0"/>
@@ -1543,9 +1513,6 @@
                       <Border info="null"/>
                     </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfTPlWordActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JSeparator" name="jsTUnderEngWord">
                   <Properties>
@@ -1613,9 +1580,6 @@
                       <Border info="null"/>
                     </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfTInfoActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="jbTReturnToMainMenu">
                   <Properties>
@@ -1859,9 +1823,6 @@
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="jtfTLCNewTestName">
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfTLCNewTestNameActionPerformed"/>
-                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="jbTLCCreateNewTest">
                       <Properties>
@@ -1981,8 +1942,8 @@
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace pref="120" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jCASeparator7" min="-2" pref="760" max="-2" attributes="0"/>
-                              <Component id="jtfCACommunication" min="-2" pref="760" max="-2" attributes="0"/>
+                              <Component id="jsCAUnderCommunicationMessage" min="-2" pref="760" max="-2" attributes="0"/>
+                              <Component id="jtfCACommunicationMessage" min="-2" pref="760" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="120" max="-2" attributes="0"/>
                       </Group>
@@ -1991,18 +1952,18 @@
                               <Group type="102" attributes="0">
                                   <EmptySpace min="-2" pref="270" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="jCASeparator6" min="-2" pref="460" max="-2" attributes="0"/>
+                                      <Component id="jCAUnderRetypePass" min="-2" pref="460" max="-2" attributes="0"/>
                                       <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jCASeparator1" alignment="1" max="32767" attributes="0"/>
-                                          <Component id="jCASeparator3" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jsCAUnderUsername" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="jCAUnderSurname" alignment="0" max="32767" attributes="0"/>
                                           <Component id="jtfCASurname" alignment="0" max="32767" attributes="0"/>
                                           <Component id="jtfCAUsername" alignment="1" max="32767" attributes="0"/>
                                           <Component id="jtfCAName" alignment="1" max="32767" attributes="0"/>
-                                          <Component id="jCASeparator2" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="jsCAUnderName" alignment="1" max="32767" attributes="0"/>
                                           <Component id="jtfCAEmail" alignment="1" min="-2" pref="460" max="-2" attributes="0"/>
-                                          <Component id="jCASeparator4" alignment="1" min="-2" pref="460" max="-2" attributes="0"/>
+                                          <Component id="jCAUnderEmail" alignment="1" min="-2" pref="460" max="-2" attributes="0"/>
                                           <Component id="jpfCAPass" alignment="1" min="-2" pref="460" max="-2" attributes="0"/>
-                                          <Component id="jCASeparator5" alignment="1" min="-2" pref="460" max="-2" attributes="0"/>
+                                          <Component id="jCAUnderPass" alignment="1" min="-2" pref="460" max="-2" attributes="0"/>
                                           <Component id="jpfCARetypePass" alignment="1" min="-2" pref="460" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -2024,33 +1985,33 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                          <Component id="jtfCACommunication" min="-2" pref="33" max="-2" attributes="0"/>
+                          <Component id="jtfCACommunicationMessage" min="-2" pref="33" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jCASeparator7" min="-2" max="-2" attributes="0"/>
+                          <Component id="jsCAUnderCommunicationMessage" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                           <Component id="jtfCAUsername" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jCASeparator1" min="-2" pref="5" max="-2" attributes="0"/>
+                          <Component id="jsCAUnderUsername" min="-2" pref="5" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                           <Component id="jtfCAName" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jCASeparator2" min="-2" pref="5" max="-2" attributes="0"/>
+                          <Component id="jsCAUnderName" min="-2" pref="5" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jtfCASurname" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jCASeparator3" min="-2" pref="5" max="-2" attributes="0"/>
+                          <Component id="jCAUnderSurname" min="-2" pref="5" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jtfCAEmail" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jCASeparator4" min="-2" pref="5" max="-2" attributes="0"/>
+                          <Component id="jCAUnderEmail" min="-2" pref="5" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jpfCAPass" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jCASeparator5" min="-2" pref="5" max="-2" attributes="0"/>
+                          <Component id="jCAUnderPass" min="-2" pref="5" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jpfCARetypePass" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jCASeparator6" min="-2" pref="5" max="-2" attributes="0"/>
+                          <Component id="jCAUnderRetypePass" min="-2" pref="5" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                           <Component id="bCACreateAccount" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -2061,7 +2022,7 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JTextField" name="jtfCACommunication">
+                <Component class="javax.swing.JTextField" name="jtfCACommunicationMessage">
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -2080,11 +2041,16 @@
                       <Border info="null"/>
                     </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtfCACommunicationFocusGained"/>
-                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtfCACommunicationFocusLost"/>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfCACommunicationActionPerformed"/>
-                  </Events>
+                </Component>
+                <Component class="javax.swing.JSeparator" name="jsCAUnderCommunicationMessage">
+                  <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="44" green="cf" red="83" type="rgb"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="44" green="cf" red="83" type="rgb"/>
+                    </Property>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jtfCAUsername">
                   <Properties>
@@ -2111,17 +2077,7 @@
                     <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfCAUsernameKeyTyped"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JSeparator" name="jCASeparator7">
-                  <Properties>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="44" green="cf" red="83" type="rgb"/>
-                    </Property>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="44" green="cf" red="83" type="rgb"/>
-                    </Property>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JSeparator" name="jCASeparator1">
+                <Component class="javax.swing.JSeparator" name="jsCAUnderUsername">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="44" green="cf" red="83" type="rgb"/>
@@ -2156,7 +2112,7 @@
                     <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfCANameKeyTyped"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JSeparator" name="jCASeparator2">
+                <Component class="javax.swing.JSeparator" name="jsCAUnderName">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="44" green="cf" red="83" type="rgb"/>
@@ -2191,7 +2147,7 @@
                     <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfCASurnameKeyTyped"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JSeparator" name="jCASeparator3">
+                <Component class="javax.swing.JSeparator" name="jCAUnderSurname">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="44" green="cf" red="83" type="rgb"/>
@@ -2226,7 +2182,7 @@
                     <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfCAEmailKeyTyped"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JSeparator" name="jCASeparator4">
+                <Component class="javax.swing.JSeparator" name="jCAUnderEmail">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="44" green="cf" red="83" type="rgb"/>
@@ -2264,7 +2220,7 @@
                     <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="jpfCAPass.setEchoChar((char)0);"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JSeparator" name="jCASeparator5">
+                <Component class="javax.swing.JSeparator" name="jCAUnderPass">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="44" green="cf" red="83" type="rgb"/>
@@ -2302,7 +2258,7 @@
                     <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="jpfCARetypePass.setEchoChar((char)0);"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JSeparator" name="jCASeparator6">
+                <Component class="javax.swing.JSeparator" name="jCAUnderRetypePass">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="44" green="cf" red="83" type="rgb"/>
@@ -2436,11 +2392,6 @@
                       <Border info="null"/>
                     </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtfFPCommunicationFocusGained"/>
-                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtfFPCommunicationFocusLost"/>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfFPCommunicationActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JSeparator" name="jFPUnderCommunication">
                   <Properties>

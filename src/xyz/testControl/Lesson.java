@@ -5,6 +5,7 @@
  */
 package xyz.testControl;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -15,20 +16,21 @@ import java.util.Collections;
  * @author alewicki1990
  */
 
-public class TestEntity {
+public final class Lesson implements Serializable{
 
-    private ArrayList<PairOfWords> testList;
+    private final ArrayList<AnswerQuestion> testList;
     private int mistakes = 0;
     private int numberOfPairsToEnd = 0;
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+    private final DateTimeFormatter formatter;
     private LocalTime spentTime = LocalTime.parse("00:00:00");
 
-    public TestEntity(ArrayList<PairOfWords> testList) {
+    public Lesson(ArrayList<AnswerQuestion> testList) {
+        this.formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         this.testList = testList;
         numberOfPairsToEnd = countPairsOfWords();
     }
 
-    public PairOfWords getOnePair() {
+    public AnswerQuestion getOnePair() {
         return testList.get(0);
     }
 
@@ -46,11 +48,7 @@ public class TestEntity {
     }
 
     public boolean checkCorrectness(String typedWord) {
-        if (testList.get(0).getTranslatedWord().equals(typedWord)) {
-            return true;
-        } else {
-            return false;
-        }
+        return testList.get(0).getTranslatedWord().equals(typedWord);
     }
 
     public void addPointToMistakes() {
@@ -70,7 +68,7 @@ public class TestEntity {
     }
     
     public String getSpentTime(){
-        return spentTime.format(formatter).toString();
+        return spentTime.format(formatter);
     }
     
     public boolean checkUsersAnswer(String answer){

@@ -28,7 +28,7 @@ public class DbAuthentication {
             }
 
         } catch (SQLException e) {
-            System.out.println("xyz.DbConnect.JavaConnect.isUsernameExistInDb()" + e);
+            e.printStackTrace();
             return false;
         }
         return false;
@@ -51,13 +51,13 @@ public class DbAuthentication {
             }
 
         } catch (SQLException e) {
-            System.out.println("xyz.DbConnect.JavaConnect.AuthenticateUser()" + e);
+            e.printStackTrace();
             return false;
         }
         return false;
     }
 
-    static public void createUser(String username, String name, String surname, String email, String pass) {
+    static public void createUser(String username, String name, String surname, String email, String pass) throws SQLException, Exception {
 
         String sqlInsertUser = "INSERT INTO users (username, name, surname, email, password ) values (?,?,?,?,?);";
         try (Connection conn = DbConncect.getDbConnInstance();
@@ -70,26 +70,9 @@ public class DbAuthentication {
             stmt.setString(5, pass);
             stmt.executeUpdate();
 
-        } catch (SQLException e) {
-            System.out.println("xyz.DbConnect.JavaConnect.createUser()" + e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception();
         }
-
-        String sqlUserTestList = "CREATE TABLE " + username + "_tests (\n"
-                + "    test_name        CHAR               PRIMARY KEY,\n"
-                + "    create_date      DATETIME,\n"
-                + "    last_completion  DATETIME,\n"
-                + "    mistakes_counter NUMERIC,\n"
-                + "    number_of_words  NUMERIC,\n"
-                + "    chg_date         DATETIME,\n"
-                + "    best_time        DATETIME\n"
-                + ");";
-        try (Connection conn = DbConncect.getDbConnInstance();
-                PreparedStatement stmt = conn.prepareStatement(sqlUserTestList)) {
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println("xyz.DbConnect.JavaConnect.createUser()" + e.getMessage());
-        }
-
     }
-
 }
